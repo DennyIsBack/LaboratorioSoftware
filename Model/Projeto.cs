@@ -1,0 +1,12 @@
+﻿namespace Trabalho2.Model
+{
+    public class Projeto
+    {
+        public int Id { get; set; }
+        public string? Titulo { get; set; }
+        public DateTime DataInicial { get; set; }
+        public DateTime DataFinal { get; set; }
+        public Resultado? Resultado { get; set; }
+        public List<Pesquisador>? PesquisadorList { get; set; }
+    }
+}
