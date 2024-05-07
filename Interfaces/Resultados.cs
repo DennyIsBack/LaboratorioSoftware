@@ -35,18 +35,18 @@ namespace Trabalho2.Interfaces
 
         private void CarregarRegistros()
         {
-            ListView.Items.Clear();
-            List<Resultado> itemList = resultadoDAO.RecuperarTodosFiltrado(DescricaoFiltro.Text);
+            //ListView.Items.Clear();
+            //List<Resultado> itemList = resultadoDAO.RecuperarTodosFiltrado(DescricaoFiltro.Text);
 
-            for (int i = 0; i < itemList.Count; i++)
-            {
-                ListViewItem listItem = new(itemList[i].Id.ToString())
-                {
-                    Font = new Font(ListView.Font, FontStyle.Regular)
-                };
-                listItem.SubItems.Add(new ListViewItem.ListViewSubItem(listItem, itemList[i].Descricao));
-                ListView.Items.Add(listItem);
-            }
+            //for (int i = 0; i < itemList.Count; i++)
+            //{
+            //    ListViewItem listItem = new(itemList[i].Id.ToString())
+            //    {
+            //        Font = new Font(ListView.Font, FontStyle.Regular)
+            //    };
+            //    listItem.SubItems.Add(new ListViewItem.ListViewSubItem(listItem, itemList[i].Descricao));
+            //    ListView.Items.Add(listItem);
+            //}
         }
 
         private void Pesquisar_Click(object sender, EventArgs e)

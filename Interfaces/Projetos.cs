@@ -39,27 +39,27 @@ namespace Trabalho2.Interfaces
 
         private void CarregarRegistros()
         {
-            ListView.Items.Clear();
-            List<Projeto> itemList = projetoDAO.RecuperarTodosFiltrado(TituloFiltro.Text, DataInicialFiltro);
+            //ListView.Items.Clear();
+            //List<Projeto> itemList = projetoDAO.RecuperarTodosFiltrado(TituloFiltro.Text, DataInicialFiltro);
 
-            for (int i = 0; i < itemList.Count; i++)
-            {
-                ListViewItem listItem = new(itemList[i].Id.ToString())
-                {
-                    Font = new Font(ListView.Font, FontStyle.Regular)
-                };
-                listItem.SubItems.Add(new ListViewItem.ListViewSubItem(listItem, itemList[i].Titulo));
-                listItem.SubItems.Add(new ListViewItem.ListViewSubItem(listItem, itemList[i].DataInicial.ToString("dd/MM/yyyy")));
-                if (itemList[i].DataFinal.Date != Convert.ToDateTime("01/01/0001").Date)
-                {
-                    listItem.SubItems.Add(new ListViewItem.ListViewSubItem(listItem, itemList[i].DataFinal.ToString("dd/MM/yyyy")));
-                }
-                else
-                {
-                    listItem.SubItems.Add(new ListViewItem.ListViewSubItem(listItem, null));
-                }
-                ListView.Items.Add(listItem);
-            }
+            //for (int i = 0; i < itemList.Count; i++)
+            //{
+            //    ListViewItem listItem = new(itemList[i].Id.ToString())
+            //    {
+            //        Font = new Font(ListView.Font, FontStyle.Regular)
+            //    };
+            //    listItem.SubItems.Add(new ListViewItem.ListViewSubItem(listItem, itemList[i].Titulo));
+            //    listItem.SubItems.Add(new ListViewItem.ListViewSubItem(listItem, itemList[i].DataInicial.ToString("dd/MM/yyyy")));
+            //    if (itemList[i].DataFinal.Date != Convert.ToDateTime("01/01/0001").Date)
+            //    {
+            //        listItem.SubItems.Add(new ListViewItem.ListViewSubItem(listItem, itemList[i].DataFinal.ToString("dd/MM/yyyy")));
+            //    }
+            //    else
+            //    {
+            //        listItem.SubItems.Add(new ListViewItem.ListViewSubItem(listItem, null));
+            //    }
+            //    ListView.Items.Add(listItem);
+            //}
         }
 
         private void DataInicialFiltro_ValueChanged(object sender, EventArgs e)
