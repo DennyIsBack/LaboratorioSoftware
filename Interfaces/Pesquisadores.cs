@@ -1,4 +1,6 @@
-﻿using Trabalho2.DB;
+﻿using Dapper;
+using Npgsql;
+using Trabalho2.DB;
 using Trabalho2.Model;
 
 namespace Trabalho2.Interfaces

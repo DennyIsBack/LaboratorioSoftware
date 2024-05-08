@@ -1,6 +1,8 @@
 ﻿using Dapper;
 using Npgsql;
 using Trabalho2.Model;
+using System;
+using System.Collections.Generic;
 
 namespace Trabalho2.DB
 {
@@ -14,25 +16,17 @@ namespace Trabalho2.DB
             connection.Open();
             using NpgsqlTransaction transaction = connection.BeginTransaction();
 
-            sql = @"insert into projeto values (@id, @titulo, @data_inicial, null, @id_resultado)";
+            sql = @"INSERT INTO projeto (id, nome, area_de_atuacao, id_resultado)
+                    VALUES (@Id, @Nome, @AreaDeAtuacao, @IdResultado)";
 
-            connection.Execute(sql, param: new
+            connection.Execute(sql, projeto, transaction);
+
+            sql = @"INSERT INTO projeto_pesquisador (id_projeto, id_pesquisador)
+                    VALUES (@Id, @IdPesquisador)";
+
+            foreach (var pesquisador in projeto.Pesquisadores)
             {
-                id = projeto.Id,
-                titulo = projeto.Titulo,
-                data_inicial = projeto.DataInicial,
-                id_resultado = projeto.Resultado?.Id
-            }, transaction);
-
-            sql = @"insert into projeto_pesquisador values (@id_projeto, @id_pesquisador)";
-
-            for (int i = 0; i < projeto.PesquisadorList?.Count; i++)
-            {
-                connection.Execute(sql, param: new
-                {
-                    id_projeto = projeto.Id,
-                    id_pesquisador = projeto.PesquisadorList[i].Id
-                }, transaction);
+                connection.Execute(sql, new { Id = projeto.Id, IdPesquisador = pesquisador.Id }, transaction);
             }
 
             transaction.Commit();
@@ -44,34 +38,25 @@ namespace Trabalho2.DB
             connection.Open();
             using NpgsqlTransaction transaction = connection.BeginTransaction();
 
-            sql = @"update projeto
-                       set titulo = @titulo,
-                           data_inicial = @data_inicial,
-                           id_resultado = @id_resultado
-                     where id = @id";
+            sql = @"UPDATE projeto
+                       SET nome = @Nome,
+                           area_de_atuacao = @AreaDeAtuacao,
+                           id_resultado = @IdResultado
+                     WHERE id = @Id";
 
-            connection.Execute(sql, param: new
+            connection.Execute(sql, projeto, transaction);
+
+            sql = @"DELETE FROM projeto_pesquisador
+                     WHERE id_projeto = @Id";
+
+            connection.Execute(sql, new { Id = projeto.Id }, transaction);
+
+            sql = @"INSERT INTO projeto_pesquisador (id_projeto, id_pesquisador)
+                    VALUES (@Id, @IdPesquisador)";
+
+            foreach (var pesquisador in projeto.Pesquisadores)
             {
-                titulo = projeto.Titulo,
-                data_inicial = projeto.DataInicial,
-                id_resultado = projeto.Resultado?.Id,
-                id = projeto.Id
-            }, transaction);
-
-            sql = @"delete from projeto_pesquisador
-                     where id_projeto = @id_projeto";
-
-            connection.Execute(sql, param: new { id_projeto = projeto.Id }, transaction);
-
-            sql = @"insert into projeto_pesquisador values (@id_projeto, @id_pesquisador)";
-
-            for (int i = 0; i < projeto.PesquisadorList?.Count; i++)
-            {
-                connection.Execute(sql, param: new
-                {
-                    id_projeto = projeto.Id,
-                    id_pesquisador = projeto.PesquisadorList[i].Id
-                }, transaction);
+                connection.Execute(sql, new { Id = projeto.Id, IdPesquisador = pesquisador.Id }, transaction);
             }
 
             transaction.Commit();
@@ -83,15 +68,15 @@ namespace Trabalho2.DB
             connection.Open();
             using NpgsqlTransaction transaction = connection.BeginTransaction();
 
-            sql = @"delete from projeto_pesquisador
-                     where id_projeto = @id";
+            sql = @"DELETE FROM projeto_pesquisador
+                     WHERE id_projeto = @Id";
 
-            connection.Execute(sql, param: new { id }, transaction);
+            connection.Execute(sql, new { Id = id }, transaction);
 
-            sql = @"delete from projeto
-                     where id = @id";
+            sql = @"DELETE FROM projeto
+                     WHERE id = @Id";
 
-            connection.Execute(sql, param: new { id }, transaction);
+            connection.Execute(sql, new { Id = id }, transaction);
 
             transaction.Commit();
         }
@@ -100,93 +85,87 @@ namespace Trabalho2.DB
         {
             using NpgsqlConnection connection = new(StringConexao.stringConexao);
 
-            sql = @"update projeto
-                       set data_final = current_date
-                     where id = @id";
+            sql = @"UPDATE projeto
+                       SET data_final = current_date
+                     WHERE id = @Id";
 
-            connection.Execute(sql, param: new { id });
+            connection.Execute(sql, new { Id = id });
         }
 
-        public List<Projeto> RecuperarTodosFiltrado(string tituloProjeto, DateTimePicker dataInicialProjeto)
+        public List<Projeto> RecuperarTodosFiltrado(string tituloProjeto, DateTime dataInicialProjeto)
         {
             using NpgsqlConnection connection = new(StringConexao.stringConexao);
-
             DefaultTypeMap.MatchNamesWithUnderscores = true;
 
-            sql = @"select *
-                      from projeto
-                     where 1 = 1";
+            sql = @"SELECT *
+                      FROM projeto
+                     WHERE 1 = 1";
 
             if (!string.IsNullOrWhiteSpace(tituloProjeto))
             {
-                sql += " and upper(titulo) like upper(CONCAT('%', @titulo, '%'))";
+                sql += " AND upper(nome) LIKE upper(CONCAT('%', @Titulo, '%'))";
             }
 
-            if (dataInicialProjeto.CustomFormat == "dd/MM/yyyy")
-            {
-                sql += " and data_inicial = @data_inicial";
-            }
+            sql += " AND data_inicial = @DataInicial";
 
-            sql += " order by titulo";
+            sql += " ORDER BY nome";
 
-            return (List<Projeto>)connection.Query<Projeto>(sql,
-                   param: new
-                   {
-                       titulo = tituloProjeto,
-                       data_inicial = dataInicialProjeto.Value.Date
-                   });
+            return connection.Query<Projeto>(sql, new { Titulo = tituloProjeto, DataInicial = dataInicialProjeto.Date }).AsList();
         }
 
         public Projeto RecuperarPorId(int id)
         {
-            Projeto projeto;
-
             using NpgsqlConnection connection = new(StringConexao.stringConexao);
 
-            sql = @"select projeto.*, resultado.*
-                      from projeto
-                      left join resultado
-                        on projeto.id_resultado = resultado.id
-                     where projeto.id = @id";
+            sql = @"SELECT *
+                      FROM projeto
+                     WHERE id = @Id";
 
-            projeto = connection.Query<Projeto, Resultado, Projeto>(sql,
-                      (projeto, resultado) =>
-                      {
-                          projeto.Resultado = resultado;
-                          return projeto;
-                      },
-                      param: new { id }).Single();
+            var projeto = connection.QuerySingleOrDefault<Projeto>(sql, new { Id = id });
 
-            sql = @"select pesquisador.id, pesquisador.nome, pesquisador.area
-                      from pesquisador, projeto_pesquisador
-                     where pesquisador.id = projeto_pesquisador.id_pesquisador
-                       and projeto_pesquisador.id_projeto = @id";
+            if (projeto != null)
+            {
+                sql = @"SELECT pesquisador.id, pesquisador.nome, pesquisador.area
+                          FROM pesquisador
+                          JOIN projeto_pesquisador ON pesquisador.id = projeto_pesquisador.id_pesquisador
+                          WHERE projeto_pesquisador.id_projeto = @Id";
 
-            projeto.PesquisadorList = (List<Pesquisador>)connection.Query<Pesquisador>(sql, param: new { id });
+                projeto.Pesquisadores = connection.Query<Pesquisador>(sql, new { Id = id }).AsList();
+            }
 
             return projeto;
         }
 
         public bool ExisteResultadoProjeto(int id_projeto, int id_resultado)
         {
+            sql = @"SELECT COUNT(*)
+                      FROM projeto
+                     WHERE id <> @IdProjeto
+                       AND id_resultado = @IdResultado";
+
             using NpgsqlConnection connection = new(StringConexao.stringConexao);
-
-            sql = @"select count(*)
-                      from projeto
-                     where id <> @id_projeto
-                       and id_resultado = @id_resultado";
-
-            return connection.QuerySingle<bool>(sql, param: new { id_projeto, id_resultado });
+            return connection.QuerySingle<bool>(sql, new { IdProjeto = id_projeto, IdResultado = id_resultado });
         }
 
         public int RetornaProximoId()
         {
+            sql = @"SELECT COALESCE(MAX(id), 0) + 1
+                      FROM projeto";
+
+            using NpgsqlConnection connection = new(StringConexao.stringConexao);
+            return connection.QuerySingle<int>(sql);
+        }
+
+        public bool ExistePesquisadorProjeto(int idPesquisador, int idProjeto)
+        {
             using NpgsqlConnection connection = new(StringConexao.stringConexao);
 
-            sql = @"select coalesce(max(id), 0) + 1
-                      from projeto";
+            string sql = @"SELECT COUNT(*)
+                  FROM projeto_pesquisador
+                  WHERE id_projeto = @IdProjeto
+                  AND id_pesquisador = @IdPesquisador";
 
-            return connection.QuerySingle<int>(sql);
+            return connection.QuerySingle<bool>(sql, new { IdProjeto = idProjeto, IdPesquisador = idPesquisador });
         }
     }
 }
