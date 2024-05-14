@@ -26,7 +26,7 @@ namespace Trabalho2.Interfaces
             {
                 Pesquisador pesquisador = pesquisadorDAO.RecuperarPorId(int.Parse(Id.Text));
                 Nome.Text = pesquisador.Nome;
-                Area.Text = pesquisador.Area;
+                Area.Text = pesquisador?.Area?.Descricao;
 
                 if (manutencao == "Detalhes")
                 {
@@ -51,11 +51,16 @@ namespace Trabalho2.Interfaces
                 return;
             }
 
+            Area AuxArea = new Area()
+            {
+                Descricao = Area.Text
+            };
+
             Pesquisador pesquisador = new()
             {
                 Id = int.Parse(Id.Text),
                 Nome = Nome.Text,
-                Area = Area.Text
+                Area = AuxArea
             };
 
             if (manutencao == "Incluir")
