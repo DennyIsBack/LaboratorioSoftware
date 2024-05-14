@@ -28,7 +28,7 @@ namespace Trabalho2.Interfaces
             {
                 Resultado resultado = resultadoDAO.RecuperarPorId(int.Parse(Id.Text));
                 Descricao.Text = resultado.Descricao;
-                Descricao_Arquivo.Text = resultado.Descricao_Arquivo;
+                Descricao_Arquivo.Text = resultado.Descricao;
                 arquivo = resultado.Arquivo;
 
                 if (manutencao == "Detalhes")
@@ -98,7 +98,7 @@ namespace Trabalho2.Interfaces
             {
                 Id = int.Parse(Id.Text),
                 Descricao = Descricao.Text,
-                Descricao_Arquivo = Descricao_Arquivo.Text,
+                DescricaoArquivo = Descricao_Arquivo.Text,
                 Arquivo = arquivo
             };
 

@@ -87,7 +87,7 @@ namespace Trabalho2.Interfaces
 
             ListViewItem item = ListView.SelectedItems[0];
 
-            if (pesquisadorDAO.ExistePesquisadorProjeto(int.Parse(item.SubItems[0].Text)))
+            if (pesquisadorDAO.ExistePesquisador(int.Parse(item.SubItems[0].Text)))
             {
                 MessageBox.Show("Não poderá excluir este pesquisador, pois o mesmo faz parte de um projeto", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;

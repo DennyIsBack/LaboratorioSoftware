@@ -83,7 +83,7 @@ namespace Trabalho2.Interfaces
 
             ListViewItem item = ListView.SelectedItems[0];
 
-            if (resultadoDAO.ExisteResultadoProjeto(int.Parse(item.SubItems[0].Text)))
+            if (resultadoDAO.ExisteResultado(int.Parse(item.SubItems[0].Text)))
             {
                 MessageBox.Show("Não poderá excluir este resultado, pois o mesmo faz parte de um projeto", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
