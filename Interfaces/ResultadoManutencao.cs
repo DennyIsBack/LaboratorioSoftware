@@ -39,7 +39,7 @@ namespace Trabalho2.Interfaces
                 }
             }
         }
-
+         
         private void Visualizar_Click(object sender, EventArgs e)
         {
             string filePath;

@@ -1,26 +1,75 @@
-create table pesquisador (
-	id int not null primary key,
-	nome varchar(60) not null,
-	area varchar(60) not null
+-- Tabela AreaAtuacao
+CREATE TABLE AreaAtuacao (
+    ID INT PRIMARY KEY,
+    Nome VARCHAR(100)
 );
 
-create table resultado (
-	id int not null primary key,
-	descricao varchar(255) not null,
-	descricao_arquivo varchar(60) not null,
-	arquivo bytea not null
+--Tabela Resultado 
+create table Resultado (
+	ID int not null primary key,
+	Descricao varchar(255) not null,
+	DescricaoArquivo varchar(60) not null,
+	Arquivo bytea not null
 );
 
-create table projeto (
-	id int not null primary key,
-	titulo varchar(255) not null,
-	data_inicial date not null,
-	data_final date,
-	id_resultado int references resultado(id)
+CREATE TABLE Pesquisador (
+    ID INT PRIMARY KEY,
+    Nome VARCHAR(100),
+    Email VARCHAR(100) UNIQUE,
+    Instituicao VARCHAR(100),
+    Lattes VARCHAR(255),
+    Tipo VARCHAR(20),
+    AreaAtuacao_ID INT,
+    FOREIGN KEY (AreaAtuacao_ID) REFERENCES AreaAtuacao(ID)
 );
 
-create table projeto_pesquisador (
-	id_projeto int references projeto(id) not null,
-	id_pesquisador int references pesquisador(id) not null,
-	primary key (id_projeto, id_pesquisador)
+CREATE TABLE Orientacoes (
+    Orientador_ID INT,
+    Orientando_ID INT,
+    FOREIGN KEY (Orientador_ID) REFERENCES Pesquisador(ID),
+    FOREIGN KEY (Orientando_ID) REFERENCES Pesquisador(ID),
+    PRIMARY KEY (Orientador_ID, Orientando_ID)
+);
+
+CREATE TABLE Publicacao (
+    ID INT PRIMARY KEY,
+    Titulo VARCHAR(255),
+    Autor VARCHAR(100),
+    Ano INT,
+    Tipo VARCHAR(50),
+    Pesquisador_ID INT,
+    FOREIGN KEY (Pesquisador_ID) REFERENCES Pesquisador(ID)
+);
+
+-- Tabela Projeto
+CREATE TABLE Projeto (
+    ID INT PRIMARY KEY,
+    Nome VARCHAR(100),
+    AreaAtuacao_ID INT,
+    Resultado_ID INT,
+    Instituicao_ID INT,
+    DataInicial Date,
+    DataFinal Date,
+    Tipo VARCHAR(20),
+    FOREIGN KEY (AreaAtuacao_ID) REFERENCES AreaAtuacao(ID),
+    FOREIGN KEY (Resultado_ID) REFERENCES Resultado(ID),
+    FOREIGN KEY (Instituicao) REFERENCES Instituicao(ID)
+);
+
+-- Tabela Projeto_Pesquisador (Relacionamento muitos para muitos entre Projeto e Pesquisador)
+CREATE TABLE Projeto_Pesquisador (
+    Projeto_ID INT,
+    Pesquisador_ID INT,
+    FOREIGN KEY (Projeto_ID) REFERENCES Projeto(ID),
+    FOREIGN KEY (Pesquisador_ID) REFERENCES Pesquisador(ID),
+    PRIMARY KEY (Projeto_ID, Pesquisador_ID)
+);
+
+-- Tabela Instituicao
+CREATE TABLE Instituicao (
+    ID INT PRIMARY KEY,
+    Nome VARCHAR(100),
+    Sigla VARCHAR(20),
+    Endereco VARCHAR(255),
+    Site VARCHAR(100)
 );
