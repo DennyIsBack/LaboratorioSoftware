@@ -54,7 +54,6 @@ namespace Trabalho2.Interfaces
                         Font = new Font(ListView.Font, FontStyle.Regular)
                     };
                     listItem.SubItems.Add(new ListViewItem.ListViewSubItem(listItem, projeto.Pesquisadores[i].Nome));
-                    listItem.SubItems.Add(new ListViewItem.ListViewSubItem(listItem, projeto.Pesquisadores[i]?.Area?.Descricao));
                     ListView.Items.Add(listItem);
                 }
 
@@ -115,7 +114,6 @@ namespace Trabalho2.Interfaces
                 Font = new Font(ListView.Font, FontStyle.Regular)
             };
             listItem.SubItems.Add(new ListViewItem.ListViewSubItem(listItem, pesquisador.Nome));
-            listItem.SubItems.Add(new ListViewItem.ListViewSubItem(listItem, pesquisador.Area?.Descricao));
             ListView.Items.Add(listItem);
 
             IdPesquisador.Text = null;

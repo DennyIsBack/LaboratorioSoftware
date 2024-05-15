@@ -37,11 +37,11 @@
             Excluir = new Button();
             ListView = new ListView();
             groupBox1 = new GroupBox();
-            AreaFiltro = new TextBox();
+            cmbArea = new ComboBox();
             label3 = new Label();
-            NomeFiltro = new TextBox();
+            txbNome = new TextBox();
             label2 = new Label();
-            Pesquisar = new Button();
+            btnPesquisar = new Button();
             ((System.ComponentModel.ISupportInitialize)BtnFechar).BeginInit();
             groupBox1.SuspendLayout();
             SuspendLayout();
@@ -161,9 +161,9 @@
             // groupBox1
             // 
             groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            groupBox1.Controls.Add(AreaFiltro);
+            groupBox1.Controls.Add(cmbArea);
             groupBox1.Controls.Add(label3);
-            groupBox1.Controls.Add(NomeFiltro);
+            groupBox1.Controls.Add(txbNome);
             groupBox1.Controls.Add(label2);
             groupBox1.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
             groupBox1.Location = new Point(12, 49);
@@ -173,12 +173,14 @@
             groupBox1.TabStop = false;
             groupBox1.Text = "Filtros";
             // 
-            // AreaFiltro
+            // cmbArea
             // 
-            AreaFiltro.Location = new Point(481, 26);
-            AreaFiltro.Name = "AreaFiltro";
-            AreaFiltro.Size = new Size(347, 27);
-            AreaFiltro.TabIndex = 3;
+            cmbArea.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbArea.FormattingEnabled = true;
+            cmbArea.Location = new Point(481, 24);
+            cmbArea.Name = "cmbArea";
+            cmbArea.Size = new Size(347, 29);
+            cmbArea.TabIndex = 3;
             // 
             // label3
             // 
@@ -189,12 +191,12 @@
             label3.TabIndex = 2;
             label3.Text = "Área:";
             // 
-            // NomeFiltro
+            // txbNome
             // 
-            NomeFiltro.Location = new Point(74, 26);
-            NomeFiltro.Name = "NomeFiltro";
-            NomeFiltro.Size = new Size(347, 27);
-            NomeFiltro.TabIndex = 1;
+            txbNome.Location = new Point(74, 26);
+            txbNome.Name = "txbNome";
+            txbNome.Size = new Size(347, 27);
+            txbNome.TabIndex = 1;
             // 
             // label2
             // 
@@ -205,19 +207,19 @@
             label2.TabIndex = 0;
             label2.Text = "Nome:";
             // 
-            // Pesquisar
+            // btnPesquisar
             // 
-            Pesquisar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            Pesquisar.BackColor = Color.MidnightBlue;
-            Pesquisar.FlatStyle = FlatStyle.Flat;
-            Pesquisar.ForeColor = Color.White;
-            Pesquisar.Image = (Image)resources.GetObject("Pesquisar.Image");
-            Pesquisar.Location = new Point(858, 59);
-            Pesquisar.Name = "Pesquisar";
-            Pesquisar.Size = new Size(54, 54);
-            Pesquisar.TabIndex = 22;
-            Pesquisar.UseVisualStyleBackColor = false;
-            Pesquisar.Click += Pesquisar_Click;
+            btnPesquisar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnPesquisar.BackColor = Color.MidnightBlue;
+            btnPesquisar.FlatStyle = FlatStyle.Flat;
+            btnPesquisar.ForeColor = Color.White;
+            btnPesquisar.Image = (Image)resources.GetObject("btnPesquisar.Image");
+            btnPesquisar.Location = new Point(858, 59);
+            btnPesquisar.Name = "btnPesquisar";
+            btnPesquisar.Size = new Size(54, 54);
+            btnPesquisar.TabIndex = 22;
+            btnPesquisar.UseVisualStyleBackColor = false;
+            btnPesquisar.Click += Pesquisar_Click;
             // 
             // Pesquisadores
             // 
@@ -225,7 +227,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.WhiteSmoke;
             ClientSize = new Size(1050, 600);
-            Controls.Add(Pesquisar);
+            Controls.Add(btnPesquisar);
             Controls.Add(groupBox1);
             Controls.Add(Detalhes);
             Controls.Add(Novo);
@@ -256,10 +258,10 @@
         private Button Excluir;
         private ListView ListView;
         private GroupBox groupBox1;
-        private TextBox AreaFiltro;
         private Label label3;
-        private TextBox NomeFiltro;
+        private TextBox txbNome;
         private Label label2;
-        private Button Pesquisar;
+        private Button btnPesquisar;
+        private ComboBox cmbArea;
     }
 }

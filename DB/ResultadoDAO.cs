@@ -81,7 +81,7 @@ namespace Trabalho2.DB
             using NpgsqlConnection connection = new(StringConexao.stringConexao);
 
             sql = @"SELECT COUNT(*)
-                      FROM projeto
+                     FROM projeto
                      WHERE id_resultado = @id";
 
             return connection.QuerySingle<int>(sql, new { id }) > 0;

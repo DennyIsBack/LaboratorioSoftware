@@ -19,7 +19,33 @@ namespace Trabalho2.Interfaces
         private void Pesquisadores_Load(object sender, EventArgs e)
         {
             AdicionaColunas();
-            CarregarRegistros();
+            CarregaAreas();
+            // CarregarRegistros();
+        }
+
+        public void CarregaAreas()
+        {
+            try
+            {
+                string query = "SELECT id, nome FROM areaatuacao";
+
+                using (var connection = new NpgsqlConnection(StringConexao.stringConexao))
+                {
+                    connection.Open();
+                    var areas = connection.Query<Area>(query);
+
+                    cmbArea.Items.Clear();
+
+                    foreach (var area in areas)
+                    {
+                        cmbArea.Items.Add(area.Nome);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao carregar áreas de atuação: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void BtnFechar_Click(object sender, EventArgs e)
@@ -36,32 +62,40 @@ namespace Trabalho2.Interfaces
             ListView.Columns.Add("Área", 450);
         }
 
-        private void CarregarRegistros()
+        private void CarregarRegistros(string tabela, string nome, string areaAtuacao)
         {
-            //ListView.Items.Clear();
-            //List<Pesquisador> itemList = pesquisadorDAO.RecuperarTodosFiltrado(NomeFiltro.Text, AreaFiltro.Text);
+            string query = $@"SELECT p.id, p.nome, a.nome AS area FROM {tabela} p JOIN areaatuacao a ON p.id = a.id WHERE p.nome LIKE '%{nome}%' AND a.nome like '%{areaAtuacao}%'";
 
-            //for (int i = 0; i < itemList.Count; i++)
-            //{
-            //    ListViewItem listItem = new(itemList[i].Id.ToString())
-            //    {
-            //        Font = new Font(ListView.Font, FontStyle.Regular)
-            //    };
-            //    listItem.SubItems.Add(new ListViewItem.ListViewSubItem(listItem, itemList[i].Nome));
-            //    listItem.SubItems.Add(new ListViewItem.ListViewSubItem(listItem, itemList[i].Area));
-            //    ListView.Items.Add(listItem);
-            //}
+            using (var connection = new NpgsqlConnection(StringConexao.stringConexao))
+            {
+                connection.Open();
+
+                var resultados = connection.Query<Pesquisador>(query, new { Nome = nome, AreaAtuacao = areaAtuacao });
+
+                ListView.Items.Clear();
+
+                foreach (var resultado in resultados)
+                {
+                    var item = new ListViewItem(new string[]
+                    {
+                        resultado.Id.ToString(),
+                        resultado.Nome,
+                        resultado.Area?.Nome ?? "Sem área"
+                    });
+                    ListView.Items.Add(item);
+                }
+            }
         }
 
         private void Pesquisar_Click(object sender, EventArgs e)
         {
-            CarregarRegistros();
+            CarregarRegistros("Pesquisador", txbNome.Text, cmbArea.Text);
         }
 
         private void Novo_Click(object sender, EventArgs e)
         {
             new PesquisadorManutencao("Incluir").ShowDialog();
-            CarregarRegistros();
+            //CarregarRegistros();
         }
 
         private void Editar_Click(object sender, EventArgs e)
@@ -75,7 +109,7 @@ namespace Trabalho2.Interfaces
             PesquisadorManutencao form = new("Editar");
             form.Id.Text = item.SubItems[0].Text;
             form.ShowDialog();
-            CarregarRegistros();
+            //CarregarRegistros();
         }
 
         private void Excluir_Click(object sender, EventArgs e)
@@ -96,7 +130,7 @@ namespace Trabalho2.Interfaces
             if (MessageBox.Show("Confirma excluir este registro?", "Selecione a opção", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 pesquisadorDAO.Delete(int.Parse(item.SubItems[0].Text));
-                CarregarRegistros();
+                //CarregarRegistros();
             }
         }
 

@@ -9,23 +9,34 @@ namespace Trabalho2.DB
     {
         string? sql;
 
-        public void Insert(Pesquisador pesquisador)
+        public bool Insert(Pesquisador pesquisador)
         {
-            using NpgsqlConnection connection = new(StringConexao.stringConexao);
-
-            sql = @"INSERT INTO pesquisador (id, nome, email, instituicao, lattes, tipo)
-                    VALUES (@id, @nome, @email, @instituicao, @lattes, @tipo)";
-
-            connection.Execute(sql, param: new
+            try
             {
-                id = pesquisador.Id,
-                nome = pesquisador.Nome,
-                email = pesquisador.Email,
-                instituicao = pesquisador.Instituicao,
-                lattes = pesquisador.Lattes,
-                tipo = pesquisador.Tipo
-            });
+                using NpgsqlConnection connection = new NpgsqlConnection(StringConexao.stringConexao);
+
+                string sql = @"INSERT INTO pesquisador (id, nome, email, instituicao, lattes, tipo)
+                           VALUES (@id, @nome, @email, @instituicao, @lattes, @tipo)";
+
+                int rowsAffected = connection.Execute(sql, new
+                {
+                    id = pesquisador.Id,
+                    nome = pesquisador.Nome,
+                    email = pesquisador.Email,
+                    instituicao = pesquisador.Instituicao,
+                    lattes = pesquisador.Lattes,
+                    tipo = pesquisador.Tipo
+                });
+
+                return rowsAffected > 0;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro ao inserir pesquisador: {ex.Message}");
+                return false; 
+            }
         }
+
 
         public void Update(Pesquisador pesquisador)
         {
