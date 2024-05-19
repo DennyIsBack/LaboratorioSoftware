@@ -54,7 +54,9 @@ namespace Trabalho2.Interfaces
 
                 if (!(idListView == -1))
                 {
-                    SetPesquisador(idListView);
+                    Pesquisador pesquisador =SetPesquisador(idListView);
+
+                    SetCampos(pesquisador);
                 }
             }
         }
