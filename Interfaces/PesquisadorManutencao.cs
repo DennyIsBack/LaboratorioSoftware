@@ -77,5 +77,10 @@ namespace Trabalho2.Interfaces
 
             Close();
         }
+
+        private void Aluno_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
