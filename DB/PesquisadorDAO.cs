@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using Npgsql;
 using Trabalho2.Model;
+using System.Collections.Generic;
 
 namespace Trabalho2.DB
 {
@@ -8,33 +9,54 @@ namespace Trabalho2.DB
     {
         string? sql;
 
-        public void Insert(Pesquisador pesquisador)
+        public bool Insert(Pesquisador pesquisador)
         {
-            using NpgsqlConnection connection = new(StringConexao.stringConexao);
-
-            sql = @"insert into pesquisador values (@id, @nome, @area)";
-
-            connection.Execute(sql, param: new
+            try
             {
-                id = pesquisador.Id,
-                nome = pesquisador.Nome,
-                area = pesquisador.Area
-            });
+                using NpgsqlConnection connection = new NpgsqlConnection(StringConexao.stringConexao);
+
+                string sql = @"INSERT INTO pesquisador (id, nome, email, instituicao, lattes, tipo)
+                           VALUES (@id, @nome, @email, @instituicao, @lattes, @tipo)";
+
+                int rowsAffected = connection.Execute(sql, new
+                {
+                    id = pesquisador.Id,
+                    nome = pesquisador.Nome,
+                    email = pesquisador.Email,
+                    instituicao = pesquisador.Instituicao,
+                    lattes = pesquisador.Lattes,
+                    tipo = pesquisador.Tipo
+                });
+
+                return rowsAffected > 0;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro ao inserir pesquisador: {ex.Message}");
+                return false; 
+            }
         }
+
 
         public void Update(Pesquisador pesquisador)
         {
             using NpgsqlConnection connection = new(StringConexao.stringConexao);
 
-            sql = @"update pesquisador
-                       set nome = @nome,
-                           area = @area
-                     where id = @id";
+            sql = @"UPDATE pesquisador
+                       SET nome = @nome,
+                           email = @email,
+                           instituicao = @instituicao,
+                           lattes = @lattes,
+                           tipo = @tipo
+                     WHERE id = @id";
 
             connection.Execute(sql, param: new
             {
                 nome = pesquisador.Nome,
-                area = pesquisador.Area,
+                email = pesquisador.Email,
+                instituicao = pesquisador.Instituicao,
+                lattes = pesquisador.Lattes,
+                tipo = pesquisador.Tipo,
                 id = pesquisador.Id
             });
         }
@@ -43,8 +65,8 @@ namespace Trabalho2.DB
         {
             using NpgsqlConnection connection = new(StringConexao.stringConexao);
 
-            sql = @"delete from pesquisador
-                     where id = @id";
+            sql = @"DELETE FROM pesquisador
+                     WHERE id = @id";
 
             connection.Execute(sql, param: new { id });
         }
@@ -53,21 +75,21 @@ namespace Trabalho2.DB
         {
             using NpgsqlConnection connection = new(StringConexao.stringConexao);
 
-            sql = @"select *
-                      from pesquisador
-                     where 1 = 1";
+            sql = @"SELECT *
+                      FROM pesquisador
+                     WHERE 1 = 1";
 
             if (!string.IsNullOrWhiteSpace(nomePesquisador))
             {
-                sql += " and upper(nome) like upper(CONCAT('%', @nome, '%'))";
+                sql += " AND upper(nome) LIKE upper(CONCAT('%', @nome, '%'))";
             }
 
             if (!string.IsNullOrWhiteSpace(areaPesquisador))
             {
-                sql += " and upper(area) like upper(CONCAT('%', @area, '%'))";
+                sql += " AND upper(area) LIKE upper(CONCAT('%', @area, '%'))";
             }
 
-            sql += " order by nome";
+            sql += " ORDER BY nome";
 
             return (List<Pesquisador>)connection.Query<Pesquisador>(sql,
                    param: new
@@ -81,9 +103,9 @@ namespace Trabalho2.DB
         {
             using NpgsqlConnection connection = new(StringConexao.stringConexao);
 
-            sql = @"select *
-                      from pesquisador
-                     where id = @id";
+            sql = @"SELECT *
+                      FROM pesquisador
+                     WHERE id = @id";
 
             return connection.QuerySingle<Pesquisador>(sql, param: new { id });
         }
@@ -92,20 +114,9 @@ namespace Trabalho2.DB
         {
             using NpgsqlConnection connection = new(StringConexao.stringConexao);
 
-            sql = @"select count(*)
-                      from pesquisador
-                     where id = @id";
-
-            return connection.QuerySingle<bool>(sql, param: new { id });
-        }
-
-        public bool ExistePesquisadorProjeto(int id)
-        {
-            using NpgsqlConnection connection = new(StringConexao.stringConexao);
-
-            sql = @"select count(*)
-                      from projeto_pesquisador
-                     where id_pesquisador = @id";
+            sql = @"SELECT COUNT(*)
+                      FROM pesquisador
+                     WHERE id = @id";
 
             return connection.QuerySingle<bool>(sql, param: new { id });
         }
@@ -114,8 +125,8 @@ namespace Trabalho2.DB
         {
             using NpgsqlConnection connection = new(StringConexao.stringConexao);
 
-            sql = @"select coalesce(max(id), 0) + 1
-                      from pesquisador";
+            sql = @"SELECT COALESCE(MAX(id), 0) + 1
+                      FROM pesquisador";
 
             return connection.QuerySingle<int>(sql);
         }

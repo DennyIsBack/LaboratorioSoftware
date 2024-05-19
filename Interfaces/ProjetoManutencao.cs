@@ -32,7 +32,7 @@ namespace Trabalho2.Interfaces
             else
             {
                 Projeto projeto = projetoDAO.RecuperarPorId(int.Parse(Id.Text));
-                Titulo.Text = projeto.Titulo;
+                Titulo.Text = projeto.Nome;
                 DataInicial.Text = projeto.DataInicial.ToString();
                 if (projeto.DataFinal.Date != Convert.ToDateTime("01/01/0001").Date)
                 {
@@ -47,20 +47,19 @@ namespace Trabalho2.Interfaces
                     ListView.Dock = DockStyle.Fill;
                 }
 
-                for (int i = 0; i < projeto.PesquisadorList?.Count; i++)
+                for (int i = 0; i < projeto.Pesquisadores?.Count; i++)
                 {
-                    ListViewItem listItem = new(projeto.PesquisadorList[i].Id.ToString())
+                    ListViewItem listItem = new(projeto.Pesquisadores[i].Id.ToString())
                     {
                         Font = new Font(ListView.Font, FontStyle.Regular)
                     };
-                    listItem.SubItems.Add(new ListViewItem.ListViewSubItem(listItem, projeto.PesquisadorList[i].Nome));
-                    listItem.SubItems.Add(new ListViewItem.ListViewSubItem(listItem, projeto.PesquisadorList[i].Area));
+                    listItem.SubItems.Add(new ListViewItem.ListViewSubItem(listItem, projeto.Pesquisadores[i].Nome));
                     ListView.Items.Add(listItem);
                 }
 
                 IdResultado.Text = projeto.Resultado?.Id.ToString();
                 Descricao.Text = projeto.Resultado?.Descricao;
-                Descricao_Arquivo.Text = projeto.Resultado?.Descricao_Arquivo;
+                Descricao_Arquivo.Text = projeto.Resultado?.DescricaoArquivo;
                 arquivo = projeto.Resultado?.Arquivo;
 
                 if (manutencao == "Detalhes")
@@ -75,7 +74,7 @@ namespace Trabalho2.Interfaces
                     RemoverPesquisador.Visible = false;
                     Salvar.Visible = false;
 
-                    ListView.Dock = DockStyle.Fill;              
+                    ListView.Dock = DockStyle.Fill;
                 }
             }
         }
@@ -115,7 +114,6 @@ namespace Trabalho2.Interfaces
                 Font = new Font(ListView.Font, FontStyle.Regular)
             };
             listItem.SubItems.Add(new ListViewItem.ListViewSubItem(listItem, pesquisador.Nome));
-            listItem.SubItems.Add(new ListViewItem.ListViewSubItem(listItem, pesquisador.Area));
             ListView.Items.Add(listItem);
 
             IdPesquisador.Text = null;
@@ -143,7 +141,7 @@ namespace Trabalho2.Interfaces
 
                 Resultado resultado = resultadoDAO.RecuperarPorId(int.Parse(IdResultado.Text));
                 Descricao.Text = resultado.Descricao;
-                Descricao_Arquivo.Text = resultado.Descricao_Arquivo;
+                Descricao_Arquivo.Text = resultado.DescricaoArquivo;
                 arquivo = resultado.Arquivo;
             }
             else
@@ -221,9 +219,9 @@ namespace Trabalho2.Interfaces
             Projeto projeto = new()
             {
                 Id = int.Parse(Id.Text),
-                Titulo = Titulo.Text,
+                Nome = Titulo.Text,
                 DataInicial = DataInicial.Value,
-                PesquisadorList = new()
+                Pesquisadores = new()
             };
 
             if (!string.IsNullOrWhiteSpace(IdResultado.Text))
@@ -244,7 +242,7 @@ namespace Trabalho2.Interfaces
                     Id = int.Parse(item.SubItems[0].Text)
                 };
 
-                projeto.PesquisadorList.Add(pesquisador);
+                projeto.Pesquisadores.Add(pesquisador);
             }
 
             if (manutencao == "Incluir")

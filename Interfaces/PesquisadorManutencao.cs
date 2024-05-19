@@ -26,7 +26,6 @@ namespace Trabalho2.Interfaces
             {
                 Pesquisador pesquisador = pesquisadorDAO.RecuperarPorId(int.Parse(Id.Text));
                 Nome.Text = pesquisador.Nome;
-                Area.Text = pesquisador.Area;
 
                 if (manutencao == "Detalhes")
                 {
@@ -54,13 +53,22 @@ namespace Trabalho2.Interfaces
             Pesquisador pesquisador = new()
             {
                 Id = int.Parse(Id.Text),
-                Nome = Nome.Text,
-                Area = Area.Text
+                Nome = Nome.Text
             };
 
             if (manutencao == "Incluir")
             {
-                pesquisadorDAO.Insert(pesquisador);
+                bool sucesso = pesquisadorDAO.Insert(pesquisador);
+
+                if (sucesso)
+                {
+                    MessageBox.Show("Cadastro realizado com sucesso!", "Sucesso ao cadastrar", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Falha ao realizar cadastro", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
             }
             else
             {
