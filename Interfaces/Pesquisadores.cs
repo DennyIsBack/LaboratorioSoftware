@@ -80,7 +80,7 @@ namespace Trabalho2.Interfaces
                     {
                         resultado.Id.ToString(),
                         resultado.Nome,
-                        resultado.Area?.Nome ?? "Sem área"
+                        resultado.AreaAtuacao?.Nome ?? "Sem área"
                     });
                     ListView.Items.Add(item);
                 }

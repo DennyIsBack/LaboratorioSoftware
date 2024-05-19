@@ -8,6 +8,6 @@
         public string? Instituicao { get; set; }
         public string? Lattes { get; set; }
         public string? Tipo { get; set; }
-        public Area? Area { get; set; }
+        public Area? AreaAtuacao { get; set; }
     }
 }
