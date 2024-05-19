@@ -156,6 +156,7 @@
             lvPesquisadores.TabIndex = 16;
             lvPesquisadores.UseCompatibleStateImageBehavior = false;
             lvPesquisadores.View = View.Details;
+            lvPesquisadores.SelectedIndexChanged += lvPesquisadores_SelectedIndexChanged;
             lvPesquisadores.DoubleClick += DoubleClick_Click;
             // 
             // groupBox1
@@ -256,7 +257,7 @@
         private Button Novo;
         private Button Editar;
         private Button Excluir;
-        private ListView lvPesquisadores;
+        public ListView lvPesquisadores;
         private GroupBox groupBox1;
         private Label label3;
         private TextBox txbNome;

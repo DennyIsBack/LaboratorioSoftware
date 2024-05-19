@@ -30,6 +30,10 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PesquisadorManutencao));
             groupBox1 = new GroupBox();
+            rdbAluno = new RadioButton();
+            rdbProfessor = new RadioButton();
+            cmbArea = new ComboBox();
+            txbEmail = new TextBox();
             txbLattes = new TextBox();
             Lattes = new Label();
             txbInstituicao = new TextBox();
@@ -38,11 +42,7 @@
             txbNome = new TextBox();
             label3 = new Label();
             label2 = new Label();
-            Salvar = new Button();
-            txbEmail = new TextBox();
-            cmbArea = new ComboBox();
-            rdbProfessor = new RadioButton();
-            rdbAluno = new RadioButton();
+            btnSalvar = new Button();
             groupBox1.SuspendLayout();
             SuspendLayout();
             // 
@@ -64,9 +64,47 @@
             groupBox1.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point);
             groupBox1.Location = new Point(12, 12);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(503, 227);
+            groupBox1.Size = new Size(503, 216);
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
+            // 
+            // rdbAluno
+            // 
+            rdbAluno.AutoSize = true;
+            rdbAluno.Location = new Point(197, 182);
+            rdbAluno.Name = "rdbAluno";
+            rdbAluno.Size = new Size(68, 24);
+            rdbAluno.TabIndex = 13;
+            rdbAluno.TabStop = true;
+            rdbAluno.Text = "Aluno";
+            rdbAluno.UseVisualStyleBackColor = true;
+            // 
+            // rdbProfessor
+            // 
+            rdbProfessor.AutoSize = true;
+            rdbProfessor.Location = new Point(96, 182);
+            rdbProfessor.Name = "rdbProfessor";
+            rdbProfessor.Size = new Size(95, 24);
+            rdbProfessor.TabIndex = 12;
+            rdbProfessor.TabStop = true;
+            rdbProfessor.Text = "Professor";
+            rdbProfessor.UseVisualStyleBackColor = true;
+            // 
+            // cmbArea
+            // 
+            cmbArea.FormattingEnabled = true;
+            cmbArea.Location = new Point(96, 49);
+            cmbArea.Name = "cmbArea";
+            cmbArea.Size = new Size(393, 28);
+            cmbArea.TabIndex = 11;
+            // 
+            // txbEmail
+            // 
+            txbEmail.Location = new Point(96, 85);
+            txbEmail.Margin = new Padding(2);
+            txbEmail.Name = "txbEmail";
+            txbEmail.Size = new Size(393, 26);
+            txbEmail.TabIndex = 10;
             // 
             // txbLattes
             // 
@@ -139,68 +177,30 @@
             label2.TabIndex = 1;
             label2.Text = "Área:";
             // 
-            // Salvar
+            // btnSalvar
             // 
-            Salvar.Anchor = AnchorStyles.Top;
-            Salvar.BackColor = Color.MidnightBlue;
-            Salvar.FlatAppearance.BorderSize = 0;
-            Salvar.FlatAppearance.MouseOverBackColor = Color.FromArgb(45, 45, 48);
-            Salvar.FlatStyle = FlatStyle.Flat;
-            Salvar.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            Salvar.ForeColor = Color.White;
-            Salvar.Location = new Point(335, 245);
-            Salvar.Name = "Salvar";
-            Salvar.Size = new Size(180, 40);
-            Salvar.TabIndex = 14;
-            Salvar.Text = "SALVAR";
-            Salvar.UseVisualStyleBackColor = false;
-            Salvar.Click += Salvar_Click;
-            // 
-            // txbEmail
-            // 
-            txbEmail.Location = new Point(96, 85);
-            txbEmail.Margin = new Padding(2);
-            txbEmail.Name = "txbEmail";
-            txbEmail.Size = new Size(393, 26);
-            txbEmail.TabIndex = 10;
-            // 
-            // cmbArea
-            // 
-            cmbArea.FormattingEnabled = true;
-            cmbArea.Location = new Point(96, 49);
-            cmbArea.Name = "cmbArea";
-            cmbArea.Size = new Size(393, 28);
-            cmbArea.TabIndex = 11;
-            // 
-            // rdbProfessor
-            // 
-            rdbProfessor.AutoSize = true;
-            rdbProfessor.Location = new Point(96, 182);
-            rdbProfessor.Name = "rdbProfessor";
-            rdbProfessor.Size = new Size(95, 24);
-            rdbProfessor.TabIndex = 12;
-            rdbProfessor.TabStop = true;
-            rdbProfessor.Text = "Professor";
-            rdbProfessor.UseVisualStyleBackColor = true;
-            // 
-            // rdbAluno
-            // 
-            rdbAluno.AutoSize = true;
-            rdbAluno.Location = new Point(197, 182);
-            rdbAluno.Name = "rdbAluno";
-            rdbAluno.Size = new Size(68, 24);
-            rdbAluno.TabIndex = 13;
-            rdbAluno.TabStop = true;
-            rdbAluno.Text = "Aluno";
-            rdbAluno.UseVisualStyleBackColor = true;
+            btnSalvar.Anchor = AnchorStyles.Top;
+            btnSalvar.BackColor = Color.MidnightBlue;
+            btnSalvar.FlatAppearance.BorderSize = 0;
+            btnSalvar.FlatAppearance.MouseOverBackColor = Color.FromArgb(45, 45, 48);
+            btnSalvar.FlatStyle = FlatStyle.Flat;
+            btnSalvar.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            btnSalvar.ForeColor = Color.White;
+            btnSalvar.Location = new Point(335, 234);
+            btnSalvar.Name = "btnSalvar";
+            btnSalvar.Size = new Size(180, 40);
+            btnSalvar.TabIndex = 14;
+            btnSalvar.Text = "SALVAR";
+            btnSalvar.UseVisualStyleBackColor = false;
+            btnSalvar.Click += Salvar_Click;
             // 
             // PesquisadorManutencao
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.WhiteSmoke;
-            ClientSize = new Size(526, 296);
-            Controls.Add(Salvar);
+            ClientSize = new Size(526, 283);
+            Controls.Add(btnSalvar);
             Controls.Add(groupBox1);
             Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
@@ -221,7 +221,7 @@
         private TextBox txbNome;
         private Label label3;
         private Label label2;
-        private Button Salvar;
+        private Button btnSalvar;
         private Label Email;
         private TextBox txtEmail;
         private Label Instituicao;

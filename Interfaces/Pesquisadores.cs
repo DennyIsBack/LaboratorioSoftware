@@ -1,6 +1,8 @@
 ﻿using Dapper;
 using Microsoft.VisualBasic;
 using Npgsql;
+using System;
+using System.Windows.Forms;
 using Trabalho2.DB;
 using Trabalho2.Model;
 
@@ -10,6 +12,7 @@ namespace Trabalho2.Interfaces
     {
         private readonly PesquisadorDAO pesquisadorDAO = new();
         private readonly MenuPrincipal formMenuPrincipal;
+        public int IdListBox { get; set; }
 
         public Pesquisadores(MenuPrincipal form)
         {
@@ -67,8 +70,16 @@ namespace Trabalho2.Interfaces
         {
             var pesquisadorDAO = new PesquisadorDAO();
             var areaDAO = new AreaDAO();
+            List<Pesquisador> pesquisadores;
 
-            var pesquisadores = pesquisadorDAO.RecuperarPesquisadores(tabela, nome);
+            if (string.IsNullOrEmpty(areaAtuacao))
+            {
+                pesquisadores = pesquisadorDAO.RecuperarPesquisadores(tabela, nome);
+            }
+            else
+            {
+                pesquisadores = pesquisadorDAO.RecuperarPesquisadoresPorArea(tabela, nome, areaAtuacao);
+            }
 
             lvPesquisadores.Items.Clear();
 
@@ -115,7 +126,7 @@ namespace Trabalho2.Interfaces
             }
 
             ListViewItem item = lvPesquisadores.SelectedItems[0];
-            PesquisadorManutencao form = new("Editar");
+            PesquisadorManutencao form = new("Editar", IdListBox);
             form.ShowDialog();
             //CarregarRegistros();
         }
@@ -144,7 +155,7 @@ namespace Trabalho2.Interfaces
             }
 
             ListViewItem item = lvPesquisadores.SelectedItems[0];
-            PesquisadorManutencao form = new("Detalhes");
+            PesquisadorManutencao form = new("Detalhes", IdListBox);
             form.ShowDialog();
         }
 
@@ -168,6 +179,22 @@ namespace Trabalho2.Interfaces
             }
 
             return true;
+        }
+
+        private void lvPesquisadores_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lvPesquisadores.SelectedItems.Count > 0)
+            {
+                ListViewItem selectedItem = lvPesquisadores.SelectedItems[0];
+
+                string id = selectedItem.SubItems[0].Text;
+
+                if (int.TryParse(id, out int idInt))
+                {
+                    IdListBox = idInt;
+                }
+
+            }
         }
     }
 }

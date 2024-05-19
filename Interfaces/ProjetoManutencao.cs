@@ -107,7 +107,7 @@ namespace Trabalho2.Interfaces
                 return;
             }
 
-            Pesquisador pesquisador = pesquisadorDAO.RecuperarPorId(int.Parse(IdPesquisador.Text));
+            Pesquisador pesquisador = pesquisadorDAO.RecuperarID(int.Parse(IdPesquisador.Text));
 
             ListViewItem listItem = new(pesquisador.Id.ToString())
             {

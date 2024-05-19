@@ -2,6 +2,9 @@
 using Npgsql;
 using Trabalho2.Model;
 using System.Collections.Generic;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
+using Trabalho2.Interfaces;
+using System.Diagnostics;
 
 namespace Trabalho2.DB
 {
@@ -35,34 +38,16 @@ namespace Trabalho2.DB
 
         public bool Update(Pesquisador pesquisador)
         {
-            try
             {
                 using NpgsqlConnection connection = new NpgsqlConnection(StringConexao.stringConexao);
 
-                string sql = @"UPDATE pesquisador
-                       SET nome = @nome,
-                           email = @email,
-                           instituicao = @instituicao,
-                           lattes = @lattes,
-                           tipo = @tipo
-                     WHERE id = @id";
+                string sql = $@"UPDATE pesquisador SET nome = '{pesquisador.Nome}', email = '{pesquisador.Email}', instituicao = '{pesquisador.Instituicao}', lattes = '{pesquisador.Lattes}', tipo = '{pesquisador.Tipo}', areaatuacao_id = {pesquisador.AreaAtuacao.Id} WHERE id = {pesquisador.Id}";
 
-                int rowsAffected = connection.Execute(sql, new
-                {
-                    id = pesquisador.Id,
-                    nome = pesquisador.Nome,
-                    email = pesquisador.Email,
-                    instituicao = pesquisador.Instituicao,
-                    lattes = pesquisador.Lattes,
-                    tipo = pesquisador.Tipo
-                });
+                Debug.WriteLine(sql);
+
+                int rowsAffected = connection.Execute(sql);
 
                 return rowsAffected > 0;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Erro ao atualizar cadastro.{Environment.NewLine}{Environment.NewLine}Detalhes do erro: {ex.Message}", "Erro ao atualizar cadastro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
             }
         }
 
@@ -104,12 +89,12 @@ namespace Trabalho2.DB
                    });
         }
 
-        public Pesquisador RecuperarPorId(int id)
+        public Pesquisador RecuperarID(int id)
         {
             using NpgsqlConnection connection = new(StringConexao.stringConexao);
 
             sql = @"SELECT *
-                      FROM pesquisador
+                     FROM pesquisador
                      WHERE id = @id";
 
             return connection.QuerySingle<Pesquisador>(sql, param: new { id });
@@ -171,6 +156,64 @@ namespace Trabalho2.DB
                     if (idAreaAtuacao != null)
                     {
                         var nomesArea = areaDAO.RecuperarNomeArea(idAreaAtuacao.Value);
+                        if (nomesArea.Count > 0)
+                        {
+                            nomeArea = nomesArea[0];
+                        }
+                    }
+
+                    var pesquisador = new Pesquisador
+                    {
+                        Id = id,
+                        Nome = nomePesquisador,
+                        AreaAtuacao = idAreaAtuacao != null ? new Area { Id = idAreaAtuacao.Value, Nome = nomeArea } : null
+                    };
+
+                    pesquisadores.Add(pesquisador);
+                }
+
+                return pesquisadores;
+            }
+        }
+        public int? GetIdAreaAtuacao(int id)
+        {
+            using NpgsqlConnection connection = new NpgsqlConnection(StringConexao.stringConexao);
+
+            string sql = @"SELECT areaatuacao_id
+                   FROM pesquisador
+                   WHERE id = @id";
+
+            return connection.QuerySingleOrDefault<int?>(sql, param: new { id });
+        }
+
+        public List<Pesquisador> RecuperarPesquisadoresPorArea(string tabela, string nome, string areaAtuacao)
+        {
+            using (NpgsqlConnection connection = new NpgsqlConnection(StringConexao.stringConexao))
+            {
+                string sql = @"SELECT p.id, p.nome, p.areaatuacao_id 
+                       FROM pesquisador p 
+                       INNER JOIN areaatuacao a ON p.areaatuacao_id = a.id 
+                       WHERE (@nome IS NULL OR p.nome LIKE @Nome) 
+                       AND (@areaAtuacao IS NULL OR a.nome = @AreaAtuacao)";
+
+                connection.Open();
+
+                var pesquisadoresQueryResult = connection.Query(sql, new { Nome = $"%{nome}%", AreaAtuacao = areaAtuacao }).AsList();
+
+                var pesquisadores = new List<Pesquisador>();
+
+                AreaDAO areaDao = new();
+
+                foreach (var result in pesquisadoresQueryResult)
+                {
+                    var id = (int)result.id;
+                    var nomePesquisador = (string)result.nome;
+                    var idAreaAtuacao = (int?)result.areaatuacao_id;
+
+                    string nomeArea = "Sem área";
+                    if (idAreaAtuacao != null)
+                    {
+                        var nomesArea = areaDao.RecuperarNomeArea(idAreaAtuacao.Value);
                         if (nomesArea.Count > 0)
                         {
                             nomeArea = nomesArea[0];
