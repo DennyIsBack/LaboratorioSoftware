@@ -35,7 +35,7 @@
             Novo = new Button();
             Editar = new Button();
             Excluir = new Button();
-            ListView = new ListView();
+            lvPesquisadores = new ListView();
             groupBox1 = new GroupBox();
             cmbArea = new ComboBox();
             label3 = new Label();
@@ -145,18 +145,18 @@
             Excluir.UseVisualStyleBackColor = false;
             Excluir.Click += Excluir_Click;
             // 
-            // ListView
+            // lvPesquisadores
             // 
-            ListView.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            ListView.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            ListView.FullRowSelect = true;
-            ListView.Location = new Point(12, 119);
-            ListView.Name = "ListView";
-            ListView.Size = new Size(836, 469);
-            ListView.TabIndex = 16;
-            ListView.UseCompatibleStateImageBehavior = false;
-            ListView.View = View.Details;
-            ListView.DoubleClick += DoubleClick_Click;
+            lvPesquisadores.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            lvPesquisadores.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            lvPesquisadores.FullRowSelect = true;
+            lvPesquisadores.Location = new Point(12, 119);
+            lvPesquisadores.Name = "lvPesquisadores";
+            lvPesquisadores.Size = new Size(836, 469);
+            lvPesquisadores.TabIndex = 16;
+            lvPesquisadores.UseCompatibleStateImageBehavior = false;
+            lvPesquisadores.View = View.Details;
+            lvPesquisadores.DoubleClick += DoubleClick_Click;
             // 
             // groupBox1
             // 
@@ -233,7 +233,7 @@
             Controls.Add(Novo);
             Controls.Add(Editar);
             Controls.Add(Excluir);
-            Controls.Add(ListView);
+            Controls.Add(lvPesquisadores);
             Controls.Add(label1);
             Controls.Add(BtnFechar);
             FormBorderStyle = FormBorderStyle.None;
@@ -256,7 +256,7 @@
         private Button Novo;
         private Button Editar;
         private Button Excluir;
-        private ListView ListView;
+        private ListView lvPesquisadores;
         private GroupBox groupBox1;
         private Label label3;
         private TextBox txbNome;

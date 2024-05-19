@@ -1,26 +1,16 @@
-﻿namespace Trabalho2.Validation
+﻿using Trabalho2.DB;
+
+namespace Trabalho2.Validation
 {
     public class ValidationPesquisador
     {
-        public bool NomeEntrada(string nome)
+        public bool DadosPesquisador(string nome, string area, string email, string instituicao, string lattes, string tipo)
         {
-            if (string.IsNullOrWhiteSpace(nome))
+            if (string.IsNullOrWhiteSpace(nome) || string.IsNullOrWhiteSpace(area) || string.IsNullOrWhiteSpace(email) ||
+                string.IsNullOrWhiteSpace(instituicao) || string.IsNullOrWhiteSpace(lattes) || string.IsNullOrWhiteSpace(tipo))
             {
-                MessageBox.Show("Informe o nome!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
-
-            return true;
-        }
-
-        public bool AreaEntrada(string nome)
-        {
-            if (string.IsNullOrWhiteSpace(nome))
-            {
-                MessageBox.Show("Informe a área!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return false;
-            }
-
             return true;
         }
     }

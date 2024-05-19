@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using Microsoft.VisualBasic;
 using Npgsql;
 using Trabalho2.DB;
 using Trabalho2.Model;
@@ -56,34 +57,42 @@ namespace Trabalho2.Interfaces
 
         private void AdicionaColunas()
         {
-            ListView.Font = new Font(ListView.Font, FontStyle.Bold);
-            ListView.Columns.Add("ID", 50);
-            ListView.Columns.Add("Nome", 450);
-            ListView.Columns.Add("Área", 450);
+            lvPesquisadores.Font = new Font(lvPesquisadores.Font, FontStyle.Bold);
+            lvPesquisadores.Columns.Add("ID", 50);
+            lvPesquisadores.Columns.Add("Nome", 450);
+            lvPesquisadores.Columns.Add("Área", 450);
         }
 
         private void CarregarRegistros(string tabela, string nome, string areaAtuacao)
         {
-            string query = $@"SELECT p.id, p.nome, a.nome AS area FROM {tabela} p JOIN areaatuacao a ON p.id = a.id WHERE p.nome LIKE '%{nome}%' AND a.nome like '%{areaAtuacao}%'";
+            var pesquisadorDAO = new PesquisadorDAO();
+            var areaDAO = new AreaDAO();
 
-            using (var connection = new NpgsqlConnection(StringConexao.stringConexao))
+            var pesquisadores = pesquisadorDAO.RecuperarPesquisadores(tabela, nome);
+
+            lvPesquisadores.Items.Clear();
+
+            foreach (var pesquisador in pesquisadores)
             {
-                connection.Open();
+                string areaNome = "Sem área";
 
-                var resultados = connection.Query<Pesquisador>(query, new { Nome = nome, AreaAtuacao = areaAtuacao });
-
-                ListView.Items.Clear();
-
-                foreach (var resultado in resultados)
+                if (pesquisador.AreaAtuacao != null)
                 {
-                    var item = new ListViewItem(new string[]
+                    var nomesArea = areaDAO.RecuperarNomeArea(pesquisador.AreaAtuacao.Id);
+                    if (nomesArea.Count > 0)
                     {
-                        resultado.Id.ToString(),
-                        resultado.Nome,
-                        resultado.AreaAtuacao?.Nome ?? "Sem área"
-                    });
-                    ListView.Items.Add(item);
+                        areaNome = nomesArea[0];
+                    }
                 }
+
+                var item = new ListViewItem(new string[]
+                {
+            pesquisador.Id.ToString(),
+            pesquisador.Nome ?? string.Empty,
+            areaNome
+                });
+
+                lvPesquisadores.Items.Add(item);
             }
         }
 
@@ -105,9 +114,8 @@ namespace Trabalho2.Interfaces
                 return;
             }
 
-            ListViewItem item = ListView.SelectedItems[0];
+            ListViewItem item = lvPesquisadores.SelectedItems[0];
             PesquisadorManutencao form = new("Editar");
-            form.Id.Text = item.SubItems[0].Text;
             form.ShowDialog();
             //CarregarRegistros();
         }
@@ -119,18 +127,12 @@ namespace Trabalho2.Interfaces
                 return;
             }
 
-            ListViewItem item = ListView.SelectedItems[0];
+            ListViewItem item = lvPesquisadores.SelectedItems[0];
 
-            if (pesquisadorDAO.ExistePesquisador(int.Parse(item.SubItems[0].Text)))
-            {
-                MessageBox.Show("Não poderá excluir este pesquisador, pois o mesmo faz parte de um projeto", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            if (MessageBox.Show("Confirma excluir este registro?", "Selecione a opção", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            if (MessageBox.Show("Deseja realmente excluir este registro?", "Selecione a opção", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 pesquisadorDAO.Delete(int.Parse(item.SubItems[0].Text));
-                //CarregarRegistros();
+                lvPesquisadores.Items.Remove(lvPesquisadores.SelectedItems[0]);
             }
         }
 
@@ -141,9 +143,8 @@ namespace Trabalho2.Interfaces
                 return;
             }
 
-            ListViewItem item = ListView.SelectedItems[0];
+            ListViewItem item = lvPesquisadores.SelectedItems[0];
             PesquisadorManutencao form = new("Detalhes");
-            form.Id.Text = item.SubItems[0].Text;
             form.ShowDialog();
         }
 
@@ -154,13 +155,13 @@ namespace Trabalho2.Interfaces
 
         private bool VerificaList()
         {
-            if (ListView.Items.Count == 0)
+            if (lvPesquisadores.Items.Count == 0)
             {
                 MessageBox.Show("Não há nenhum registro!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
 
-            if (ListView.SelectedItems.Count == 0)
+            if (lvPesquisadores.SelectedItems.Count == 0)
             {
                 MessageBox.Show("Selecione um registro antes!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
