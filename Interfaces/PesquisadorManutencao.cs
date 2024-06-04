@@ -6,6 +6,7 @@ using Trabalho2.DB;
 using Trabalho2.Model;
 using Trabalho2.Interfaces;
 using Trabalho2.Validation;
+using static System.Windows.Forms.MonthCalendar;
 
 namespace Trabalho2.Interfaces
 {
@@ -118,7 +119,7 @@ namespace Trabalho2.Interfaces
                 {
                     try
                     {
-                       Pesquisador pesquisador = SetPesquisador(idListView);
+                        Pesquisador pesquisador = GetDadosPesquisador();
 
                         bool sucessoEdicao = pesquisadorDAO.Update(pesquisador);
 
@@ -207,5 +208,24 @@ namespace Trabalho2.Interfaces
             txbEmail.Text = pesquisador.Email;
             txbLattes.Text = pesquisador.Lattes;
         }
+
+        private Pesquisador GetDadosPesquisador()
+        {
+            AreaDAO areaDAO = new AreaDAO();
+
+            Pesquisador pesquisador = new()
+            {
+                Id = idListView,
+                Nome = txbNome.Text,
+                AreaAtuacao = new Area() { Id = areaDAO.GetIdByName(cmbArea.Text), Nome = cmbArea.Text },
+                Email = txbEmail.Text,
+                Instituicao = txbInstituicao.Text,
+                Lattes = txbLattes.Text,
+                Tipo = GetTipo()
+            };
+
+            return pesquisador;
+        }
+
     }
 }

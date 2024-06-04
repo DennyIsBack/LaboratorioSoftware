@@ -44,7 +44,7 @@ namespace Trabalho2.DB
             }
         }
 
-        private int GetIdByName(string nome)
+        public int GetIdByName(string nome)
         {
             using (NpgsqlConnection connection = new NpgsqlConnection(StringConexao.stringConexao))
             {

@@ -100,6 +100,17 @@ namespace Trabalho2.DB
             return connection.QuerySingle<Pesquisador>(sql, param: new { id });
         }
 
+        //public int RecuperarID(int id)
+        //{
+        //    using NpgsqlConnection connection = new(StringConexao.stringConexao);
+
+        //    sql = @"SELECT id
+        //             FROM pesquisador
+        //             WHERE id = @id";
+
+        //    return connection.QuerySingle<int>(sql, param: new { id });
+        //}
+
         public bool ExistePesquisador(int id)
         {
             using NpgsqlConnection connection = new(StringConexao.stringConexao);
