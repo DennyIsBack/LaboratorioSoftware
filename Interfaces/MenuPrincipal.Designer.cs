@@ -49,9 +49,9 @@
             MenuVertical.Controls.Add(BtnPesquisadores);
             MenuVertical.Dock = DockStyle.Left;
             MenuVertical.Location = new Point(0, 0);
-            MenuVertical.Margin = new Padding(6, 5, 6, 5);
+            MenuVertical.Margin = new Padding(4, 3, 4, 3);
             MenuVertical.Name = "MenuVertical";
-            MenuVertical.Size = new Size(357, 985);
+            MenuVertical.Size = new Size(250, 591);
             MenuVertical.TabIndex = 0;
             // 
             // BtnInstituicao
@@ -62,10 +62,10 @@
             BtnInstituicao.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             BtnInstituicao.ForeColor = Color.White;
             BtnInstituicao.ImageAlign = ContentAlignment.MiddleLeft;
-            BtnInstituicao.Location = new Point(0, 353);
-            BtnInstituicao.Margin = new Padding(6, 5, 6, 5);
+            BtnInstituicao.Location = new Point(0, 212);
+            BtnInstituicao.Margin = new Padding(4, 3, 4, 3);
             BtnInstituicao.Name = "BtnInstituicao";
-            BtnInstituicao.Size = new Size(357, 77);
+            BtnInstituicao.Size = new Size(250, 46);
             BtnInstituicao.TabIndex = 8;
             BtnInstituicao.Text = "Instituições";
             BtnInstituicao.UseVisualStyleBackColor = true;
@@ -79,10 +79,10 @@
             BtnProjetos.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             BtnProjetos.ForeColor = Color.White;
             BtnProjetos.ImageAlign = ContentAlignment.MiddleLeft;
-            BtnProjetos.Location = new Point(0, 280);
-            BtnProjetos.Margin = new Padding(6, 5, 6, 5);
+            BtnProjetos.Location = new Point(0, 168);
+            BtnProjetos.Margin = new Padding(4, 3, 4, 3);
             BtnProjetos.Name = "BtnProjetos";
-            BtnProjetos.Size = new Size(357, 77);
+            BtnProjetos.Size = new Size(250, 46);
             BtnProjetos.TabIndex = 7;
             BtnProjetos.Text = "Projetos";
             BtnProjetos.UseVisualStyleBackColor = true;
@@ -96,10 +96,10 @@
             BtnResultados.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             BtnResultados.ForeColor = Color.White;
             BtnResultados.ImageAlign = ContentAlignment.MiddleLeft;
-            BtnResultados.Location = new Point(0, 193);
-            BtnResultados.Margin = new Padding(6, 5, 6, 5);
+            BtnResultados.Location = new Point(0, 116);
+            BtnResultados.Margin = new Padding(4, 3, 4, 3);
             BtnResultados.Name = "BtnResultados";
-            BtnResultados.Size = new Size(357, 77);
+            BtnResultados.Size = new Size(250, 46);
             BtnResultados.TabIndex = 6;
             BtnResultados.Text = "Resultados";
             BtnResultados.UseVisualStyleBackColor = true;
@@ -110,10 +110,9 @@
             label1.AutoSize = true;
             label1.Font = new Font("Microsoft Sans Serif", 20.25F, FontStyle.Bold, GraphicsUnit.Point);
             label1.ForeColor = Color.White;
-            label1.Location = new Point(8, 33);
-            label1.Margin = new Padding(4, 0, 4, 0);
+            label1.Location = new Point(6, 20);
             label1.Name = "label1";
-            label1.Size = new Size(339, 47);
+            label1.Size = new Size(232, 31);
             label1.TabIndex = 5;
             label1.Text = "UNIVERSIDADE";
             // 
@@ -125,10 +124,10 @@
             BtnPesquisadores.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             BtnPesquisadores.ForeColor = Color.White;
             BtnPesquisadores.ImageAlign = ContentAlignment.MiddleLeft;
-            BtnPesquisadores.Location = new Point(0, 107);
-            BtnPesquisadores.Margin = new Padding(6, 5, 6, 5);
+            BtnPesquisadores.Location = new Point(0, 64);
+            BtnPesquisadores.Margin = new Padding(4, 3, 4, 3);
             BtnPesquisadores.Name = "BtnPesquisadores";
-            BtnPesquisadores.Size = new Size(357, 77);
+            BtnPesquisadores.Size = new Size(250, 46);
             BtnPesquisadores.TabIndex = 2;
             BtnPesquisadores.Text = "Pesquisadores";
             BtnPesquisadores.UseVisualStyleBackColor = true;
@@ -136,24 +135,24 @@
             // 
             // Painel
             // 
-            Painel.BackColor = SystemColors.WindowFrame;
+            Painel.BackColor = SystemColors.Control;
             Painel.Dock = DockStyle.Fill;
-            Painel.Location = new Point(357, 0);
-            Painel.Margin = new Padding(6, 5, 6, 5);
+            Painel.Location = new Point(250, 0);
+            Painel.Margin = new Padding(4, 3, 4, 3);
             Painel.Name = "Painel";
-            Painel.Size = new Size(1506, 985);
+            Painel.Size = new Size(1054, 591);
             Painel.TabIndex = 2;
             // 
             // MenuPrincipal
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1863, 985);
+            ClientSize = new Size(1304, 591);
             Controls.Add(Painel);
             Controls.Add(MenuVertical);
             Icon = (Icon)resources.GetObject("$this.Icon");
-            Margin = new Padding(6, 5, 6, 5);
-            MinimumSize = new Size(1876, 1013);
+            Margin = new Padding(4, 3, 4, 3);
+            MinimumSize = new Size(1318, 623);
             Name = "MenuPrincipal";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Menu Principal";

@@ -17,7 +17,7 @@ namespace Trabalho2.DB
         {
             using (NpgsqlConnection connection = new NpgsqlConnection(StringConexao.stringConexao))
             {
-                sql = @"SELECT nome FROM areaatuacao";
+                sql = @"SELECT nome FROM areaatuacao ORDER BY nome ASC";
 
                 return connection.Query<string>(sql).AsList();
             }
