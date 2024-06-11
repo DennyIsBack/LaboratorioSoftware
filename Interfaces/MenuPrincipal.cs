@@ -34,6 +34,7 @@ namespace Trabalho2.Interfaces
             BtnPesquisadores.BackColor = Color.FromArgb(45, 45, 48);
             BtnResultados.BackColor = Color.FromArgb(25, 25, 112);
             BtnProjetos.BackColor = Color.FromArgb(25, 25, 112);
+            BtnInstituicao.BackColor = Color.FromArgb(25, 25, 112);
             AbrirFormInPainel(new Pesquisadores(this));
         }
 
@@ -42,6 +43,7 @@ namespace Trabalho2.Interfaces
             BtnPesquisadores.BackColor = Color.FromArgb(25, 25, 112);
             BtnResultados.BackColor = Color.FromArgb(45, 45, 48);
             BtnProjetos.BackColor = Color.FromArgb(25, 25, 112);
+            BtnInstituicao.BackColor = Color.FromArgb(25, 25, 112);
             AbrirFormInPainel(new Resultados(this));
         }
 
@@ -50,7 +52,17 @@ namespace Trabalho2.Interfaces
             BtnPesquisadores.BackColor = Color.FromArgb(25, 25, 112);
             BtnResultados.BackColor = Color.FromArgb(25, 25, 112);
             BtnProjetos.BackColor = Color.FromArgb(45, 45, 48);
+            BtnInstituicao.BackColor = Color.FromArgb(25, 25, 112);
             AbrirFormInPainel(new Projetos(this));
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            BtnPesquisadores.BackColor = Color.FromArgb(25, 25, 112);
+            BtnResultados.BackColor = Color.FromArgb(25, 25, 112);
+            BtnProjetos.BackColor = Color.FromArgb(25, 25, 112);
+            BtnInstituicao.BackColor = Color.FromArgb(45, 45, 48);
+            AbrirFormInPainel(new Instituicoes(this));
         }
     }
 }

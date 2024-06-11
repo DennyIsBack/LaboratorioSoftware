@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MenuPrincipal));
             MenuVertical = new Panel();
+            BtnInstituicao = new Button();
             BtnProjetos = new Button();
             BtnResultados = new Button();
             label1 = new Label();
@@ -41,6 +42,7 @@
             // MenuVertical
             // 
             MenuVertical.BackColor = Color.MidnightBlue;
+            MenuVertical.Controls.Add(BtnInstituicao);
             MenuVertical.Controls.Add(BtnProjetos);
             MenuVertical.Controls.Add(BtnResultados);
             MenuVertical.Controls.Add(label1);
@@ -51,6 +53,23 @@
             MenuVertical.Name = "MenuVertical";
             MenuVertical.Size = new Size(357, 985);
             MenuVertical.TabIndex = 0;
+            // 
+            // BtnInstituicao
+            // 
+            BtnInstituicao.FlatAppearance.BorderSize = 0;
+            BtnInstituicao.FlatAppearance.MouseOverBackColor = Color.FromArgb(45, 45, 48);
+            BtnInstituicao.FlatStyle = FlatStyle.Flat;
+            BtnInstituicao.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            BtnInstituicao.ForeColor = Color.White;
+            BtnInstituicao.ImageAlign = ContentAlignment.MiddleLeft;
+            BtnInstituicao.Location = new Point(0, 353);
+            BtnInstituicao.Margin = new Padding(6, 5, 6, 5);
+            BtnInstituicao.Name = "BtnInstituicao";
+            BtnInstituicao.Size = new Size(357, 77);
+            BtnInstituicao.TabIndex = 8;
+            BtnInstituicao.Text = "Instituições";
+            BtnInstituicao.UseVisualStyleBackColor = true;
+            BtnInstituicao.Click += button1_Click;
             // 
             // BtnProjetos
             // 
@@ -117,7 +136,7 @@
             // 
             // Painel
             // 
-            Painel.BackColor = Color.WhiteSmoke;
+            Painel.BackColor = SystemColors.WindowFrame;
             Painel.Dock = DockStyle.Fill;
             Painel.Location = new Point(357, 0);
             Painel.Margin = new Padding(6, 5, 6, 5);
@@ -151,5 +170,6 @@
         private Label label1;
         public Button BtnProjetos;
         public Button BtnResultados;
+        public Button BtnInstituicao;
     }
 }

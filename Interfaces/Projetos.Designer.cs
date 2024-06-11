@@ -29,268 +29,283 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Projetos));
-            this.Pesquisar = new System.Windows.Forms.Button();
-            this.Detalhes = new System.Windows.Forms.Button();
-            this.Novo = new System.Windows.Forms.Button();
-            this.Editar = new System.Windows.Forms.Button();
-            this.Excluir = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.DataInicialFiltro = new System.Windows.Forms.DateTimePicker();
-            this.label3 = new System.Windows.Forms.Label();
-            this.TituloFiltro = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.ListView = new System.Windows.Forms.ListView();
-            this.label1 = new System.Windows.Forms.Label();
-            this.BtnFechar = new System.Windows.Forms.PictureBox();
-            this.VisualizarResultado = new System.Windows.Forms.Button();
-            this.FinalizarProjeto = new System.Windows.Forms.Button();
-            this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.BtnFechar)).BeginInit();
-            this.SuspendLayout();
+            Pesquisar = new Button();
+            Detalhes = new Button();
+            Novo = new Button();
+            Editar = new Button();
+            Excluir = new Button();
+            groupBox1 = new GroupBox();
+            DataInicialFiltro = new DateTimePicker();
+            label3 = new Label();
+            TituloFiltro = new TextBox();
+            label2 = new Label();
+            ListView = new ListView();
+            label1 = new Label();
+            BtnFechar = new PictureBox();
+            VisualizarResultado = new Button();
+            FinalizarProjeto = new Button();
+            groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)BtnFechar).BeginInit();
+            SuspendLayout();
             // 
             // Pesquisar
             // 
-            this.Pesquisar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Pesquisar.BackColor = System.Drawing.Color.MidnightBlue;
-            this.Pesquisar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Pesquisar.ForeColor = System.Drawing.Color.White;
-            this.Pesquisar.Image = ((System.Drawing.Image)(resources.GetObject("Pesquisar.Image")));
-            this.Pesquisar.Location = new System.Drawing.Point(858, 59);
-            this.Pesquisar.Name = "Pesquisar";
-            this.Pesquisar.Size = new System.Drawing.Size(54, 54);
-            this.Pesquisar.TabIndex = 35;
-            this.Pesquisar.UseVisualStyleBackColor = false;
-            this.Pesquisar.Click += new System.EventHandler(this.Pesquisar_Click);
+            Pesquisar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            Pesquisar.BackColor = Color.MidnightBlue;
+            Pesquisar.FlatAppearance.MouseDownBackColor = Color.Navy;
+            Pesquisar.FlatAppearance.MouseOverBackColor = Color.MediumBlue;
+            Pesquisar.FlatStyle = FlatStyle.Flat;
+            Pesquisar.ForeColor = Color.White;
+            Pesquisar.Image = (Image)resources.GetObject("Pesquisar.Image");
+            Pesquisar.Location = new Point(1183, 43);
+            Pesquisar.Margin = new Padding(4, 5, 4, 5);
+            Pesquisar.Name = "Pesquisar";
+            Pesquisar.Size = new Size(63, 35);
+            Pesquisar.TabIndex = 35;
+            Pesquisar.UseVisualStyleBackColor = false;
+            Pesquisar.Click += Pesquisar_Click;
             // 
             // Detalhes
             // 
-            this.Detalhes.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Detalhes.BackColor = System.Drawing.Color.MidnightBlue;
-            this.Detalhes.FlatAppearance.BorderSize = 0;
-            this.Detalhes.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.Detalhes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Detalhes.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.Detalhes.ForeColor = System.Drawing.Color.White;
-            this.Detalhes.Image = ((System.Drawing.Image)(resources.GetObject("Detalhes.Image")));
-            this.Detalhes.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.Detalhes.Location = new System.Drawing.Point(858, 257);
-            this.Detalhes.Name = "Detalhes";
-            this.Detalhes.Size = new System.Drawing.Size(180, 40);
-            this.Detalhes.TabIndex = 34;
-            this.Detalhes.Text = "DETALHES";
-            this.Detalhes.UseVisualStyleBackColor = false;
-            this.Detalhes.Click += new System.EventHandler(this.Detalhes_Click);
+            Detalhes.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            Detalhes.BackColor = Color.MidnightBlue;
+            Detalhes.FlatAppearance.BorderSize = 0;
+            Detalhes.FlatAppearance.MouseOverBackColor = Color.FromArgb(45, 45, 48);
+            Detalhes.FlatStyle = FlatStyle.Flat;
+            Detalhes.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            Detalhes.ForeColor = Color.White;
+            Detalhes.Image = (Image)resources.GetObject("Detalhes.Image");
+            Detalhes.ImageAlign = ContentAlignment.MiddleLeft;
+            Detalhes.Location = new Point(1226, 428);
+            Detalhes.Margin = new Padding(4, 5, 4, 5);
+            Detalhes.Name = "Detalhes";
+            Detalhes.Size = new Size(257, 67);
+            Detalhes.TabIndex = 34;
+            Detalhes.Text = "DETALHES";
+            Detalhes.UseVisualStyleBackColor = false;
+            Detalhes.Click += Detalhes_Click;
             // 
             // Novo
             // 
-            this.Novo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Novo.BackColor = System.Drawing.Color.MidnightBlue;
-            this.Novo.FlatAppearance.BorderSize = 0;
-            this.Novo.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.Novo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Novo.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.Novo.ForeColor = System.Drawing.Color.White;
-            this.Novo.Image = ((System.Drawing.Image)(resources.GetObject("Novo.Image")));
-            this.Novo.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.Novo.Location = new System.Drawing.Point(858, 119);
-            this.Novo.Name = "Novo";
-            this.Novo.Size = new System.Drawing.Size(180, 40);
-            this.Novo.TabIndex = 33;
-            this.Novo.Text = "NOVO";
-            this.Novo.UseVisualStyleBackColor = false;
-            this.Novo.Click += new System.EventHandler(this.Novo_Click);
+            Novo.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            Novo.BackColor = Color.MidnightBlue;
+            Novo.FlatAppearance.BorderSize = 0;
+            Novo.FlatAppearance.MouseOverBackColor = Color.FromArgb(45, 45, 48);
+            Novo.FlatStyle = FlatStyle.Flat;
+            Novo.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            Novo.ForeColor = Color.White;
+            Novo.Image = (Image)resources.GetObject("Novo.Image");
+            Novo.ImageAlign = ContentAlignment.MiddleLeft;
+            Novo.Location = new Point(1226, 198);
+            Novo.Margin = new Padding(4, 5, 4, 5);
+            Novo.Name = "Novo";
+            Novo.Size = new Size(257, 67);
+            Novo.TabIndex = 33;
+            Novo.Text = "NOVO";
+            Novo.UseVisualStyleBackColor = false;
+            Novo.Click += Novo_Click;
             // 
             // Editar
             // 
-            this.Editar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Editar.BackColor = System.Drawing.Color.MidnightBlue;
-            this.Editar.FlatAppearance.BorderSize = 0;
-            this.Editar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.Editar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Editar.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.Editar.ForeColor = System.Drawing.Color.White;
-            this.Editar.Image = ((System.Drawing.Image)(resources.GetObject("Editar.Image")));
-            this.Editar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.Editar.Location = new System.Drawing.Point(858, 165);
-            this.Editar.Name = "Editar";
-            this.Editar.Size = new System.Drawing.Size(180, 40);
-            this.Editar.TabIndex = 32;
-            this.Editar.Text = "EDITAR";
-            this.Editar.UseVisualStyleBackColor = false;
-            this.Editar.Click += new System.EventHandler(this.Editar_Click);
+            Editar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            Editar.BackColor = Color.MidnightBlue;
+            Editar.FlatAppearance.BorderSize = 0;
+            Editar.FlatAppearance.MouseOverBackColor = Color.FromArgb(45, 45, 48);
+            Editar.FlatStyle = FlatStyle.Flat;
+            Editar.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            Editar.ForeColor = Color.White;
+            Editar.Image = (Image)resources.GetObject("Editar.Image");
+            Editar.ImageAlign = ContentAlignment.MiddleLeft;
+            Editar.Location = new Point(1226, 275);
+            Editar.Margin = new Padding(4, 5, 4, 5);
+            Editar.Name = "Editar";
+            Editar.Size = new Size(257, 67);
+            Editar.TabIndex = 32;
+            Editar.Text = "EDITAR";
+            Editar.UseVisualStyleBackColor = false;
+            Editar.Click += Editar_Click;
             // 
             // Excluir
             // 
-            this.Excluir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Excluir.BackColor = System.Drawing.Color.MidnightBlue;
-            this.Excluir.FlatAppearance.BorderSize = 0;
-            this.Excluir.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.Excluir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Excluir.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.Excluir.ForeColor = System.Drawing.Color.White;
-            this.Excluir.Image = ((System.Drawing.Image)(resources.GetObject("Excluir.Image")));
-            this.Excluir.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.Excluir.Location = new System.Drawing.Point(858, 211);
-            this.Excluir.Name = "Excluir";
-            this.Excluir.Size = new System.Drawing.Size(180, 40);
-            this.Excluir.TabIndex = 31;
-            this.Excluir.Text = "EXCLUIR";
-            this.Excluir.UseVisualStyleBackColor = false;
-            this.Excluir.Click += new System.EventHandler(this.Excluir_Click);
+            Excluir.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            Excluir.BackColor = Color.MidnightBlue;
+            Excluir.FlatAppearance.BorderSize = 0;
+            Excluir.FlatAppearance.MouseOverBackColor = Color.FromArgb(45, 45, 48);
+            Excluir.FlatStyle = FlatStyle.Flat;
+            Excluir.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            Excluir.ForeColor = Color.White;
+            Excluir.Image = (Image)resources.GetObject("Excluir.Image");
+            Excluir.ImageAlign = ContentAlignment.MiddleLeft;
+            Excluir.Location = new Point(1226, 352);
+            Excluir.Margin = new Padding(4, 5, 4, 5);
+            Excluir.Name = "Excluir";
+            Excluir.Size = new Size(257, 67);
+            Excluir.TabIndex = 31;
+            Excluir.Text = "EXCLUIR";
+            Excluir.UseVisualStyleBackColor = false;
+            Excluir.Click += Excluir_Click;
             // 
             // groupBox1
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.DataInicialFiltro);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.TituloFiltro);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.groupBox1.Location = new System.Drawing.Point(12, 49);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(836, 64);
-            this.groupBox1.TabIndex = 30;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Filtros";
+            groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            groupBox1.Controls.Add(DataInicialFiltro);
+            groupBox1.Controls.Add(label3);
+            groupBox1.Controls.Add(TituloFiltro);
+            groupBox1.Controls.Add(Pesquisar);
+            groupBox1.Controls.Add(label2);
+            groupBox1.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            groupBox1.Location = new Point(17, 82);
+            groupBox1.Margin = new Padding(4, 5, 4, 5);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Padding = new Padding(4, 5, 4, 5);
+            groupBox1.Size = new Size(1290, 107);
+            groupBox1.TabIndex = 30;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Filtros";
             // 
             // DataInicialFiltro
             // 
-            this.DataInicialFiltro.CustomFormat = " ";
-            this.DataInicialFiltro.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.DataInicialFiltro.Location = new System.Drawing.Point(708, 26);
-            this.DataInicialFiltro.Name = "DataInicialFiltro";
-            this.DataInicialFiltro.Size = new System.Drawing.Size(122, 27);
-            this.DataInicialFiltro.TabIndex = 36;
-            this.DataInicialFiltro.ValueChanged += new System.EventHandler(this.DataInicialFiltro_ValueChanged);
-            this.DataInicialFiltro.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DataInicialFiltro_KeyDown);
+            DataInicialFiltro.CustomFormat = " ";
+            DataInicialFiltro.Format = DateTimePickerFormat.Custom;
+            DataInicialFiltro.Location = new Point(1011, 43);
+            DataInicialFiltro.Margin = new Padding(4, 5, 4, 5);
+            DataInicialFiltro.Name = "DataInicialFiltro";
+            DataInicialFiltro.Size = new Size(173, 35);
+            DataInicialFiltro.TabIndex = 36;
+            DataInicialFiltro.ValueChanged += DataInicialFiltro_ValueChanged;
+            DataInicialFiltro.KeyDown += DataInicialFiltro_KeyDown;
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(598, 29);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(104, 21);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "Data Inicial:";
+            label3.AutoSize = true;
+            label3.Location = new Point(854, 48);
+            label3.Margin = new Padding(4, 0, 4, 0);
+            label3.Name = "label3";
+            label3.Size = new Size(136, 29);
+            label3.TabIndex = 2;
+            label3.Text = "Data Inicial:";
             // 
             // TituloFiltro
             // 
-            this.TituloFiltro.Location = new System.Drawing.Point(68, 26);
-            this.TituloFiltro.Name = "TituloFiltro";
-            this.TituloFiltro.Size = new System.Drawing.Size(524, 27);
-            this.TituloFiltro.TabIndex = 1;
+            TituloFiltro.Location = new Point(97, 43);
+            TituloFiltro.Margin = new Padding(4, 5, 4, 5);
+            TituloFiltro.Name = "TituloFiltro";
+            TituloFiltro.Size = new Size(747, 35);
+            TituloFiltro.TabIndex = 1;
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(7, 29);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(55, 21);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Título:";
+            label2.AutoSize = true;
+            label2.Location = new Point(10, 48);
+            label2.Margin = new Padding(4, 0, 4, 0);
+            label2.Name = "label2";
+            label2.Size = new Size(80, 29);
+            label2.TabIndex = 0;
+            label2.Text = "Título:";
             // 
             // ListView
             // 
-            this.ListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ListView.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.ListView.FullRowSelect = true;
-            this.ListView.Location = new System.Drawing.Point(12, 119);
-            this.ListView.Name = "ListView";
-            this.ListView.Size = new System.Drawing.Size(836, 469);
-            this.ListView.TabIndex = 29;
-            this.ListView.UseCompatibleStateImageBehavior = false;
-            this.ListView.View = System.Windows.Forms.View.Details;
-            this.ListView.DoubleClick += new System.EventHandler(this.DoubleClick_Click);
+            ListView.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            ListView.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            ListView.FullRowSelect = true;
+            ListView.Location = new Point(17, 198);
+            ListView.Margin = new Padding(4, 5, 4, 5);
+            ListView.Name = "ListView";
+            ListView.Size = new Size(1193, 779);
+            ListView.TabIndex = 29;
+            ListView.UseCompatibleStateImageBehavior = false;
+            ListView.View = View.Details;
+            ListView.DoubleClick += DoubleClick_Click;
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Century Gothic", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(12, 20);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(125, 28);
-            this.label1.TabIndex = 28;
-            this.label1.Text = "PROJETOS";
+            label1.AutoSize = true;
+            label1.Font = new Font("Microsoft Sans Serif", 18F, FontStyle.Bold, GraphicsUnit.Point);
+            label1.Location = new Point(17, 33);
+            label1.Margin = new Padding(4, 0, 4, 0);
+            label1.Name = "label1";
+            label1.Size = new Size(219, 40);
+            label1.TabIndex = 28;
+            label1.Text = "PROJETOS";
             // 
             // BtnFechar
             // 
-            this.BtnFechar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.BtnFechar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BtnFechar.Image = ((System.Drawing.Image)(resources.GetObject("BtnFechar.Image")));
-            this.BtnFechar.Location = new System.Drawing.Point(1024, 5);
-            this.BtnFechar.Name = "BtnFechar";
-            this.BtnFechar.Size = new System.Drawing.Size(20, 20);
-            this.BtnFechar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.BtnFechar.TabIndex = 36;
-            this.BtnFechar.TabStop = false;
-            this.BtnFechar.Click += new System.EventHandler(this.BtnFechar_Click);
+            BtnFechar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            BtnFechar.Cursor = Cursors.Hand;
+            BtnFechar.Image = (Image)resources.GetObject("BtnFechar.Image");
+            BtnFechar.Location = new Point(1463, 8);
+            BtnFechar.Margin = new Padding(4, 5, 4, 5);
+            BtnFechar.Name = "BtnFechar";
+            BtnFechar.Size = new Size(29, 33);
+            BtnFechar.SizeMode = PictureBoxSizeMode.StretchImage;
+            BtnFechar.TabIndex = 36;
+            BtnFechar.TabStop = false;
+            BtnFechar.Click += BtnFechar_Click;
             // 
             // VisualizarResultado
             // 
-            this.VisualizarResultado.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.VisualizarResultado.BackColor = System.Drawing.Color.MidnightBlue;
-            this.VisualizarResultado.FlatAppearance.BorderSize = 0;
-            this.VisualizarResultado.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.VisualizarResultado.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.VisualizarResultado.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.VisualizarResultado.ForeColor = System.Drawing.Color.White;
-            this.VisualizarResultado.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.VisualizarResultado.Location = new System.Drawing.Point(858, 389);
-            this.VisualizarResultado.Name = "VisualizarResultado";
-            this.VisualizarResultado.Size = new System.Drawing.Size(180, 54);
-            this.VisualizarResultado.TabIndex = 37;
-            this.VisualizarResultado.Text = "VISUALIZAR RESULTADO";
-            this.VisualizarResultado.UseVisualStyleBackColor = false;
-            this.VisualizarResultado.Click += new System.EventHandler(this.VisualizarResultado_Click);
+            VisualizarResultado.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            VisualizarResultado.BackColor = Color.MidnightBlue;
+            VisualizarResultado.FlatAppearance.BorderSize = 0;
+            VisualizarResultado.FlatAppearance.MouseOverBackColor = Color.FromArgb(45, 45, 48);
+            VisualizarResultado.FlatStyle = FlatStyle.Flat;
+            VisualizarResultado.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            VisualizarResultado.ForeColor = Color.White;
+            VisualizarResultado.ImageAlign = ContentAlignment.MiddleLeft;
+            VisualizarResultado.Location = new Point(1226, 648);
+            VisualizarResultado.Margin = new Padding(4, 5, 4, 5);
+            VisualizarResultado.Name = "VisualizarResultado";
+            VisualizarResultado.Size = new Size(257, 90);
+            VisualizarResultado.TabIndex = 37;
+            VisualizarResultado.Text = "VISUALIZAR RESULTADO";
+            VisualizarResultado.UseVisualStyleBackColor = false;
+            VisualizarResultado.Click += VisualizarResultado_Click;
             // 
             // FinalizarProjeto
             // 
-            this.FinalizarProjeto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.FinalizarProjeto.BackColor = System.Drawing.Color.MidnightBlue;
-            this.FinalizarProjeto.FlatAppearance.BorderSize = 0;
-            this.FinalizarProjeto.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.FinalizarProjeto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.FinalizarProjeto.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.FinalizarProjeto.ForeColor = System.Drawing.Color.White;
-            this.FinalizarProjeto.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.FinalizarProjeto.Location = new System.Drawing.Point(858, 329);
-            this.FinalizarProjeto.Name = "FinalizarProjeto";
-            this.FinalizarProjeto.Size = new System.Drawing.Size(180, 54);
-            this.FinalizarProjeto.TabIndex = 38;
-            this.FinalizarProjeto.Text = "FINALIZAR PROJETO";
-            this.FinalizarProjeto.UseVisualStyleBackColor = false;
-            this.FinalizarProjeto.Click += new System.EventHandler(this.FinalizarProjeto_Click);
+            FinalizarProjeto.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            FinalizarProjeto.BackColor = Color.MidnightBlue;
+            FinalizarProjeto.FlatAppearance.BorderSize = 0;
+            FinalizarProjeto.FlatAppearance.MouseOverBackColor = Color.FromArgb(45, 45, 48);
+            FinalizarProjeto.FlatStyle = FlatStyle.Flat;
+            FinalizarProjeto.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            FinalizarProjeto.ForeColor = Color.White;
+            FinalizarProjeto.ImageAlign = ContentAlignment.MiddleLeft;
+            FinalizarProjeto.Location = new Point(1226, 548);
+            FinalizarProjeto.Margin = new Padding(4, 5, 4, 5);
+            FinalizarProjeto.Name = "FinalizarProjeto";
+            FinalizarProjeto.Size = new Size(257, 90);
+            FinalizarProjeto.TabIndex = 38;
+            FinalizarProjeto.Text = "FINALIZAR PROJETO";
+            FinalizarProjeto.UseVisualStyleBackColor = false;
+            FinalizarProjeto.Click += FinalizarProjeto_Click;
             // 
             // Projetos
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.ClientSize = new System.Drawing.Size(1050, 600);
-            this.Controls.Add(this.FinalizarProjeto);
-            this.Controls.Add(this.VisualizarResultado);
-            this.Controls.Add(this.BtnFechar);
-            this.Controls.Add(this.Pesquisar);
-            this.Controls.Add(this.Detalhes);
-            this.Controls.Add(this.Novo);
-            this.Controls.Add(this.Editar);
-            this.Controls.Add(this.Excluir);
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.ListView);
-            this.Controls.Add(this.label1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "Projetos";
-            this.Text = "Projetos";
-            this.Load += new System.EventHandler(this.Projetos_Load);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.BtnFechar)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.WhiteSmoke;
+            ClientSize = new Size(1500, 1000);
+            Controls.Add(FinalizarProjeto);
+            Controls.Add(VisualizarResultado);
+            Controls.Add(BtnFechar);
+            Controls.Add(Detalhes);
+            Controls.Add(Novo);
+            Controls.Add(Editar);
+            Controls.Add(Excluir);
+            Controls.Add(groupBox1);
+            Controls.Add(ListView);
+            Controls.Add(label1);
+            FormBorderStyle = FormBorderStyle.None;
+            Margin = new Padding(4, 5, 4, 5);
+            Name = "Projetos";
+            Text = "Projetos";
+            Load += Projetos_Load;
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)BtnFechar).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion

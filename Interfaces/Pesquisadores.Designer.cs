@@ -37,11 +37,11 @@
             Excluir = new Button();
             lvPesquisadores = new ListView();
             groupBox1 = new GroupBox();
+            btnPesquisar = new Button();
             cmbArea = new ComboBox();
             label3 = new Label();
             txbNome = new TextBox();
             label2 = new Label();
-            btnPesquisar = new Button();
             ((System.ComponentModel.ISupportInitialize)BtnFechar).BeginInit();
             groupBox1.SuspendLayout();
             SuspendLayout();
@@ -51,9 +51,10 @@
             BtnFechar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             BtnFechar.Cursor = Cursors.Hand;
             BtnFechar.Image = (Image)resources.GetObject("BtnFechar.Image");
-            BtnFechar.Location = new Point(1024, 5);
+            BtnFechar.Location = new Point(1463, 8);
+            BtnFechar.Margin = new Padding(4, 5, 4, 5);
             BtnFechar.Name = "BtnFechar";
-            BtnFechar.Size = new Size(20, 20);
+            BtnFechar.Size = new Size(29, 33);
             BtnFechar.SizeMode = PictureBoxSizeMode.StretchImage;
             BtnFechar.TabIndex = 1;
             BtnFechar.TabStop = false;
@@ -62,10 +63,11 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Century Gothic", 18F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.Location = new Point(12, 18);
+            label1.Font = new Font("Microsoft Sans Serif", 18F, FontStyle.Bold, GraphicsUnit.Point);
+            label1.Location = new Point(17, 30);
+            label1.Margin = new Padding(4, 0, 4, 0);
             label1.Name = "label1";
-            label1.Size = new Size(196, 28);
+            label1.Size = new Size(341, 40);
             label1.TabIndex = 15;
             label1.Text = "PESQUISADORES";
             // 
@@ -76,13 +78,14 @@
             Detalhes.FlatAppearance.BorderSize = 0;
             Detalhes.FlatAppearance.MouseOverBackColor = Color.FromArgb(45, 45, 48);
             Detalhes.FlatStyle = FlatStyle.Flat;
-            Detalhes.Font = new Font("Century Gothic", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            Detalhes.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             Detalhes.ForeColor = Color.White;
             Detalhes.Image = (Image)resources.GetObject("Detalhes.Image");
             Detalhes.ImageAlign = ContentAlignment.MiddleLeft;
-            Detalhes.Location = new Point(858, 257);
+            Detalhes.Location = new Point(1226, 428);
+            Detalhes.Margin = new Padding(4, 5, 4, 5);
             Detalhes.Name = "Detalhes";
-            Detalhes.Size = new Size(180, 40);
+            Detalhes.Size = new Size(257, 67);
             Detalhes.TabIndex = 20;
             Detalhes.Text = "DETALHES";
             Detalhes.UseVisualStyleBackColor = false;
@@ -95,13 +98,14 @@
             Novo.FlatAppearance.BorderSize = 0;
             Novo.FlatAppearance.MouseOverBackColor = Color.FromArgb(45, 45, 48);
             Novo.FlatStyle = FlatStyle.Flat;
-            Novo.Font = new Font("Century Gothic", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            Novo.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             Novo.ForeColor = Color.White;
             Novo.Image = (Image)resources.GetObject("Novo.Image");
             Novo.ImageAlign = ContentAlignment.MiddleLeft;
-            Novo.Location = new Point(858, 119);
+            Novo.Location = new Point(1226, 198);
+            Novo.Margin = new Padding(4, 5, 4, 5);
             Novo.Name = "Novo";
-            Novo.Size = new Size(180, 40);
+            Novo.Size = new Size(257, 67);
             Novo.TabIndex = 19;
             Novo.Text = "NOVO";
             Novo.UseVisualStyleBackColor = false;
@@ -114,13 +118,14 @@
             Editar.FlatAppearance.BorderSize = 0;
             Editar.FlatAppearance.MouseOverBackColor = Color.FromArgb(45, 45, 48);
             Editar.FlatStyle = FlatStyle.Flat;
-            Editar.Font = new Font("Century Gothic", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            Editar.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             Editar.ForeColor = Color.White;
             Editar.Image = (Image)resources.GetObject("Editar.Image");
             Editar.ImageAlign = ContentAlignment.MiddleLeft;
-            Editar.Location = new Point(858, 165);
+            Editar.Location = new Point(1226, 275);
+            Editar.Margin = new Padding(4, 5, 4, 5);
             Editar.Name = "Editar";
-            Editar.Size = new Size(180, 40);
+            Editar.Size = new Size(257, 67);
             Editar.TabIndex = 18;
             Editar.Text = "EDITAR";
             Editar.UseVisualStyleBackColor = false;
@@ -133,13 +138,14 @@
             Excluir.FlatAppearance.BorderSize = 0;
             Excluir.FlatAppearance.MouseOverBackColor = Color.FromArgb(45, 45, 48);
             Excluir.FlatStyle = FlatStyle.Flat;
-            Excluir.Font = new Font("Century Gothic", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            Excluir.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             Excluir.ForeColor = Color.White;
             Excluir.Image = (Image)resources.GetObject("Excluir.Image");
             Excluir.ImageAlign = ContentAlignment.MiddleLeft;
-            Excluir.Location = new Point(858, 211);
+            Excluir.Location = new Point(1226, 352);
+            Excluir.Margin = new Padding(4, 5, 4, 5);
             Excluir.Name = "Excluir";
-            Excluir.Size = new Size(180, 40);
+            Excluir.Size = new Size(257, 67);
             Excluir.TabIndex = 17;
             Excluir.Text = "EXCLUIR";
             Excluir.UseVisualStyleBackColor = false;
@@ -148,11 +154,12 @@
             // lvPesquisadores
             // 
             lvPesquisadores.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            lvPesquisadores.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            lvPesquisadores.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point);
             lvPesquisadores.FullRowSelect = true;
-            lvPesquisadores.Location = new Point(12, 119);
+            lvPesquisadores.Location = new Point(17, 198);
+            lvPesquisadores.Margin = new Padding(4, 5, 4, 5);
             lvPesquisadores.Name = "lvPesquisadores";
-            lvPesquisadores.Size = new Size(836, 469);
+            lvPesquisadores.Size = new Size(1193, 779);
             lvPesquisadores.TabIndex = 16;
             lvPesquisadores.UseCompatibleStateImageBehavior = false;
             lvPesquisadores.View = View.Details;
@@ -162,73 +169,81 @@
             // groupBox1
             // 
             groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            groupBox1.Controls.Add(btnPesquisar);
             groupBox1.Controls.Add(cmbArea);
             groupBox1.Controls.Add(label3);
             groupBox1.Controls.Add(txbNome);
             groupBox1.Controls.Add(label2);
-            groupBox1.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            groupBox1.Location = new Point(12, 49);
+            groupBox1.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            groupBox1.Location = new Point(17, 82);
+            groupBox1.Margin = new Padding(4, 5, 4, 5);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(836, 64);
+            groupBox1.Padding = new Padding(4, 5, 4, 5);
+            groupBox1.Size = new Size(1288, 107);
             groupBox1.TabIndex = 21;
             groupBox1.TabStop = false;
             groupBox1.Text = "Filtros";
-            // 
-            // cmbArea
-            // 
-            cmbArea.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbArea.FormattingEnabled = true;
-            cmbArea.Location = new Point(481, 24);
-            cmbArea.Name = "cmbArea";
-            cmbArea.Size = new Size(347, 29);
-            cmbArea.TabIndex = 3;
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Location = new Point(426, 29);
-            label3.Name = "label3";
-            label3.Size = new Size(53, 21);
-            label3.TabIndex = 2;
-            label3.Text = "Área:";
-            // 
-            // txbNome
-            // 
-            txbNome.Location = new Point(74, 26);
-            txbNome.Name = "txbNome";
-            txbNome.Size = new Size(347, 27);
-            txbNome.TabIndex = 1;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new Point(7, 29);
-            label2.Name = "label2";
-            label2.Size = new Size(61, 21);
-            label2.TabIndex = 0;
-            label2.Text = "Nome:";
             // 
             // btnPesquisar
             // 
             btnPesquisar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnPesquisar.BackColor = Color.MidnightBlue;
+            btnPesquisar.FlatAppearance.MouseOverBackColor = Color.MediumBlue;
             btnPesquisar.FlatStyle = FlatStyle.Flat;
             btnPesquisar.ForeColor = Color.White;
             btnPesquisar.Image = (Image)resources.GetObject("btnPesquisar.Image");
-            btnPesquisar.Location = new Point(858, 59);
+            btnPesquisar.Location = new Point(1180, 40);
+            btnPesquisar.Margin = new Padding(4, 5, 4, 5);
             btnPesquisar.Name = "btnPesquisar";
-            btnPesquisar.Size = new Size(54, 54);
+            btnPesquisar.Size = new Size(55, 38);
             btnPesquisar.TabIndex = 22;
             btnPesquisar.UseVisualStyleBackColor = false;
             btnPesquisar.Click += Pesquisar_Click;
             // 
+            // cmbArea
+            // 
+            cmbArea.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbArea.FormattingEnabled = true;
+            cmbArea.Location = new Point(687, 40);
+            cmbArea.Margin = new Padding(4, 5, 4, 5);
+            cmbArea.Name = "cmbArea";
+            cmbArea.Size = new Size(494, 37);
+            cmbArea.TabIndex = 3;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(609, 48);
+            label3.Margin = new Padding(4, 0, 4, 0);
+            label3.Name = "label3";
+            label3.Size = new Size(69, 29);
+            label3.TabIndex = 2;
+            label3.Text = "Área:";
+            // 
+            // txbNome
+            // 
+            txbNome.Location = new Point(106, 43);
+            txbNome.Margin = new Padding(4, 5, 4, 5);
+            txbNome.Name = "txbNome";
+            txbNome.Size = new Size(494, 35);
+            txbNome.TabIndex = 1;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(10, 48);
+            label2.Margin = new Padding(4, 0, 4, 0);
+            label2.Name = "label2";
+            label2.Size = new Size(85, 29);
+            label2.TabIndex = 0;
+            label2.Text = "Nome:";
+            // 
             // Pesquisadores
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.WhiteSmoke;
-            ClientSize = new Size(1050, 600);
-            Controls.Add(btnPesquisar);
+            ClientSize = new Size(1500, 1000);
             Controls.Add(groupBox1);
             Controls.Add(Detalhes);
             Controls.Add(Novo);
@@ -238,7 +253,8 @@
             Controls.Add(label1);
             Controls.Add(BtnFechar);
             FormBorderStyle = FormBorderStyle.None;
-            MinimumSize = new Size(1050, 600);
+            Margin = new Padding(4, 5, 4, 5);
+            MinimumSize = new Size(1500, 1000);
             Name = "Pesquisadores";
             Text = "Pesquisadores";
             Load += Pesquisadores_Load;
