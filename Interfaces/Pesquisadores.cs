@@ -115,7 +115,6 @@ namespace Trabalho2.Interfaces
         private void Novo_Click(object sender, EventArgs e)
         {
             new PesquisadorManutencao("Incluir").ShowDialog();
-            //CarregarRegistros();
         }
 
         private void Editar_Click(object sender, EventArgs e)

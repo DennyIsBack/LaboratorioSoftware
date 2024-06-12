@@ -104,13 +104,30 @@ namespace Trabalho2.Interfaces
 
             if (manutencao == "Incluir")
             {
-                resultadoDAO.Insert(resultado);
+                bool sucessoUpdate = resultadoDAO.Insert(resultado);
+
+                if (sucessoUpdate)
+                {
+                    MessageBox.Show("Cadastro realizado com sucesso!", "Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Falha ao realizar cadastro.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             else
             {
-                resultadoDAO.Update(resultado);
-            }
+                bool sucessoUpdate = resultadoDAO.Update(resultado);
 
+                if (sucessoUpdate)
+                {
+                    MessageBox.Show("Edição realizada com sucesso!", "Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Falha ao editar cadastro", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
             Close();
         }
     }

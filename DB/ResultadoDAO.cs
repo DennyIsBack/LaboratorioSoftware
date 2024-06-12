@@ -2,6 +2,8 @@
 using Npgsql;
 using Trabalho2.Model;
 using System.Collections.Generic;
+using System.Diagnostics;
+using Trabalho2.Interfaces;
 
 namespace Trabalho2.DB
 {
@@ -9,48 +11,56 @@ namespace Trabalho2.DB
     {
         private string? sql;
 
-        public void Insert(Resultado resultado)
+        public bool Insert(Resultado resultadoDAO)
         {
-            using NpgsqlConnection connection = new(StringConexao.stringConexao);
+            {
+                using NpgsqlConnection connection = new NpgsqlConnection(StringConexao.stringConexao);
 
-            sql = @"INSERT INTO resultado (id, descricao, descricao_arquivo, arquivo)
-                    VALUES (@id, @descricao, @descricao_arquivo, @arquivo)";
+                string sql = @"INSERT INTO pesquisador (id, descricao, descriacao_projeto, arquivo)
+                           VALUES (@id, @descricao, @descriacao_projeto, @arquivo)";
 
-            connection.Execute(sql, resultado);
+                int rowsAffected = connection.Execute(sql, new
+                {
+                    id = resultadoDAO.Id,
+                    descricao = resultadoDAO.Descricao,
+                    descriacao_projeto = resultadoDAO.DescricaoArquivo,
+                    arquivo = resultadoDAO.Arquivo
+                });
+                return rowsAffected > 0;
+            }
         }
 
-        public void Update(Resultado resultado)
+        public bool Update(Resultado resultado)
         {
             using NpgsqlConnection connection = new(StringConexao.stringConexao);
+           
+            string sql = $@"UPDATE resultado SET descricao = '{resultado.Descricao}', descricao_arquivo = '{resultado.DescricaoArquivo}', arquivo = '{resultado.Arquivo}' WHERE id = {resultado.Id}";
 
-            sql = @"UPDATE resultado
-                       SET descricao = @descricao,
-                           descricao_arquivo = @descricao_arquivo,
-                           arquivo = @arquivo
-                     WHERE id = @id";
+            int rowsAffected = connection.Execute(sql);
 
-            connection.Execute(sql, resultado);
+            return rowsAffected > 0;
         }
 
-        public void Delete(int id)
+        public bool Delete(int id)
         {
             using NpgsqlConnection connection = new(StringConexao.stringConexao);
-
             sql = @"DELETE FROM resultado
-                     WHERE id = @id";
+                     WHERE id = @id"
+            ;
 
-            connection.Execute(sql, new { id });
+            int rowsAffected = connection.Execute(sql, new { id });
+
+            return rowsAffected > 0;
         }
 
         public List<Resultado> RecuperarTodosFiltrado(string descricaoResultado)
         {
             using NpgsqlConnection connection = new(StringConexao.stringConexao);
-
             sql = @"SELECT *
                       FROM resultado
                      WHERE UPPER(descricao) LIKE UPPER(CONCAT('%', @descricao, '%'))
-                     ORDER BY descricao";
-
+                     ORDER BY descricao"
+            ;
             return connection.Query<Resultado>(sql, new { descricao = descricaoResultado }).AsList();
         }
 

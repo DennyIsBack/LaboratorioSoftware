@@ -182,7 +182,7 @@
             btnPesquisar.FlatStyle = FlatStyle.Flat;
             btnPesquisar.ForeColor = Color.White;
             btnPesquisar.Image = (Image)resources.GetObject("btnPesquisar.Image");
-            btnPesquisar.Location = new Point(774, 22);
+            btnPesquisar.Location = new Point(774, 21);
             btnPesquisar.Name = "btnPesquisar";
             btnPesquisar.Size = new Size(50, 29);
             btnPesquisar.TabIndex = 22;
