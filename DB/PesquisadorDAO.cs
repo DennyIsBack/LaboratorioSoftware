@@ -97,7 +97,16 @@ namespace Trabalho2.DB
                      FROM pesquisador
                      WHERE id = @id";
 
-            return connection.QuerySingle<Pesquisador>(sql, param: new { id });
+            var Pesquisador = connection.QuerySingle<Pesquisador>(sql, param: new { id });
+
+            sql = @"SELECT *
+                     FROM AreaAtuacao
+                     WHERE id = @AreaAtuacao_ID";
+
+            if (Pesquisador.AreaAtuacao_ID != 0)
+                Pesquisador.AreaAtuacao = connection.QuerySingle<Area>(sql, param: new { Pesquisador.AreaAtuacao_ID });
+
+            return Pesquisador;
         }
 
         //public int RecuperarID(int id)

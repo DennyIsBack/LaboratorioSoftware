@@ -12,14 +12,40 @@ namespace Trabalho2.Interfaces
         private readonly ProjetoDAO projetoDAO = new();
         private readonly PesquisadorDAO pesquisadorDAO = new();
         private readonly ResultadoDAO resultadoDAO = new();
+        private readonly AreaDAO areaDAO = new AreaDAO();
+        private readonly InstituicaoDAO instituicaoDAO = new InstituicaoDAO();
         private readonly string manutencao;
         private byte[]? arquivo;
+        private Dictionary<string, int> pesquisadoresDictionary;
 
         public ProjetoManutencao(string man)
         {
             InitializeComponent();
             manutencao = man;
+
+            // Configure os comboboxs
+            cbxType.DataSource = new List<string>()
+            {
+                "Projeto científico",
+                "Artigo científico"
+            };
+            cbxArea.DataSource = areaDAO.RecuperarAreas();
+
+            var instituicoes = instituicaoDAO.RecuperarTodosFiltrado();
+            cbxInstituicao.DataSource = instituicoes.Select(x => x.Nome).ToList();
+
+            // Configure o TextBox para autocomplete
+            pesquisadoresDictionary = pesquisadorDAO.RecuperarTodosFiltrado("", "")
+                .ToDictionary(p => p.Nome, p => p.Id);
+
+            var autoCompleteCollection = new AutoCompleteStringCollection();
+            autoCompleteCollection.AddRange(pesquisadoresDictionary.Keys.ToArray());
+
+            txtPesquisador.AutoCompleteCustomSource = autoCompleteCollection;
+            txtPesquisador.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            txtPesquisador.AutoCompleteSource = AutoCompleteSource.CustomSource;
         }
+
 
         private void ProjetoManutencao_Load(object sender, EventArgs e)
         {
@@ -34,17 +60,21 @@ namespace Trabalho2.Interfaces
                 Projeto projeto = projetoDAO.RecuperarPorId(int.Parse(Id.Text));
                 Titulo.Text = projeto.Nome;
                 DataInicial.Text = projeto.DataInicial.ToString();
-                if (projeto.DataFinal.Date != Convert.ToDateTime("01/01/0001").Date)
+                if (projeto.DataFinal != null && projeto.DataFinal != DateTime.MinValue)
+                    DataFinal.Text = projeto.DataFinal.ToString();
+                cbxArea.SelectedItem = projeto.AreaDeAtuacao?.Nome;
+                cbxInstituicao.SelectedItem = projeto.Instituicao?.Nome;
+                cbxType.SelectedItem = projeto.Tipo;
+                chkFinalizado.Checked = projeto.Finalizado;
+                DataFinal.Enabled = true;
+                chkFinalizado.Enabled = true;
+
+                if (projeto.DataFinal.Date != null && projeto.DataFinal.Date != DateTime.MinValue)
                 {
                     DataFinal.CustomFormat = "dd/MM/yyyy";
                     DataFinal.Text = projeto.DataFinal.ToString();
                     Titulo.Enabled = false;
                     DataInicial.Enabled = false;
-                    IdPesquisadorLabel.Visible = false;
-                    IdPesquisador.Visible = false;
-                    IncluirPesquisador.Visible = false;
-                    RemoverPesquisador.Visible = false;
-                    ListView.Dock = DockStyle.Fill;
                 }
 
                 for (int i = 0; i < projeto.Pesquisadores?.Count; i++)
@@ -54,22 +84,26 @@ namespace Trabalho2.Interfaces
                         Font = new Font(ListView.Font, FontStyle.Regular)
                     };
                     listItem.SubItems.Add(new ListViewItem.ListViewSubItem(listItem, projeto.Pesquisadores[i].Nome));
+                    if (projeto.Pesquisadores[i].AreaAtuacao != null && !string.IsNullOrEmpty(projeto.Pesquisadores[i]?.AreaAtuacao?.Nome))
+                        listItem.SubItems.Add(new ListViewItem.ListViewSubItem(listItem, projeto.Pesquisadores[i]?.AreaAtuacao?.Nome));
+
                     ListView.Items.Add(listItem);
                 }
 
-                IdResultado.Text = projeto.Resultado?.Id.ToString();
-                Descricao.Text = projeto.Resultado?.Descricao;
-                Descricao_Arquivo.Text = projeto.Resultado?.DescricaoArquivo;
                 arquivo = projeto.Resultado?.Arquivo;
 
                 if (manutencao == "Detalhes")
                 {
                     Titulo.Enabled = false;
                     DataInicial.Enabled = false;
-                    IdResultado.Enabled = false;
+                    DataFinal.Enabled = false;
+                    cbxArea.Enabled = false;
+                    cbxInstituicao.Enabled = false;
+                    cbxType.Enabled = false;
+                    chkFinalizado.Enabled = false;
 
-                    IdPesquisadorLabel.Visible = false;
-                    IdPesquisador.Visible = false;
+                    label10.Visible = false;
+                    txtPesquisador.Visible = false;
                     IncluirPesquisador.Visible = false;
                     RemoverPesquisador.Visible = false;
                     Salvar.Visible = false;
@@ -84,7 +118,7 @@ namespace Trabalho2.Interfaces
             ListView.Font = new Font(ListView.Font, FontStyle.Bold);
             ListView.Columns.Add("ID", 50);
             ListView.Columns.Add("Nome", 560);
-            ListView.Columns.Add("Área", 110);
+            ListView.Columns.Add("Área", 160);
         }
 
         private void DataInicial_ValueChanged(object sender, EventArgs e)
@@ -100,23 +134,39 @@ namespace Trabalho2.Interfaces
             }
         }
 
+        private void DataFinal_ValueChanged(object sender, EventArgs e)
+        {
+            DataFinal.CustomFormat = "dd/MM/yyyy";
+        }
+
+        private void DataFinal_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Back || e.KeyCode == Keys.Delete)
+            {
+                DataFinal.CustomFormat = " ";
+            }
+        }
+
         private void IncluirPesquisador_Click(object sender, EventArgs e)
         {
-            if (!validacaoProjeto.PesquisadorEntrada(ListView, IdPesquisador.Text))
+            var valid = validacaoProjeto.PesquisadorEntrada(ListView, txtPesquisador.Text, pesquisadoresDictionary);
+            if (valid == null)
             {
                 return;
             }
 
-            Pesquisador pesquisador = pesquisadorDAO.RecuperarID(int.Parse(IdPesquisador.Text));
+            Pesquisador pesquisador = pesquisadorDAO.RecuperarID(Convert.ToInt32(valid));
 
             ListViewItem listItem = new(pesquisador.Id.ToString())
             {
                 Font = new Font(ListView.Font, FontStyle.Regular)
             };
             listItem.SubItems.Add(new ListViewItem.ListViewSubItem(listItem, pesquisador.Nome));
+            if (pesquisador.AreaAtuacao != null && !string.IsNullOrEmpty(pesquisador.AreaAtuacao.Nome))
+                listItem.SubItems.Add(new ListViewItem.ListViewSubItem(listItem, pesquisador.AreaAtuacao.Nome));
             ListView.Items.Add(listItem);
 
-            IdPesquisador.Text = null;
+            txtPesquisador.Text = null;
         }
 
         private void RemoverPesquisador_Click(object sender, EventArgs e)
@@ -127,49 +177,6 @@ namespace Trabalho2.Interfaces
             }
 
             ListView.Items.RemoveAt(ListView.SelectedIndices[0]);
-        }
-
-        private void IdResultado_Leave(object sender, EventArgs e)
-        {
-            if (!string.IsNullOrWhiteSpace(IdResultado.Text))
-            {
-                if (!validacaoResultado.VerificaResultado(int.Parse(Id.Text), int.Parse(IdResultado.Text)))
-                {
-                    LimparCamposResultado();
-                    return;
-                }
-
-                Resultado resultado = resultadoDAO.RecuperarPorId(int.Parse(IdResultado.Text));
-                Descricao.Text = resultado.Descricao;
-                Descricao_Arquivo.Text = resultado.DescricaoArquivo;
-                arquivo = resultado.Arquivo;
-            }
-            else
-            {
-                LimparCamposResultado();
-            }
-        }
-
-        private void LimparCamposResultado()
-        {
-            IdResultado.Text = null;
-            Descricao.Text = null;
-            Descricao_Arquivo.Text = null;
-            arquivo = null;
-        }
-
-        private void Visualizar_Click(object sender, EventArgs e)
-        {
-            string filePath;
-
-            if (!validacaoResultado.ArquivoEntrada(Descricao_Arquivo.Text))
-            {
-                return;
-            }
-
-            filePath = "C:\\Users\\" + Environment.UserName + "\\Downloads\\" + Descricao_Arquivo.Text;
-            File.WriteAllBytes(filePath, arquivo);
-            Process.Start("explorer.exe", "/select," + filePath);
         }
 
         private bool VerificaList()
@@ -208,11 +215,17 @@ namespace Trabalho2.Interfaces
                 return;
             }
 
-            if (!string.IsNullOrWhiteSpace(DataFinal.Text))
+            var AreaId = areaDAO.GetIdByName(cbxArea.SelectedValue.ToString());
+
+            var listInstituicao = instituicaoDAO.RecuperarTodosFiltrado(cbxInstituicao.Text);
+
+            int instituicaoId = 0;
+
+            foreach (var inst in listInstituicao)
             {
-                if (!validacaoResultado.VerificaResultadoEntrada(IdResultado.Text))
+                if (cbxInstituicao.Text == inst.Nome)
                 {
-                    return;
+                    instituicaoId = inst.Id;
                 }
             }
 
@@ -221,19 +234,14 @@ namespace Trabalho2.Interfaces
                 Id = int.Parse(Id.Text),
                 Nome = Titulo.Text,
                 DataInicial = DataInicial.Value,
-                Pesquisadores = new()
-            };
+                //DataFinal = DataFinal.Value,
+                Finalizado = chkFinalizado.Checked,
+                Pesquisadores = new(),
+                AreaDeAtuacao = new Area() { Id = AreaId },
+                Instituicao = new Instituicao() { Id = instituicaoId },
+                Tipo = cbxType.Text,
 
-            if (!string.IsNullOrWhiteSpace(IdResultado.Text))
-            {
-                if (resultadoDAO.ExisteResultado(int.Parse(IdResultado.Text)))
-                {
-                    projeto.Resultado = new()
-                    {
-                        Id = int.Parse(IdResultado.Text)
-                    };
-                }
-            }
+            };
 
             foreach (ListViewItem item in ListView.Items)
             {

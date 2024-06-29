@@ -29,326 +29,320 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProjetoManutencao));
-            this.Salvar = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.DataFinal = new System.Windows.Forms.DateTimePicker();
-            this.label4 = new System.Windows.Forms.Label();
-            this.DataInicial = new System.Windows.Forms.DateTimePicker();
-            this.Titulo = new System.Windows.Forms.TextBox();
-            this.Id = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.RemoverPesquisador = new System.Windows.Forms.Button();
-            this.IdPesquisador = new System.Windows.Forms.TextBox();
-            this.IdPesquisadorLabel = new System.Windows.Forms.Label();
-            this.IncluirPesquisador = new System.Windows.Forms.Button();
-            this.ListView = new System.Windows.Forms.ListView();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.Visualizar = new System.Windows.Forms.Button();
-            this.Descricao_Arquivo = new System.Windows.Forms.TextBox();
-            this.Descricao = new System.Windows.Forms.TextBox();
-            this.IdResultado = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            this.SuspendLayout();
+            Salvar = new Button();
+            groupBox1 = new GroupBox();
+            cbxArea = new ComboBox();
+            label9 = new Label();
+            cbxInstituicao = new ComboBox();
+            label8 = new Label();
+            cbxType = new ComboBox();
+            DataFinal = new DateTimePicker();
+            label4 = new Label();
+            DataInicial = new DateTimePicker();
+            Titulo = new TextBox();
+            label3 = new Label();
+            label2 = new Label();
+            label1 = new Label();
+            Id = new TextBox();
+            groupBox2 = new GroupBox();
+            txtPesquisador = new TextBox();
+            label10 = new Label();
+            RemoverPesquisador = new Button();
+            IncluirPesquisador = new Button();
+            ListView = new ListView();
+            chkFinalizado = new CheckBox();
+            groupBox1.SuspendLayout();
+            groupBox2.SuspendLayout();
+            SuspendLayout();
             // 
             // Salvar
             // 
-            this.Salvar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.Salvar.BackColor = System.Drawing.Color.MidnightBlue;
-            this.Salvar.FlatAppearance.BorderSize = 0;
-            this.Salvar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.Salvar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Salvar.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.Salvar.ForeColor = System.Drawing.Color.White;
-            this.Salvar.Location = new System.Drawing.Point(608, 542);
-            this.Salvar.Name = "Salvar";
-            this.Salvar.Size = new System.Drawing.Size(180, 40);
-            this.Salvar.TabIndex = 18;
-            this.Salvar.Text = "SALVAR";
-            this.Salvar.UseVisualStyleBackColor = false;
-            this.Salvar.Click += new System.EventHandler(this.Salvar_Click);
+            Salvar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            Salvar.BackColor = Color.MidnightBlue;
+            Salvar.FlatAppearance.BorderSize = 0;
+            Salvar.FlatAppearance.MouseOverBackColor = Color.FromArgb(45, 45, 48);
+            Salvar.FlatStyle = FlatStyle.Flat;
+            Salvar.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            Salvar.ForeColor = Color.White;
+            Salvar.Location = new Point(869, 903);
+            Salvar.Margin = new Padding(4, 5, 4, 5);
+            Salvar.Name = "Salvar";
+            Salvar.Size = new Size(257, 67);
+            Salvar.TabIndex = 18;
+            Salvar.Text = "SALVAR";
+            Salvar.UseVisualStyleBackColor = false;
+            Salvar.Click += Salvar_Click;
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.DataFinal);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.DataInicial);
-            this.groupBox1.Controls.Add(this.Titulo);
-            this.groupBox1.Controls.Add(this.Id);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.groupBox1.Location = new System.Drawing.Point(12, 12);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(776, 134);
-            this.groupBox1.TabIndex = 17;
-            this.groupBox1.TabStop = false;
+            groupBox1.Controls.Add(cbxArea);
+            groupBox1.Controls.Add(label9);
+            groupBox1.Controls.Add(cbxInstituicao);
+            groupBox1.Controls.Add(label8);
+            groupBox1.Controls.Add(cbxType);
+            groupBox1.Controls.Add(DataFinal);
+            groupBox1.Controls.Add(label4);
+            groupBox1.Controls.Add(DataInicial);
+            groupBox1.Controls.Add(Titulo);
+            groupBox1.Controls.Add(label3);
+            groupBox1.Controls.Add(label2);
+            groupBox1.Controls.Add(label1);
+            groupBox1.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            groupBox1.Location = new Point(17, 20);
+            groupBox1.Margin = new Padding(4, 5, 4, 5);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Padding = new Padding(4, 5, 4, 5);
+            groupBox1.Size = new Size(1109, 245);
+            groupBox1.TabIndex = 17;
+            groupBox1.TabStop = false;
+            // 
+            // cbxArea
+            // 
+            cbxArea.FormattingEnabled = true;
+            cbxArea.Location = new Point(597, 33);
+            cbxArea.Name = "cbxArea";
+            cbxArea.Size = new Size(488, 37);
+            cbxArea.TabIndex = 10;
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Location = new Point(330, 41);
+            label9.Margin = new Padding(4, 0, 4, 0);
+            label9.Name = "label9";
+            label9.Size = new Size(260, 29);
+            label9.TabIndex = 9;
+            label9.Text = "Área do conhecimento:";
+            // 
+            // cbxInstituicao
+            // 
+            cbxInstituicao.FormattingEnabled = true;
+            cbxInstituicao.Location = new Point(778, 149);
+            cbxInstituicao.Name = "cbxInstituicao";
+            cbxInstituicao.Size = new Size(307, 37);
+            cbxInstituicao.TabIndex = 8;
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Location = new Point(645, 158);
+            label8.Margin = new Padding(4, 0, 4, 0);
+            label8.Name = "label8";
+            label8.Size = new Size(126, 29);
+            label8.TabIndex = 7;
+            label8.Text = "Instituição:";
+            // 
+            // cbxType
+            // 
+            cbxType.FormattingEnabled = true;
+            cbxType.Location = new Point(88, 33);
+            cbxType.Name = "cbxType";
+            cbxType.Size = new Size(235, 37);
+            cbxType.TabIndex = 6;
             // 
             // DataFinal
             // 
-            this.DataFinal.CustomFormat = " ";
-            this.DataFinal.Enabled = false;
-            this.DataFinal.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.DataFinal.Location = new System.Drawing.Point(345, 89);
-            this.DataFinal.Name = "DataFinal";
-            this.DataFinal.Size = new System.Drawing.Size(122, 27);
-            this.DataFinal.TabIndex = 5;
+            DataFinal.Checked = false;
+            DataFinal.CustomFormat = " ";
+            DataFinal.Enabled = false;
+            DataFinal.Format = DateTimePickerFormat.Custom;
+            DataFinal.Location = new Point(435, 152);
+            DataFinal.Margin = new Padding(4, 5, 4, 5);
+            DataFinal.Name = "DataFinal";
+            DataFinal.Size = new Size(202, 35);
+            DataFinal.TabIndex = 5;
             // 
             // label4
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(245, 94);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(94, 21);
-            this.label4.TabIndex = 4;
-            this.label4.Text = "Data Final:";
+            label4.AutoSize = true;
+            label4.Location = new Point(312, 158);
+            label4.Margin = new Padding(4, 0, 4, 0);
+            label4.Name = "label4";
+            label4.Size = new Size(127, 29);
+            label4.TabIndex = 4;
+            label4.Text = "Data Final:";
             // 
             // DataInicial
             // 
-            this.DataInicial.CustomFormat = " ";
-            this.DataInicial.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.DataInicial.Location = new System.Drawing.Point(117, 89);
-            this.DataInicial.Name = "DataInicial";
-            this.DataInicial.Size = new System.Drawing.Size(122, 27);
-            this.DataInicial.TabIndex = 3;
-            this.DataInicial.ValueChanged += new System.EventHandler(this.DataInicial_ValueChanged);
-            this.DataInicial.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DataInicial_KeyDown);
+            DataInicial.CustomFormat = " ";
+            DataInicial.Format = DateTimePickerFormat.Custom;
+            DataInicial.Location = new Point(131, 153);
+            DataInicial.Margin = new Padding(4, 5, 4, 5);
+            DataInicial.Name = "DataInicial";
+            DataInicial.Size = new Size(173, 35);
+            DataInicial.TabIndex = 3;
+            DataInicial.ValueChanged += DataInicial_ValueChanged;
+            DataInicial.KeyDown += DataInicial_KeyDown;
             // 
             // Titulo
             // 
-            this.Titulo.Location = new System.Drawing.Point(117, 55);
-            this.Titulo.Name = "Titulo";
-            this.Titulo.Size = new System.Drawing.Size(653, 27);
-            this.Titulo.TabIndex = 2;
-            // 
-            // Id
-            // 
-            this.Id.Enabled = false;
-            this.Id.Location = new System.Drawing.Point(117, 20);
-            this.Id.Name = "Id";
-            this.Id.Size = new System.Drawing.Size(64, 27);
-            this.Id.TabIndex = 1;
+            Titulo.Location = new Point(88, 92);
+            Titulo.Margin = new Padding(4, 5, 4, 5);
+            Titulo.Name = "Titulo";
+            Titulo.Size = new Size(997, 35);
+            Titulo.TabIndex = 2;
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(55, 58);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(55, 21);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "Título:";
+            label3.AutoSize = true;
+            label3.Location = new Point(10, 98);
+            label3.Margin = new Padding(4, 0, 4, 0);
+            label3.Name = "label3";
+            label3.Size = new Size(80, 29);
+            label3.TabIndex = 2;
+            label3.Text = "Título:";
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 94);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(104, 21);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Data Inicial:";
+            label2.AutoSize = true;
+            label2.Location = new Point(1, 158);
+            label2.Margin = new Padding(4, 0, 4, 0);
+            label2.Name = "label2";
+            label2.Size = new Size(136, 29);
+            label2.TabIndex = 1;
+            label2.Text = "Data Inicial:";
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(79, 23);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(31, 21);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "ID:";
+            label1.AutoSize = true;
+            label1.Location = new Point(10, 41);
+            label1.Margin = new Padding(4, 0, 4, 0);
+            label1.Name = "label1";
+            label1.Size = new Size(75, 29);
+            label1.TabIndex = 0;
+            label1.Text = "Tipo: ";
+            // 
+            // Id
+            // 
+            Id.Enabled = false;
+            Id.Location = new Point(27, 13);
+            Id.Margin = new Padding(4, 5, 4, 5);
+            Id.Name = "Id";
+            Id.Size = new Size(90, 31);
+            Id.TabIndex = 1;
+            Id.Visible = false;
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.RemoverPesquisador);
-            this.groupBox2.Controls.Add(this.IdPesquisador);
-            this.groupBox2.Controls.Add(this.IdPesquisadorLabel);
-            this.groupBox2.Controls.Add(this.IncluirPesquisador);
-            this.groupBox2.Controls.Add(this.ListView);
-            this.groupBox2.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.groupBox2.Location = new System.Drawing.Point(12, 152);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(776, 246);
-            this.groupBox2.TabIndex = 19;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Pesquisadores";
+            groupBox2.Controls.Add(txtPesquisador);
+            groupBox2.Controls.Add(label10);
+            groupBox2.Controls.Add(RemoverPesquisador);
+            groupBox2.Controls.Add(IncluirPesquisador);
+            groupBox2.Controls.Add(ListView);
+            groupBox2.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            groupBox2.Location = new Point(17, 275);
+            groupBox2.Margin = new Padding(4, 5, 4, 5);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Padding = new Padding(4, 5, 4, 5);
+            groupBox2.Size = new Size(1109, 410);
+            groupBox2.TabIndex = 19;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "Pesquisadores";
+            // 
+            // txtPesquisador
+            // 
+            txtPesquisador.Location = new Point(106, 34);
+            txtPesquisador.Margin = new Padding(4, 5, 4, 5);
+            txtPesquisador.Name = "txtPesquisador";
+            txtPesquisador.Size = new Size(595, 35);
+            txtPesquisador.TabIndex = 24;
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Location = new Point(10, 40);
+            label10.Margin = new Padding(4, 0, 4, 0);
+            label10.Name = "label10";
+            label10.Size = new Size(85, 29);
+            label10.TabIndex = 11;
+            label10.Text = "Nome:";
             // 
             // RemoverPesquisador
             // 
-            this.RemoverPesquisador.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.RemoverPesquisador.BackColor = System.Drawing.Color.MidnightBlue;
-            this.RemoverPesquisador.FlatAppearance.BorderSize = 0;
-            this.RemoverPesquisador.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.RemoverPesquisador.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.RemoverPesquisador.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.RemoverPesquisador.ForeColor = System.Drawing.Color.White;
-            this.RemoverPesquisador.Location = new System.Drawing.Point(646, 55);
-            this.RemoverPesquisador.Name = "RemoverPesquisador";
-            this.RemoverPesquisador.Size = new System.Drawing.Size(124, 33);
-            this.RemoverPesquisador.TabIndex = 23;
-            this.RemoverPesquisador.Text = "REMOVER";
-            this.RemoverPesquisador.UseVisualStyleBackColor = false;
-            this.RemoverPesquisador.Click += new System.EventHandler(this.RemoverPesquisador_Click);
-            // 
-            // IdPesquisador
-            // 
-            this.IdPesquisador.Location = new System.Drawing.Point(43, 22);
-            this.IdPesquisador.Name = "IdPesquisador";
-            this.IdPesquisador.Size = new System.Drawing.Size(64, 27);
-            this.IdPesquisador.TabIndex = 22;
-            // 
-            // IdPesquisadorLabel
-            // 
-            this.IdPesquisadorLabel.AutoSize = true;
-            this.IdPesquisadorLabel.Location = new System.Drawing.Point(6, 25);
-            this.IdPesquisadorLabel.Name = "IdPesquisadorLabel";
-            this.IdPesquisadorLabel.Size = new System.Drawing.Size(31, 21);
-            this.IdPesquisadorLabel.TabIndex = 21;
-            this.IdPesquisadorLabel.Text = "ID:";
+            RemoverPesquisador.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            RemoverPesquisador.BackColor = Color.MidnightBlue;
+            RemoverPesquisador.FlatAppearance.BorderSize = 0;
+            RemoverPesquisador.FlatAppearance.MouseOverBackColor = Color.FromArgb(45, 45, 48);
+            RemoverPesquisador.FlatStyle = FlatStyle.Flat;
+            RemoverPesquisador.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            RemoverPesquisador.ForeColor = Color.White;
+            RemoverPesquisador.Location = new Point(923, 92);
+            RemoverPesquisador.Margin = new Padding(4, 5, 4, 5);
+            RemoverPesquisador.Name = "RemoverPesquisador";
+            RemoverPesquisador.Size = new Size(177, 55);
+            RemoverPesquisador.TabIndex = 23;
+            RemoverPesquisador.Text = "REMOVER";
+            RemoverPesquisador.UseVisualStyleBackColor = false;
+            RemoverPesquisador.Click += RemoverPesquisador_Click;
             // 
             // IncluirPesquisador
             // 
-            this.IncluirPesquisador.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.IncluirPesquisador.BackColor = System.Drawing.Color.MidnightBlue;
-            this.IncluirPesquisador.FlatAppearance.BorderSize = 0;
-            this.IncluirPesquisador.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.IncluirPesquisador.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.IncluirPesquisador.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.IncluirPesquisador.ForeColor = System.Drawing.Color.White;
-            this.IncluirPesquisador.Location = new System.Drawing.Point(646, 16);
-            this.IncluirPesquisador.Name = "IncluirPesquisador";
-            this.IncluirPesquisador.Size = new System.Drawing.Size(124, 33);
-            this.IncluirPesquisador.TabIndex = 19;
-            this.IncluirPesquisador.Text = "INCLUIR";
-            this.IncluirPesquisador.UseVisualStyleBackColor = false;
-            this.IncluirPesquisador.Click += new System.EventHandler(this.IncluirPesquisador_Click);
+            IncluirPesquisador.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            IncluirPesquisador.BackColor = Color.MidnightBlue;
+            IncluirPesquisador.FlatAppearance.BorderSize = 0;
+            IncluirPesquisador.FlatAppearance.MouseOverBackColor = Color.FromArgb(45, 45, 48);
+            IncluirPesquisador.FlatStyle = FlatStyle.Flat;
+            IncluirPesquisador.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            IncluirPesquisador.ForeColor = Color.White;
+            IncluirPesquisador.Location = new Point(923, 27);
+            IncluirPesquisador.Margin = new Padding(4, 5, 4, 5);
+            IncluirPesquisador.Name = "IncluirPesquisador";
+            IncluirPesquisador.Size = new Size(177, 55);
+            IncluirPesquisador.TabIndex = 19;
+            IncluirPesquisador.Text = "INCLUIR";
+            IncluirPesquisador.UseVisualStyleBackColor = false;
+            IncluirPesquisador.Click += IncluirPesquisador_Click;
             // 
             // ListView
             // 
-            this.ListView.FullRowSelect = true;
-            this.ListView.Location = new System.Drawing.Point(6, 55);
-            this.ListView.Name = "ListView";
-            this.ListView.Size = new System.Drawing.Size(634, 177);
-            this.ListView.TabIndex = 0;
-            this.ListView.UseCompatibleStateImageBehavior = false;
-            this.ListView.View = System.Windows.Forms.View.Details;
+            ListView.FullRowSelect = true;
+            ListView.Location = new Point(9, 92);
+            ListView.Margin = new Padding(4, 5, 4, 5);
+            ListView.Name = "ListView";
+            ListView.Size = new Size(904, 292);
+            ListView.TabIndex = 0;
+            ListView.UseCompatibleStateImageBehavior = false;
+            ListView.View = View.Details;
             // 
-            // groupBox3
+            // chkFinalizado
             // 
-            this.groupBox3.Controls.Add(this.Visualizar);
-            this.groupBox3.Controls.Add(this.Descricao_Arquivo);
-            this.groupBox3.Controls.Add(this.Descricao);
-            this.groupBox3.Controls.Add(this.IdResultado);
-            this.groupBox3.Controls.Add(this.label5);
-            this.groupBox3.Controls.Add(this.label6);
-            this.groupBox3.Controls.Add(this.label7);
-            this.groupBox3.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.groupBox3.Location = new System.Drawing.Point(12, 404);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(776, 130);
-            this.groupBox3.TabIndex = 20;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Resultado";
-            // 
-            // Visualizar
-            // 
-            this.Visualizar.BackColor = System.Drawing.Color.MidnightBlue;
-            this.Visualizar.FlatAppearance.BorderSize = 0;
-            this.Visualizar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.Visualizar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Visualizar.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.Visualizar.ForeColor = System.Drawing.Color.White;
-            this.Visualizar.Location = new System.Drawing.Point(450, 87);
-            this.Visualizar.Name = "Visualizar";
-            this.Visualizar.Size = new System.Drawing.Size(126, 30);
-            this.Visualizar.TabIndex = 25;
-            this.Visualizar.Text = "VISUALIZAR";
-            this.Visualizar.UseVisualStyleBackColor = false;
-            this.Visualizar.Click += new System.EventHandler(this.Visualizar_Click);
-            // 
-            // Descricao_Arquivo
-            // 
-            this.Descricao_Arquivo.Enabled = false;
-            this.Descricao_Arquivo.Location = new System.Drawing.Point(103, 88);
-            this.Descricao_Arquivo.Name = "Descricao_Arquivo";
-            this.Descricao_Arquivo.Size = new System.Drawing.Size(340, 27);
-            this.Descricao_Arquivo.TabIndex = 24;
-            // 
-            // Descricao
-            // 
-            this.Descricao.Enabled = false;
-            this.Descricao.Location = new System.Drawing.Point(103, 53);
-            this.Descricao.Name = "Descricao";
-            this.Descricao.Size = new System.Drawing.Size(667, 27);
-            this.Descricao.TabIndex = 22;
-            // 
-            // IdResultado
-            // 
-            this.IdResultado.Location = new System.Drawing.Point(103, 20);
-            this.IdResultado.Name = "IdResultado";
-            this.IdResultado.Size = new System.Drawing.Size(64, 27);
-            this.IdResultado.TabIndex = 20;
-            this.IdResultado.Leave += new System.EventHandler(this.IdResultado_Leave);
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(7, 56);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(91, 21);
-            this.label5.TabIndex = 23;
-            this.label5.Text = "Descrição:";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(22, 91);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(76, 21);
-            this.label6.TabIndex = 21;
-            this.label6.Text = "Arquivo:";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(67, 23);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(31, 21);
-            this.label7.TabIndex = 19;
-            this.label7.Text = "ID:";
+            chkFinalizado.AutoSize = true;
+            chkFinalizado.Enabled = false;
+            chkFinalizado.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            chkFinalizado.Location = new Point(18, 725);
+            chkFinalizado.Name = "chkFinalizado";
+            chkFinalizado.Size = new Size(231, 33);
+            chkFinalizado.TabIndex = 26;
+            chkFinalizado.Text = "Projeto finalizado ";
+            chkFinalizado.UseVisualStyleBackColor = true;
+            chkFinalizado.Visible = false;
             // 
             // ProjetoManutencao
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.ClientSize = new System.Drawing.Size(800, 594);
-            this.Controls.Add(this.groupBox3);
-            this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.Salvar);
-            this.Controls.Add(this.groupBox1);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(816, 250);
-            this.Name = "ProjetoManutencao";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Projetos";
-            this.Load += new System.EventHandler(this.ProjetoManutencao_Load);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
-            this.ResumeLayout(false);
-
+            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.WhiteSmoke;
+            ClientSize = new Size(1143, 990);
+            Controls.Add(chkFinalizado);
+            Controls.Add(groupBox2);
+            Controls.Add(Salvar);
+            Controls.Add(groupBox1);
+            Controls.Add(Id);
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            Margin = new Padding(4, 5, 4, 5);
+            MaximizeBox = false;
+            MinimizeBox = false;
+            MinimumSize = new Size(1156, 379);
+            Name = "ProjetoManutencao";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Projetos";
+            Load += ProjetoManutencao_Load;
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
+            groupBox2.ResumeLayout(false);
+            groupBox2.PerformLayout();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -364,18 +358,16 @@
         private DateTimePicker DataFinal;
         private Label label4;
         private GroupBox groupBox2;
-        private GroupBox groupBox3;
         private ListView ListView;
         private Button IncluirPesquisador;
-        private Button Visualizar;
-        private TextBox Descricao_Arquivo;
-        private TextBox Descricao;
-        private Label label5;
-        private Label label6;
-        private Label label7;
-        private Label IdPesquisadorLabel;
         private Button RemoverPesquisador;
-        private TextBox IdResultado;
-        private TextBox IdPesquisador;
+        private ComboBox cbxType;
+        private Label label8;
+        private ComboBox cbxArea;
+        private Label label9;
+        private ComboBox cbxInstituicao;
+        private Label label10;
+        private TextBox txtPesquisador;
+        private CheckBox chkFinalizado;
     }
 }

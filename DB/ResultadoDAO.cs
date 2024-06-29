@@ -113,7 +113,7 @@ namespace Trabalho2.DB
 
             sql = @"SELECT resultado.arquivo
                       FROM projeto
-                      JOIN resultado ON projeto.id_resultado = resultado.id
+                      JOIN resultado ON projeto.Resultado_ID = resultado.id
                      WHERE projeto.id = @id_projeto";
 
             return connection.QuerySingleOrDefault<byte[]>(sql, new { id_projeto });
@@ -125,7 +125,7 @@ namespace Trabalho2.DB
 
             sql = @"SELECT resultado.descricao_arquivo
                       FROM projeto
-                      JOIN resultado ON projeto.id_resultado = resultado.id
+                      JOIN resultado ON projeto.Resultado_ID = resultado.id
                      WHERE projeto.id = @id_projeto";
 
             return connection.QuerySingleOrDefault<string>(sql, new { id_projeto });

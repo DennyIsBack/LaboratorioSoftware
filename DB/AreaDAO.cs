@@ -63,5 +63,16 @@ namespace Trabalho2.DB
                 return connection.Query<string>(queryArea, new { id }).ToList();
             }
         }
+
+        public List<Area> RecuperarAreaId(int id)
+        {
+            string queryArea = "SELECT nome FROM areaatuacao WHERE id = @id";
+
+            using (var connection = new NpgsqlConnection(StringConexao.stringConexao))
+            {
+                connection.Open();
+                return connection.Query<Area>(queryArea, new { id }).ToList();
+            }
+        }
     }
 }

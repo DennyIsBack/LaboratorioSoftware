@@ -1,14 +1,14 @@
 ﻿using Dapper;
 using Npgsql;
 using Trabalho2.Model;
-using System;
-using System.Collections.Generic;
 
 namespace Trabalho2.DB
 {
     public class ProjetoDAO
     {
         string? sql;
+        private readonly AreaDAO areaDAO = new AreaDAO();
+        private readonly InstituicaoDAO instituicaoDAO = new InstituicaoDAO();
 
         public void Insert(Projeto projeto)
         {
@@ -16,37 +16,44 @@ namespace Trabalho2.DB
             connection.Open();
             using NpgsqlTransaction transaction = connection.BeginTransaction();
 
-            //INCLUIR resultado
-            sql = @"INSERT INTO projeto (nome, area_de_atuacao, Resultado_ID, data_inicial, data_final, tipo, Instituicao_ID)
-                VALUES (@Nome, @AreaDeAtuacaoId, @IdResultado, @DataInicial, @DataFinal, @Tipo, @InstituicaoId)
-                RETURNING id"; // Retorna o ID gerado
-
-            // Usamos um objeto anônimo para facilitar a passagem dos parâmetros
-            var parametrosProjeto = new
+            try
             {
-                projeto.Nome,
-                AreaDeAtuacaoId = projeto.AreaDeAtuacao?.Id, // Lidando com a possibilidade de ser null
-                projeto.IdResultado,
-                projeto.DataInicial,
-                projeto.DataFinal,
-                projeto.Tipo,
-                InstituicaoId = projeto.Instituicao?.Id // Lidando com a possibilidade de ser null
-            };
+                //INCLUIR resultado
+                string sql = @"INSERT INTO projeto (id, nome, AreaAtuacao_ID, DataInicial, tipo, Instituicao_ID, Finalizado)
+                       VALUES (@id, @Nome, @AreaDeAtuacaoId, @DataInicial, @Tipo, @InstituicaoId, @Finalizado)"; // Retorna o ID gerado
 
-            // Executamos a inserção e obtemos o ID gerado
-            projeto.Id = (int)connection.ExecuteScalar(sql, parametrosProjeto, transaction);
+                var parameterProjeto = new
+                {
+                    id = RetornaProximoId(),
+                    projeto.Nome,
+                    AreaDeAtuacaoId = projeto.AreaDeAtuacao?.Id,
+                    //ResultadoId = projeto.Resultado?.Id, 
+                    DataInicial = projeto.DataInicial.ToUniversalTime(),
+                    //DataFinal = projeto.DataFinal.ToUniversalTime(),
+                    projeto.Tipo,
+                    InstituicaoId = projeto.Instituicao?.Id, 
+                    projeto.Finalizado
+                };
 
-            // Inserção na tabela intermediária projeto_pesquisador
-            sql = @"INSERT INTO pesquisador (id_projeto, id_pesquisador)
+                connection.ExecuteScalar(sql, parameterProjeto, transaction);
+
+                // Inserção na tabela intermediária projeto_pesquisador
+                sql = @"INSERT INTO Projeto_Pesquisador (Projeto_ID, Pesquisador_ID)
                 VALUES (@IdProjeto, @IdPesquisador)";
+                
+                foreach (var pesquisador in projeto.Pesquisadores)
+                {
+                    connection.Execute(sql, new { IdProjeto = projeto.Id, IdPesquisador = pesquisador.Id }, transaction);
+                }
 
-            foreach (var pesquisador in projeto.Pesquisadores)
-            {
-                connection.Execute(sql, new { IdProjeto = projeto.Id, IdPesquisador = pesquisador.Id }, transaction);
+                transaction.Commit();
             }
-
-            transaction.Commit();
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+            }
         }
+
 
         public void Update(Projeto projeto)
         {
@@ -55,39 +62,38 @@ namespace Trabalho2.DB
             using NpgsqlTransaction transaction = connection.BeginTransaction();
             try
             {
-
                 // Atualização na tabela projeto (incluindo todas as propriedades relevantes)
-                sql = @"UPDATE projeto 
-                SET nome = @Nome,
-                    AreaAtuacao_ID = @AreaDeAtuacaoId,
-                    Resultado_ID = @IdResultado,
-                    DataInicial = @DataInicial,
-                    DataFinal = @DataFinal,
-                    tipo = @Tipo,
-                    Instituicao_ID = @InstituicaoId
-                WHERE id = @Id";
+                string sql = @"UPDATE projeto 
+                       SET AreaAtuacao_ID = @AreaDeAtuacaoId,
+                           DataInicial = @DataInicial,
+                           tipo = @Tipo,
+                           Instituicao_ID = @InstituicaoId";
 
-                var parametrosProjeto = new
+               
+
+                sql += " WHERE id = @Id";
+
+                var parametrosProjeto = new DynamicParameters();
+                parametrosProjeto.Add("Id", projeto.Id);
+                parametrosProjeto.Add("AreaDeAtuacaoId", projeto.AreaDeAtuacao?.Id);
+                parametrosProjeto.Add("ResultadoId", projeto.Resultado?.Id);
+                parametrosProjeto.Add("DataInicial", projeto.DataInicial.ToUniversalTime());
+                parametrosProjeto.Add("Tipo", projeto.Tipo);
+                parametrosProjeto.Add("InstituicaoId", projeto.Instituicao?.Id);
+
+                if (projeto.DataFinal != DateTime.MinValue)
                 {
-                    projeto.Id,
-                    projeto.Nome,
-                    AreaDeAtuacaoId = projeto.AreaDeAtuacao?.Id, // Lidando com a possibilidade de ser null
-                    projeto.IdResultado,
-                    projeto.DataInicial,
-                    projeto.DataFinal,
-                    projeto.Tipo,
-                    InstituicaoId = projeto.Instituicao?.Id // Lidando com a possibilidade de ser null
-                };
+                    parametrosProjeto.Add("DataFinal", projeto.DataFinal.ToUniversalTime());
+                }
 
                 connection.Execute(sql, parametrosProjeto, transaction);
 
                 // Remoção dos pesquisadores existentes do projeto
-                sql = @"DELETE FROM pesquisador
-                WHERE id_projeto = @Id";
+                sql = @"DELETE FROM Projeto_Pesquisador
+                WHERE Projeto_ID = @Id";
 
                 connection.Execute(sql, new { Id = projeto.Id }, transaction);
 
-                // Inserção dos novos pesquisadores do projeto
                 sql = @"INSERT INTO Projeto_Pesquisador (Projeto_ID, Pesquisador_ID)
                 VALUES (@IdProjeto, @IdPesquisador)";
 
@@ -104,6 +110,7 @@ namespace Trabalho2.DB
                 throw new Exception("Erro ao atualizar projeto: " + ex.Message);
             }
         }
+
 
         public void Delete(int id)
         {
@@ -129,7 +136,7 @@ namespace Trabalho2.DB
             using NpgsqlConnection connection = new(StringConexao.stringConexao);
 
             sql = @"UPDATE projeto
-                       SET DataFinal = current_date
+                       SET Finalizado = true
                      WHERE id = @Id";
 
             connection.Execute(sql, new { Id = id });
@@ -140,21 +147,29 @@ namespace Trabalho2.DB
             using NpgsqlConnection connection = new(StringConexao.stringConexao);
             DefaultTypeMap.MatchNamesWithUnderscores = true;
 
-            sql = @"SELECT *
-                      FROM projeto
-                     WHERE 1 = 1";
+            string sql = @"SELECT id, nome, areaatuacao_id, resultado_id, 
+                          datainicial, datafinal, tipo, instituicao_id, 
+                          finalizado
+                   FROM projeto
+                   WHERE 1 = 1";
 
             if (!string.IsNullOrWhiteSpace(tituloProjeto))
             {
-                sql += " AND upper(Nome) LIKE upper(CONCAT('%', @Titulo, '%'))";
+                sql += " AND upper(nome) LIKE upper(CONCAT('%', @Titulo, '%'))";
             }
 
-            sql += " AND DataInicial = @data_inicial";
+            sql += " AND datainicial >= @DataInicial";
+            sql += " ORDER BY nome";
 
-            sql += " ORDER BY Nome";
+            var parameters = new
+            {
+                Titulo = tituloProjeto,
+                DataInicial = dataInicialProjeto.Date.ToUniversalTime()
+            };
 
-            return connection.Query<Projeto>(sql, new { Titulo = tituloProjeto, DataInicial = dataInicialProjeto.Date }).AsList();
+            return connection.Query<Projeto>(sql, parameters).AsList();
         }
+
 
         public Projeto RecuperarPorId(int id)
         {
@@ -175,6 +190,18 @@ namespace Trabalho2.DB
                           WHERE Projeto_Pesquisador.Projeto_ID = @Id";
 
                 projeto.Pesquisadores = connection.Query<Pesquisador>(sql, new { Id = id }).AsList();
+
+                var areas = areaDAO.RecuperarAreaId(projeto.AreaAtuacao_ID);
+
+                if (areas != null)
+                {
+                    projeto.AreaDeAtuacao = areas.FirstOrDefault();
+                }
+
+                var instituicao = instituicaoDAO.RecuperarID(projeto.Instituicao_ID);
+
+                if (instituicao != null)
+                    projeto.Instituicao = instituicao;
             }
 
             return projeto;

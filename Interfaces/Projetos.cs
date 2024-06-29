@@ -35,31 +35,41 @@ namespace Trabalho2.Interfaces
             ListView.Columns.Add("Título", 600);
             ListView.Columns.Add("Data Inicial", 150);
             ListView.Columns.Add("Data Final", 150);
+            ListView.Columns.Add("Status", 200);
         }
 
         private void CarregarRegistros()
         {
-            //ListView.Items.Clear();
-            //List<Projeto> itemList = projetoDAO.RecuperarTodosFiltrado(TituloFiltro.Text, DataInicialFiltro);
+            ListView.Items.Clear();
+            List<Projeto> itemList = projetoDAO.RecuperarTodosFiltrado(TituloFiltro.Text, DataInicialFiltro.Value);
 
-            //for (int i = 0; i < itemList.Count; i++)
-            //{
-            //    ListViewItem listItem = new(itemList[i].Id.ToString())
-            //    {
-            //        Font = new Font(ListView.Font, FontStyle.Regular)
-            //    };
-            //    listItem.SubItems.Add(new ListViewItem.ListViewSubItem(listItem, itemList[i].Titulo));
-            //    listItem.SubItems.Add(new ListViewItem.ListViewSubItem(listItem, itemList[i].DataInicial.ToString("dd/MM/yyyy")));
-            //    if (itemList[i].DataFinal.Date != Convert.ToDateTime("01/01/0001").Date)
-            //    {
-            //        listItem.SubItems.Add(new ListViewItem.ListViewSubItem(listItem, itemList[i].DataFinal.ToString("dd/MM/yyyy")));
-            //    }
-            //    else
-            //    {
-            //        listItem.SubItems.Add(new ListViewItem.ListViewSubItem(listItem, null));
-            //    }
-            //    ListView.Items.Add(listItem);
-            //}
+            for (int i = 0; i < itemList.Count; i++)
+            {
+                ListViewItem listItem = new(itemList[i].Id.ToString())
+                {
+                    Font = new Font(ListView.Font, FontStyle.Regular)
+                };
+                listItem.SubItems.Add(new ListViewItem.ListViewSubItem(listItem, itemList[i].Nome));
+                listItem.SubItems.Add(new ListViewItem.ListViewSubItem(listItem, itemList[i].DataInicial.ToString("dd/MM/yyyy")));
+                if (itemList[i].DataFinal.Date != Convert.ToDateTime("01/01/0001").Date)
+                {
+                    listItem.SubItems.Add(new ListViewItem.ListViewSubItem(listItem, itemList[i].DataFinal.ToString("dd/MM/yyyy")));
+                }
+                else
+                {
+                    listItem.SubItems.Add(new ListViewItem.ListViewSubItem(listItem, null));
+                }
+
+                if (itemList[i].Finalizado)
+                {
+                    listItem.SubItems.Add(new ListViewItem.ListViewSubItem(listItem, "Finalizado"));
+                }
+                else
+                {
+                    listItem.SubItems.Add(new ListViewItem.ListViewSubItem(listItem, "Em Andamento"));
+                }
+                ListView.Items.Add(listItem);
+            }
         }
 
         private void DataInicialFiltro_ValueChanged(object sender, EventArgs e)
@@ -149,7 +159,9 @@ namespace Trabalho2.Interfaces
 
             ListViewItem item = ListView.SelectedItems[0];
 
-            if (!string.IsNullOrWhiteSpace(item.SubItems[3].Text))
+            bool finalizado = projetoDAO.RecuperarPorId(int.Parse(item.SubItems[0].Text)).Finalizado;
+
+            if (finalizado)
             {
                 MessageBox.Show("O projeto já está finalizado", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -157,7 +169,7 @@ namespace Trabalho2.Interfaces
 
             if (resultadoDAO.RetornaArquivo(int.Parse(item.SubItems[0].Text)) == null)
             {
-                MessageBox.Show("Não poderá finalizar este projeto, pois o mesmo ainda não possui resultado!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Não poderá finalizar este projeto, pois o mesmo ainda não possui resultado! Adicione na aba resultados", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 

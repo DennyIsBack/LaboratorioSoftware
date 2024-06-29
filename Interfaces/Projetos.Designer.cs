@@ -172,6 +172,7 @@
             DataInicialFiltro.Name = "DataInicialFiltro";
             DataInicialFiltro.Size = new Size(173, 35);
             DataInicialFiltro.TabIndex = 36;
+            DataInicialFiltro.Value = new DateTime(1753, 1, 1, 0, 0, 0, 0);
             DataInicialFiltro.ValueChanged += DataInicialFiltro_ValueChanged;
             DataInicialFiltro.KeyDown += DataInicialFiltro_KeyDown;
             // 
@@ -259,6 +260,7 @@
             VisualizarResultado.TabIndex = 37;
             VisualizarResultado.Text = "VISUALIZAR RESULTADO";
             VisualizarResultado.UseVisualStyleBackColor = false;
+            VisualizarResultado.Visible = false;
             VisualizarResultado.Click += VisualizarResultado_Click;
             // 
             // FinalizarProjeto

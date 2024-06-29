@@ -1,4 +1,5 @@
 ﻿using Trabalho2.DB;
+using Trabalho2.Interfaces;
 
 namespace Trabalho2.Validation
 {
@@ -34,36 +35,26 @@ namespace Trabalho2.Validation
             return true;
         }
 
-        public bool PesquisadorEntrada(ListView listView, string id)
+        public int? PesquisadorEntrada(ListView listView, string text, Dictionary<string, int> pesquisadores)
         {
-            if (string.IsNullOrWhiteSpace(id))
+            if (pesquisadores.TryGetValue(text, out int id))
             {
-                MessageBox.Show("Informe o ID do pesquisador!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return false;
-            }
-
-            if (!int.TryParse(id, out int id_int))
-            {
-                MessageBox.Show("O ID informado não é um número!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return false;
-            }
-
-            if (!pesquisadorDAO.ExistePesquisador(id_int))
-            {
-                MessageBox.Show("Não existe pesquisador com o ID informado!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return false;
-            }
-
-            foreach (ListViewItem item in listView.Items)
-            {
-                if (item.SubItems[0].Text == id)
+                foreach (ListViewItem item in listView.Items)
                 {
-                    MessageBox.Show("Este pesquisador já foi informado!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return false;
+                    if (item.SubItems[0].Text == id.ToString())
+                    {
+                        MessageBox.Show("Este pesquisador já foi informado!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return null;
+                    }
                 }
-            }
 
-            return true;
+                return id;
+            }
+            else
+            {
+                MessageBox.Show("Não existe pesquisador com o filtro informado!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return null;
+            }
         }
 
         public bool VerificaPesquisadores(ListView listView)

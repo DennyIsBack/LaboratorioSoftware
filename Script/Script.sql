@@ -47,13 +47,14 @@ CREATE TABLE Projeto (
     Nome VARCHAR(100),
     AreaAtuacao_ID INT,
     Resultado_ID INT,
-    Instituicao_ID INT,
     DataInicial Date,
     DataFinal Date,
     Tipo VARCHAR(20),
+    Instituicao_ID INT,
+    Finalizado Boolean,
     FOREIGN KEY (AreaAtuacao_ID) REFERENCES AreaAtuacao(ID),
     FOREIGN KEY (Resultado_ID) REFERENCES Resultado(ID),
-    FOREIGN KEY (Instituicao) REFERENCES Instituicao(ID)
+    FOREIGN KEY (Instituicao_ID) REFERENCES Instituicao(ID)
 );
 
 -- Tabela Projeto_Pesquisador (Relacionamento muitos para muitos entre Projeto e Pesquisador)
