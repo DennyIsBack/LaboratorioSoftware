@@ -4,37 +4,37 @@ using Trabalho2.Model;
 using System.Collections.Generic;
 using System.Diagnostics;
 using Trabalho2.Interfaces;
+using System.Runtime.InteropServices;
 
 namespace Trabalho2.DB
 {
     public class ResultadoDAO
     {
         private string? sql;
+        private readonly ProjetoDAO projetoDAO = new();
 
         public bool Insert(Resultado resultadoDAO)
         {
+            using NpgsqlConnection connection = new NpgsqlConnection(StringConexao.stringConexao);
+
+            string sql = @"INSERT INTO resultado (id, id_projeto, arquivo, nome_arquivo)
+                   VALUES (@id, @id_projeto, @arquivo, @nome_arquivo)";
+
+            int rowsAffected = connection.Execute(sql, new
             {
-                using NpgsqlConnection connection = new NpgsqlConnection(StringConexao.stringConexao);
-
-                string sql = @"INSERT INTO pesquisador (id, descricao, descriacao_projeto, arquivo)
-                           VALUES (@id, @descricao, @descriacao_projeto, @arquivo)";
-
-                int rowsAffected = connection.Execute(sql, new
-                {
-                    id = resultadoDAO.Id,
-                    descricao = resultadoDAO.Descricao,
-                    descriacao_projeto = resultadoDAO.DescricaoArquivo,
-                    arquivo = resultadoDAO.Arquivo
-                });
-                return rowsAffected > 0;
-            }
+                id = resultadoDAO.Id,
+                id_projeto = resultadoDAO.id_projeto,
+                nome_arquivo = resultadoDAO.nome_arquivo,
+                arquivo = resultadoDAO.Arquivo
+            });
+            return rowsAffected > 0;
         }
 
         public bool Update(Resultado resultado)
         {
             using NpgsqlConnection connection = new(StringConexao.stringConexao);
-           
-            string sql = $@"UPDATE resultado SET descricao = '{resultado.Descricao}', descricao_arquivo = '{resultado.DescricaoArquivo}', arquivo = '{resultado.Arquivo}' WHERE id = {resultado.Id}";
+
+            string sql = $@"UPDATE resultado SET id_projeto = '{resultado.id_projeto}', arquivo = '{resultado.Arquivo}', nome_arquivo = '{resultado.nome_arquivo}' WHERE id = {resultado.Id}";
 
             int rowsAffected = connection.Execute(sql);
 
@@ -53,37 +53,13 @@ namespace Trabalho2.DB
             return rowsAffected > 0;
         }
 
-        public List<Resultado> RecuperarTodosFiltrado(string descricaoResultado)
-        {
-            using NpgsqlConnection connection = new(StringConexao.stringConexao);
-            sql = @"SELECT *
-                      FROM resultado
-                     WHERE UPPER(descricao) LIKE UPPER(CONCAT('%', @descricao, '%'))
-                     ORDER BY descricao"
-            ;
-            return connection.Query<Resultado>(sql, new { descricao = descricaoResultado }).AsList();
-        }
-
         public Resultado RecuperarPorId(int id)
         {
             using NpgsqlConnection connection = new(StringConexao.stringConexao);
 
-            sql = @"SELECT *
-                      FROM resultado
-                     WHERE id = @id";
+            sql = @"SELECT * FROM resultado WHERE id = @id";
 
             return connection.QuerySingleOrDefault<Resultado>(sql, new { id });
-        }
-
-        public bool ExisteResultado(int id)
-        {
-            using NpgsqlConnection connection = new(StringConexao.stringConexao);
-
-            sql = @"SELECT COUNT(*)
-                      FROM resultado
-                     WHERE id = @id";
-
-            return connection.QuerySingle<int>(sql, new { id }) > 0;
         }
 
         public bool ExisteResultadoNoProjeto(int id)
@@ -129,6 +105,42 @@ namespace Trabalho2.DB
                      WHERE projeto.id = @id_projeto";
 
             return connection.QuerySingleOrDefault<string>(sql, new { id_projeto });
+        }
+
+        public List<Resultado> CarregaRegistros(string filtro = null)
+        {
+            List<Resultado> resultados = new List<Resultado>();
+
+            using (NpgsqlConnection connection = new NpgsqlConnection(StringConexao.stringConexao))
+            {
+                connection.Open();
+
+                string sql = "SELECT id, id_projeto, arquivo FROM resultado";
+
+                if (filtro != "")
+                {
+                    string id = projetoDAO.GetID(filtro);
+                    sql += $" WHERE id_projeto = '{id}'";
+                }
+
+                using (NpgsqlCommand command = new NpgsqlCommand(sql, connection))
+                using (NpgsqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Resultado resultado = new Resultado
+                        {
+                            Id = reader.GetInt32(reader.GetOrdinal("id")),
+                            id_projeto = reader.GetString(reader.GetOrdinal("id_projeto")),
+                            Arquivo = (byte[])reader["arquivo"]
+                        };
+
+                        resultados.Add(resultado);
+                    }
+                }
+            }
+
+            return resultados;
         }
     }
 }

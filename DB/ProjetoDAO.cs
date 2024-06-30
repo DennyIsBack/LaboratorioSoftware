@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using Npgsql;
+using System.Windows.Forms.VisualStyles;
 using Trabalho2.Model;
 
 namespace Trabalho2.DB
@@ -237,6 +238,67 @@ namespace Trabalho2.DB
                   AND Pesquisador_ID = @IdPesquisador";
 
             return connection.QuerySingle<bool>(sql, new { IdProjeto = idProjeto, IdPesquisador = idPesquisador });
+        }
+
+        public List<string> GetListaProjetos()
+        {
+            List<string> listaProjetos = new List<string>();
+
+            using (NpgsqlConnection connection = new NpgsqlConnection(StringConexao.stringConexao))
+            {
+                connection.Open();
+
+                string sql = "SELECT nome FROM projeto";
+
+                listaProjetos = connection.Query<string>(sql).AsList();
+            }
+
+            return listaProjetos;
+        }
+
+        public string GetID(string descricao)
+        {
+            using (NpgsqlConnection connection = new NpgsqlConnection(StringConexao.stringConexao))
+            {
+                connection.Open();
+
+                string sql = "SELECT id FROM projeto WHERE nome = @Descricao";
+
+                return connection.QueryFirstOrDefault<string>(sql, new { Descricao = descricao });
+            }
+        }
+
+        public string GetNomeProjeto(string id)
+        {
+            if (!int.TryParse(id, out int projetoId))
+            {
+                throw new ArgumentException("O parâmetro 'id' não pôde ser convertido para inteiro.");
+            }
+
+            using (NpgsqlConnection connection = new NpgsqlConnection(StringConexao.stringConexao))
+            {
+                connection.Open();
+
+                string sql = "SELECT nome FROM projeto WHERE id = @Id";
+
+                return connection.QueryFirstOrDefault<string>(sql, new { Id = projetoId });
+            }
+        }
+
+        public List<string> GetProjetos()
+        {
+            List<string> nomesProjetos = new List<string>();
+
+            using (NpgsqlConnection connection = new NpgsqlConnection(StringConexao.stringConexao))
+            {
+                connection.Open();
+
+                string sql = "SELECT nome FROM projeto";
+
+                nomesProjetos = connection.Query<string>(sql).AsList();
+            }
+
+            return nomesProjetos;
         }
     }
 }

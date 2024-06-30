@@ -7,11 +7,11 @@ namespace Trabalho2.Validation
         private readonly ResultadoDAO resultadoDAO = new();
         private readonly ProjetoDAO projetoDAO = new();
 
-        public bool DescricaoEntrada(string descricao)
+        public bool Projeto(string projeto)
         {
-            if (string.IsNullOrWhiteSpace(descricao))
+            if (string.IsNullOrWhiteSpace(projeto))
             {
-                MessageBox.Show("Informe a descrição!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Selecione o projeto!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
 
@@ -23,23 +23,6 @@ namespace Trabalho2.Validation
             if (string.IsNullOrWhiteSpace(descricao_Arquivo))
             {
                 MessageBox.Show("Selecione um arquivo!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return false;
-            }
-
-            return true;
-        }
-
-        public bool VerificaResultado(int id_projeto, int id_resultado)
-        {
-            if (!resultadoDAO.ExisteResultado(id_resultado))
-            {
-                MessageBox.Show("O resultado informado não existe!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return false;
-            }
-
-            if (projetoDAO.ExisteResultadoProjeto(id_projeto, id_resultado))
-            {
-                MessageBox.Show("O resultado informado já existe em outro projeto!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
 

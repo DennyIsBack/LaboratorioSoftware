@@ -92,6 +92,7 @@
             // 
             // cmbArea
             // 
+            cmbArea.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbArea.FormattingEnabled = true;
             cmbArea.Location = new Point(96, 49);
             cmbArea.Name = "cmbArea";

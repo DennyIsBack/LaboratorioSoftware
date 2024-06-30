@@ -1,7 +1,8 @@
-﻿using System.Diagnostics;
-using Trabalho2.DB;
+﻿using Trabalho2.DB;
 using Trabalho2.Model;
 using Trabalho2.Validation;
+using PdfiumViewer;
+using System.Diagnostics;
 
 namespace Trabalho2.Interfaces
 {
@@ -9,6 +10,7 @@ namespace Trabalho2.Interfaces
     {
         private readonly ValidationResultado validacaoResultado = new();
         private readonly ResultadoDAO resultadoDAO = new();
+        private readonly ProjetoDAO projetoDAO = new();
         private readonly string manutencao;
         private byte[]? arquivo;
 
@@ -20,6 +22,8 @@ namespace Trabalho2.Interfaces
 
         private void ResultadoManutencao_Load(object sender, EventArgs e)
         {
+            PopulaProjetos(cmbProjeto);
+
             if (manutencao == "Incluir")
             {
                 Id.Text = resultadoDAO.RetornaProximoId().ToString();
@@ -27,38 +31,59 @@ namespace Trabalho2.Interfaces
             else
             {
                 Resultado resultado = resultadoDAO.RecuperarPorId(int.Parse(Id.Text));
-                Descricao.Text = resultado.Descricao;
-                Descricao_Arquivo.Text = resultado.Descricao;
+                cmbProjeto.SelectedItem = projetoDAO.GetNomeProjeto(resultado.id_projeto);
+                txbArquivo.Text = resultado.nome_arquivo;
                 arquivo = resultado.Arquivo;
 
                 if (manutencao == "Detalhes")
                 {
-                    Descricao.Enabled = false;
                     EscolherArquivo.Visible = false;
+                    Visualizar.Visible = true;
+                    Visualizar.Location = new Point(609, 156);
                     Salvar.Visible = false;
                 }
             }
         }
-         
+
+        public void PopulaProjetos(ComboBox cmbProjeto)
+        {
+            List<string> nomesProjetos = projetoDAO.GetListaProjetos();
+
+            cmbProjeto.Items.Clear();
+
+            foreach (string nomeProjeto in nomesProjetos)
+            {
+                cmbProjeto.Items.Add(nomeProjeto);
+            }
+        }
+
         private void Visualizar_Click(object sender, EventArgs e)
         {
-            string filePath;
+            Resultado resultado = resultadoDAO.RecuperarPorId(int.Parse(Id.Text));
 
-            if (!validacaoResultado.ArquivoEntrada(Descricao_Arquivo.Text))
-            {
-                return;
-            }
+            try
+                {
+                    string nomeArquivo = resultado.nome_arquivo;
 
-            filePath = "C:\\Users\\" + Environment.UserName + "\\Downloads\\" + Descricao_Arquivo.Text;
-            File.WriteAllBytes(filePath, arquivo);
-            Process.Start("explorer.exe", "/select," + filePath);
+                    string pastaDownloads = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Downloads";
+
+                    string caminhoCompleto = Path.Combine(pastaDownloads, nomeArquivo);
+
+                    File.WriteAllBytes(caminhoCompleto, resultado.Arquivo);
+
+                    Process.Start("explorer.exe", pastaDownloads);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Erro ao salvar ou abrir o arquivo: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
         }
 
         private void EscolherArquivo_Click(object sender, EventArgs e)
         {
             OpenFileDialog open = new()
             {
-                Filter = "Todos os arquivos|*.*"
+                Filter = "Arquivos PDF|*.pdf"
             };
             if (open.ShowDialog() == DialogResult.OK)
             {
@@ -76,29 +101,41 @@ namespace Trabalho2.Interfaces
                     return;
                 }
 
+                if (file.Extension.ToLower() != ".pdf")
+                {
+                    MessageBox.Show("Por favor, selecione um arquivo PDF!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
                 arquivo = File.ReadAllBytes(open.FileName);
-                Descricao_Arquivo.Text = file.Name;
+                txbArquivo.Text = file.Name;
             }
         }
 
         private void Salvar_Click(object sender, EventArgs e)
         {
-            if (!validacaoResultado.DescricaoEntrada(Descricao.Text))
+            if (!validacaoResultado.Projeto(cmbProjeto.Text))
             {
-                Descricao.Focus();
+                cmbProjeto.Focus();
                 return;
             }
 
-            if (!validacaoResultado.ArquivoEntrada(Descricao_Arquivo.Text))
+            if (!validacaoResultado.ArquivoEntrada(txbArquivo.Text))
             {
+                return;
+            }
+
+            if (arquivo == null || arquivo.Length == 0)
+            {
+                MessageBox.Show("Nenhum arquivo foi selecionado ou o arquivo está vazio!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             Resultado resultado = new()
             {
                 Id = int.Parse(Id.Text),
-                Descricao = Descricao.Text,
-                DescricaoArquivo = Descricao_Arquivo.Text,
+                id_projeto = projetoDAO.GetID(cmbProjeto.Text),
+                nome_arquivo = txbArquivo.Text,
                 Arquivo = arquivo
             };
 
@@ -127,8 +164,21 @@ namespace Trabalho2.Interfaces
                 {
                     MessageBox.Show("Falha ao editar cadastro", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-            }
+            }            
             Close();
+        }
+        private void VisualizarPDF(byte[] pdfBytes)
+        {
+            using (MemoryStream stream = new MemoryStream(pdfBytes))
+            using (PdfDocument doc = PdfDocument.Load(stream))
+            {
+                using (PdfViewer viewer = new PdfViewer())
+                {
+                    viewer.Document = doc;
+                    viewer.Dock = DockStyle.Fill;
+                    panelVisualizacao.Controls.Add(viewer);
+                }
+            }
         }
     }
 }

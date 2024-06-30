@@ -31,14 +31,15 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ResultadoManutencao));
             Salvar = new Button();
             groupBox1 = new GroupBox();
-            Visualizar = new Button();
+            cmbProjeto = new ComboBox();
             EscolherArquivo = new Button();
-            Descricao_Arquivo = new TextBox();
-            Descricao = new TextBox();
+            txbArquivo = new TextBox();
             Id = new TextBox();
             label3 = new Label();
             label2 = new Label();
             label1 = new Label();
+            Visualizar = new Button();
+            panelVisualizacao = new Panel();
             groupBox1.SuspendLayout();
             SuspendLayout();
             // 
@@ -62,10 +63,9 @@
             // groupBox1
             // 
             groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            groupBox1.Controls.Add(Visualizar);
+            groupBox1.Controls.Add(cmbProjeto);
             groupBox1.Controls.Add(EscolherArquivo);
-            groupBox1.Controls.Add(Descricao_Arquivo);
-            groupBox1.Controls.Add(Descricao);
+            groupBox1.Controls.Add(txbArquivo);
             groupBox1.Controls.Add(Id);
             groupBox1.Controls.Add(label3);
             groupBox1.Controls.Add(label2);
@@ -77,21 +77,14 @@
             groupBox1.TabIndex = 15;
             groupBox1.TabStop = false;
             // 
-            // Visualizar
+            // cmbProjeto
             // 
-            Visualizar.BackColor = Color.MidnightBlue;
-            Visualizar.FlatAppearance.BorderSize = 0;
-            Visualizar.FlatAppearance.MouseOverBackColor = Color.FromArgb(45, 45, 48);
-            Visualizar.FlatStyle = FlatStyle.Flat;
-            Visualizar.Font = new Font("Century Gothic", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            Visualizar.ForeColor = Color.White;
-            Visualizar.Location = new Point(449, 87);
-            Visualizar.Name = "Visualizar";
-            Visualizar.Size = new Size(126, 30);
-            Visualizar.TabIndex = 18;
-            Visualizar.Text = "VISUALIZAR";
-            Visualizar.UseVisualStyleBackColor = false;
-            Visualizar.Click += Visualizar_Click;
+            cmbProjeto.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbProjeto.FormattingEnabled = true;
+            cmbProjeto.Location = new Point(103, 53);
+            cmbProjeto.Name = "cmbProjeto";
+            cmbProjeto.Size = new Size(667, 29);
+            cmbProjeto.TabIndex = 18;
             // 
             // EscolherArquivo
             // 
@@ -109,20 +102,13 @@
             EscolherArquivo.UseVisualStyleBackColor = false;
             EscolherArquivo.Click += EscolherArquivo_Click;
             // 
-            // Descricao_Arquivo
+            // txbArquivo
             // 
-            Descricao_Arquivo.Enabled = false;
-            Descricao_Arquivo.Location = new Point(103, 88);
-            Descricao_Arquivo.Name = "Descricao_Arquivo";
-            Descricao_Arquivo.Size = new Size(340, 27);
-            Descricao_Arquivo.TabIndex = 3;
-            // 
-            // Descricao
-            // 
-            Descricao.Location = new Point(103, 55);
-            Descricao.Name = "Descricao";
-            Descricao.Size = new Size(667, 27);
-            Descricao.TabIndex = 2;
+            txbArquivo.Enabled = false;
+            txbArquivo.Location = new Point(103, 88);
+            txbArquivo.Name = "txbArquivo";
+            txbArquivo.Size = new Size(472, 27);
+            txbArquivo.TabIndex = 3;
             // 
             // Id
             // 
@@ -135,11 +121,11 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(6, 56);
+            label3.Location = new Point(29, 56);
             label3.Name = "label3";
-            label3.Size = new Size(91, 21);
+            label3.Size = new Size(68, 21);
             label3.TabIndex = 2;
-            label3.Text = "Descrição:";
+            label3.Text = "Projeto:";
             // 
             // label2
             // 
@@ -159,12 +145,38 @@
             label1.TabIndex = 0;
             label1.Text = "ID:";
             // 
+            // Visualizar
+            // 
+            Visualizar.BackColor = Color.MidnightBlue;
+            Visualizar.FlatAppearance.BorderSize = 0;
+            Visualizar.FlatAppearance.MouseOverBackColor = Color.FromArgb(45, 45, 48);
+            Visualizar.FlatStyle = FlatStyle.Flat;
+            Visualizar.Font = new Font("Century Gothic", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            Visualizar.ForeColor = Color.White;
+            Visualizar.Location = new Point(423, 156);
+            Visualizar.Name = "Visualizar";
+            Visualizar.Size = new Size(179, 40);
+            Visualizar.TabIndex = 18;
+            Visualizar.Text = "VISUALIZAR ARQUIVO";
+            Visualizar.UseVisualStyleBackColor = false;
+            Visualizar.Visible = false;
+            Visualizar.Click += Visualizar_Click;
+            // 
+            // panelVisualizacao
+            // 
+            panelVisualizacao.Location = new Point(12, 154);
+            panelVisualizacao.Name = "panelVisualizacao";
+            panelVisualizacao.Size = new Size(392, 82);
+            panelVisualizacao.TabIndex = 19;
+            // 
             // ResultadoManutencao
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.WhiteSmoke;
             ClientSize = new Size(800, 208);
+            Controls.Add(panelVisualizacao);
+            Controls.Add(Visualizar);
             Controls.Add(Salvar);
             Controls.Add(groupBox1);
             Icon = (Icon)resources.GetObject("$this.Icon");
@@ -184,13 +196,14 @@
 
         private Button Salvar;
         private GroupBox groupBox1;
-        private TextBox Descricao;
         public TextBox Id;
         private Label label3;
         private Label label2;
         private Label label1;
         private Button EscolherArquivo;
-        private TextBox Descricao_Arquivo;
+        private TextBox txbArquivo;
         private Button Visualizar;
+        private ComboBox cmbProjeto;
+        private Panel panelVisualizacao;
     }
 }
