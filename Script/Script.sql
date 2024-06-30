@@ -7,9 +7,9 @@ CREATE TABLE AreaAtuacao (
 --Tabela Resultado 
 create table Resultado (
 	ID int not null primary key,
-	Descricao varchar(255) not null,
-	DescricaoArquivo varchar(60) not null,
-	Arquivo bytea not null
+	id_projeto varchar(100),
+	arquivo bytea,
+	nome_arquivo varchar(150)
 );
 
 CREATE TABLE Pesquisador (

@@ -11,6 +11,7 @@
   <ItemGroup>
     <PackageReference Include="Drapper" Version="1.2.0" />
     <PackageReference Include="Npgsql" Version="8.0.3" />
+    <PackageReference Include="PdfiumViewer" Version="2.13.0" />
   </ItemGroup>
 
   <ItemGroup>

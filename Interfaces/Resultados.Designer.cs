@@ -30,9 +30,12 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Resultados));
             label1 = new Label();
-            ListView = new ListView();
+            lvResultado = new ListView();
+            idColumn = new ColumnHeader();
+            projetoColumn = new ColumnHeader();
             groupBox1 = new GroupBox();
-            DescricaoFiltro = new TextBox();
+            btnLimpar = new Button();
+            cmbProjeto = new ComboBox();
             Pesquisar = new Button();
             label2 = new Label();
             Detalhes = new Button();
@@ -48,50 +51,74 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Microsoft Sans Serif", 18F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.Location = new Point(17, 33);
-            label1.Margin = new Padding(4, 0, 4, 0);
+            label1.Location = new Point(12, 20);
             label1.Name = "label1";
-            label1.Size = new Size(271, 40);
+            label1.Size = new Size(185, 29);
             label1.TabIndex = 16;
             label1.Text = "RESULTADOS";
             // 
-            // ListView
+            // lvResultado
             // 
-            ListView.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            ListView.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            ListView.FullRowSelect = true;
-            ListView.Location = new Point(17, 198);
-            ListView.Margin = new Padding(4, 5, 4, 5);
-            ListView.Name = "ListView";
-            ListView.Size = new Size(1193, 779);
-            ListView.TabIndex = 17;
-            ListView.UseCompatibleStateImageBehavior = false;
-            ListView.View = View.Details;
-            ListView.DoubleClick += DoubleClick_Click;
+            lvResultado.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            lvResultado.Columns.AddRange(new ColumnHeader[] { idColumn, projetoColumn });
+            lvResultado.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            lvResultado.FullRowSelect = true;
+            lvResultado.Location = new Point(12, 119);
+            lvResultado.Name = "lvResultado";
+            lvResultado.Size = new Size(836, 469);
+            lvResultado.TabIndex = 17;
+            lvResultado.UseCompatibleStateImageBehavior = false;
+            lvResultado.View = View.Details;
+            lvResultado.DoubleClick += DoubleClick_Click;
+            // 
+            // idColumn
+            // 
+            idColumn.Text = "ID";
+            // 
+            // projetoColumn
+            // 
+            projetoColumn.Text = "Projeto";
+            projetoColumn.Width = 1000;
             // 
             // groupBox1
             // 
             groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            groupBox1.Controls.Add(DescricaoFiltro);
+            groupBox1.Controls.Add(btnLimpar);
+            groupBox1.Controls.Add(cmbProjeto);
             groupBox1.Controls.Add(Pesquisar);
             groupBox1.Controls.Add(label2);
             groupBox1.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            groupBox1.Location = new Point(17, 82);
-            groupBox1.Margin = new Padding(4, 5, 4, 5);
+            groupBox1.Location = new Point(12, 49);
             groupBox1.Name = "groupBox1";
-            groupBox1.Padding = new Padding(4, 5, 4, 5);
-            groupBox1.Size = new Size(1193, 107);
+            groupBox1.Size = new Size(836, 64);
             groupBox1.TabIndex = 22;
             groupBox1.TabStop = false;
             groupBox1.Text = "Filtro";
             // 
-            // DescricaoFiltro
+            // btnLimpar
             // 
-            DescricaoFiltro.Location = new Point(149, 43);
-            DescricaoFiltro.Margin = new Padding(4, 5, 4, 5);
-            DescricaoFiltro.Name = "DescricaoFiltro";
-            DescricaoFiltro.Size = new Size(960, 35);
-            DescricaoFiltro.TabIndex = 1;
+            btnLimpar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnLimpar.BackColor = Color.MidnightBlue;
+            btnLimpar.FlatAppearance.MouseOverBackColor = Color.MediumBlue;
+            btnLimpar.FlatStyle = FlatStyle.Flat;
+            btnLimpar.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            btnLimpar.ForeColor = Color.White;
+            btnLimpar.Location = new Point(776, 25);
+            btnLimpar.Name = "btnLimpar";
+            btnLimpar.Size = new Size(54, 27);
+            btnLimpar.TabIndex = 29;
+            btnLimpar.Text = "X";
+            btnLimpar.UseVisualStyleBackColor = false;
+            btnLimpar.Click += btnLimpar_Click;
+            // 
+            // cmbProjeto
+            // 
+            cmbProjeto.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbProjeto.FormattingEnabled = true;
+            cmbProjeto.Location = new Point(70, 25);
+            cmbProjeto.Name = "cmbProjeto";
+            cmbProjeto.Size = new Size(640, 28);
+            cmbProjeto.TabIndex = 28;
             // 
             // Pesquisar
             // 
@@ -101,10 +128,9 @@
             Pesquisar.FlatStyle = FlatStyle.Flat;
             Pesquisar.ForeColor = Color.White;
             Pesquisar.Image = (Image)resources.GetObject("Pesquisar.Image");
-            Pesquisar.Location = new Point(1106, 45);
-            Pesquisar.Margin = new Padding(4, 5, 4, 5);
+            Pesquisar.Location = new Point(716, 25);
             Pesquisar.Name = "Pesquisar";
-            Pesquisar.Size = new Size(62, 34);
+            Pesquisar.Size = new Size(54, 27);
             Pesquisar.TabIndex = 27;
             Pesquisar.UseVisualStyleBackColor = false;
             Pesquisar.Click += Pesquisar_Click;
@@ -112,12 +138,11 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(10, 48);
-            label2.Margin = new Padding(4, 0, 4, 0);
+            label2.Location = new Point(7, 29);
             label2.Name = "label2";
-            label2.Size = new Size(127, 29);
+            label2.Size = new Size(63, 20);
             label2.TabIndex = 0;
-            label2.Text = "Descrição:";
+            label2.Text = "Projeto:";
             // 
             // Detalhes
             // 
@@ -130,10 +155,9 @@
             Detalhes.ForeColor = Color.White;
             Detalhes.Image = (Image)resources.GetObject("Detalhes.Image");
             Detalhes.ImageAlign = ContentAlignment.MiddleLeft;
-            Detalhes.Location = new Point(1230, 360);
-            Detalhes.Margin = new Padding(4, 5, 4, 5);
+            Detalhes.Location = new Point(861, 216);
             Detalhes.Name = "Detalhes";
-            Detalhes.Size = new Size(257, 67);
+            Detalhes.Size = new Size(180, 40);
             Detalhes.TabIndex = 26;
             Detalhes.Text = "DETALHES";
             Detalhes.UseVisualStyleBackColor = false;
@@ -150,10 +174,9 @@
             Novo.ForeColor = Color.White;
             Novo.Image = (Image)resources.GetObject("Novo.Image");
             Novo.ImageAlign = ContentAlignment.MiddleLeft;
-            Novo.Location = new Point(1230, 130);
-            Novo.Margin = new Padding(4, 5, 4, 5);
+            Novo.Location = new Point(861, 78);
             Novo.Name = "Novo";
-            Novo.Size = new Size(257, 67);
+            Novo.Size = new Size(180, 40);
             Novo.TabIndex = 25;
             Novo.Text = "NOVO";
             Novo.UseVisualStyleBackColor = false;
@@ -170,10 +193,9 @@
             Editar.ForeColor = Color.White;
             Editar.Image = (Image)resources.GetObject("Editar.Image");
             Editar.ImageAlign = ContentAlignment.MiddleLeft;
-            Editar.Location = new Point(1230, 207);
-            Editar.Margin = new Padding(4, 5, 4, 5);
+            Editar.Location = new Point(861, 124);
             Editar.Name = "Editar";
-            Editar.Size = new Size(257, 67);
+            Editar.Size = new Size(180, 40);
             Editar.TabIndex = 24;
             Editar.Text = "EDITAR";
             Editar.UseVisualStyleBackColor = false;
@@ -190,10 +212,9 @@
             Excluir.ForeColor = Color.White;
             Excluir.Image = (Image)resources.GetObject("Excluir.Image");
             Excluir.ImageAlign = ContentAlignment.MiddleLeft;
-            Excluir.Location = new Point(1230, 284);
-            Excluir.Margin = new Padding(4, 5, 4, 5);
+            Excluir.Location = new Point(861, 170);
             Excluir.Name = "Excluir";
-            Excluir.Size = new Size(257, 67);
+            Excluir.Size = new Size(180, 40);
             Excluir.TabIndex = 23;
             Excluir.Text = "EXCLUIR";
             Excluir.UseVisualStyleBackColor = false;
@@ -204,10 +225,9 @@
             BtnFechar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             BtnFechar.Cursor = Cursors.Hand;
             BtnFechar.Image = (Image)resources.GetObject("BtnFechar.Image");
-            BtnFechar.Location = new Point(1463, 8);
-            BtnFechar.Margin = new Padding(4, 5, 4, 5);
+            BtnFechar.Location = new Point(1024, 5);
             BtnFechar.Name = "BtnFechar";
-            BtnFechar.Size = new Size(29, 33);
+            BtnFechar.Size = new Size(20, 20);
             BtnFechar.SizeMode = PictureBoxSizeMode.StretchImage;
             BtnFechar.TabIndex = 28;
             BtnFechar.TabStop = false;
@@ -215,20 +235,19 @@
             // 
             // Resultados
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.WhiteSmoke;
-            ClientSize = new Size(1500, 1000);
+            ClientSize = new Size(1050, 600);
             Controls.Add(BtnFechar);
             Controls.Add(Detalhes);
             Controls.Add(Novo);
             Controls.Add(Editar);
             Controls.Add(Excluir);
             Controls.Add(groupBox1);
-            Controls.Add(ListView);
+            Controls.Add(lvResultado);
             Controls.Add(label1);
             FormBorderStyle = FormBorderStyle.None;
-            Margin = new Padding(4, 5, 4, 5);
             Name = "Resultados";
             Text = "Resultados";
             Load += Resultados_Load;
@@ -242,9 +261,8 @@
         #endregion
 
         private Label label1;
-        private ListView ListView;
+        private ListView lvResultado;
         private GroupBox groupBox1;
-        private TextBox DescricaoFiltro;
         private Label label2;
         private Button Pesquisar;
         private Button Detalhes;
@@ -252,5 +270,9 @@
         private Button Editar;
         private Button Excluir;
         private PictureBox BtnFechar;
+        private ColumnHeader idColumn;
+        private ColumnHeader projetoColumn;
+        private ComboBox cmbProjeto;
+        private Button btnLimpar;
     }
 }

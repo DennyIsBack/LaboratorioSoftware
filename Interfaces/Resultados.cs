@@ -6,6 +6,7 @@ namespace Trabalho2.Interfaces
     public partial class Resultados : Form
     {
         private readonly ResultadoDAO resultadoDAO = new();
+        private readonly ProjetoDAO projetoDAO = new();
         private readonly MenuPrincipal formMenuPrincipal;
 
         public Resultados(MenuPrincipal form)
@@ -14,50 +15,40 @@ namespace Trabalho2.Interfaces
             formMenuPrincipal = form;
         }
 
-        private void Resultados_Load(object sender, EventArgs e)
-        {
-            AdicionaColunas();
-            CarregarRegistros();
-        }
-
         private void BtnFechar_Click(object sender, EventArgs e)
         {
             formMenuPrincipal.BtnResultados.BackColor = Color.FromArgb(25, 25, 112);
             Close();
         }
 
-        private void AdicionaColunas()
+        private void CarregaRegistros()
         {
-            ListView.Font = new Font(ListView.Font, FontStyle.Bold);
-            ListView.Columns.Add("ID", 50);
-            ListView.Columns.Add("Descrição", 900);
-        }
+            lvResultado.Items.Clear();
 
-        private void CarregarRegistros()
-        {
-            //ListView.Items.Clear();
-            //List<Resultado> itemList = resultadoDAO.RecuperarTodosFiltrado(DescricaoFiltro.Text);
+            ResultadoDAO resultadoDAO = new ResultadoDAO();
+            List<Resultado> registros = resultadoDAO.CarregaRegistros(cmbProjeto.Text);
 
-            //for (int i = 0; i < itemList.Count; i++)
-            //{
-            //    ListViewItem listItem = new(itemList[i].Id.ToString())
-            //    {
-            //        Font = new Font(ListView.Font, FontStyle.Regular)
-            //    };
-            //    listItem.SubItems.Add(new ListViewItem.ListViewSubItem(listItem, itemList[i].Descricao));
-            //    ListView.Items.Add(listItem);
-            //}
+            foreach (var resultado in registros)
+            {
+                string projeto = projetoDAO.GetNomeProjeto(resultado.id_projeto);
+
+                ListViewItem item = new ListViewItem(resultado.Id.ToString());
+
+                item.SubItems.Add(projeto);
+
+                lvResultado.Items.Add(item);
+            }
         }
 
         private void Pesquisar_Click(object sender, EventArgs e)
         {
-            CarregarRegistros();
+            CarregaRegistros();
         }
 
         private void Novo_Click(object sender, EventArgs e)
         {
             new ResultadoManutencao("Incluir").ShowDialog();
-            CarregarRegistros();
+            CarregaRegistros();
         }
 
         private void Editar_Click(object sender, EventArgs e)
@@ -67,11 +58,11 @@ namespace Trabalho2.Interfaces
                 return;
             }
 
-            ListViewItem item = ListView.SelectedItems[0];
+            ListViewItem item = lvResultado.SelectedItems[0];
             ResultadoManutencao form = new("Editar");
             form.Id.Text = item.SubItems[0].Text;
             form.ShowDialog();
-            CarregarRegistros();
+            CarregaRegistros();
         }
 
         private void Excluir_Click(object sender, EventArgs e)
@@ -81,18 +72,12 @@ namespace Trabalho2.Interfaces
                 return;
             }
 
-            ListViewItem item = ListView.SelectedItems[0];
-
-            if (resultadoDAO.ExisteResultado(int.Parse(item.SubItems[0].Text)))
-            {
-                MessageBox.Show("Não poderá excluir este resultado, pois o mesmo faz parte de um projeto", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+            ListViewItem item = lvResultado.SelectedItems[0];
 
             if (MessageBox.Show("Confirma excluir este registro?", "Selecione a opção", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 resultadoDAO.Delete(int.Parse(item.SubItems[0].Text));
-                CarregarRegistros();
+                CarregaRegistros();
             }
         }
 
@@ -103,7 +88,7 @@ namespace Trabalho2.Interfaces
                 return;
             }
 
-            ListViewItem item = ListView.SelectedItems[0];
+            ListViewItem item = lvResultado.SelectedItems[0];
             ResultadoManutencao form = new("Detalhes");
             form.Id.Text = item.SubItems[0].Text;
             form.ShowDialog();
@@ -116,13 +101,13 @@ namespace Trabalho2.Interfaces
 
         private bool VerificaList()
         {
-            if (ListView.Items.Count == 0)
+            if (lvResultado.Items.Count == 0)
             {
                 MessageBox.Show("Não há nenhum registro!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
 
-            if (ListView.SelectedItems.Count == 0)
+            if (lvResultado.SelectedItems.Count == 0)
             {
                 MessageBox.Show("Selecione um registro antes!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
@@ -130,5 +115,27 @@ namespace Trabalho2.Interfaces
 
             return true;
         }
-    }
+
+        private void Resultados_Load(object sender, EventArgs e)
+        {
+            PopulaProjetos(cmbProjeto);
+        }
+
+        public void PopulaProjetos(ComboBox cmbProjeto)
+        {
+            List<string> nomesProjetos = projetoDAO.GetListaProjetos();
+
+            cmbProjeto.Items.Clear();
+
+            foreach (string nomeProjeto in nomesProjetos)
+            {
+                cmbProjeto.Items.Add(nomeProjeto);
+            }
+        }
+
+        private void btnLimpar_Click(object sender, EventArgs e)
+        {
+            cmbProjeto.SelectedIndex = -1;
+        }
+            }
 }
