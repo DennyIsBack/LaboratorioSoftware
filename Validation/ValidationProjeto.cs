@@ -35,6 +35,17 @@ namespace Trabalho2.Validation
             return true;
         }
 
+        public bool DataFinalEntrada(DateTimePicker dataInicial)
+        {
+            if (dataInicial.CustomFormat == " ")
+            {
+                MessageBox.Show("Informe a data final!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+            return true;
+        }
+
         public int? PesquisadorEntrada(ListView listView, string text, Dictionary<string, int> pesquisadores)
         {
             if (pesquisadores.TryGetValue(text, out int id))

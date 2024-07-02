@@ -119,17 +119,26 @@ namespace Trabalho2.Interfaces
 
             ListViewItem item = ListView.SelectedItems[0];
 
-            if (!string.IsNullOrWhiteSpace(item.SubItems[3].Text))
+            if (resultadoDAO.ExisteProjetoNoResultado(Convert.ToInt32(item.SubItems[0].Text)))
             {
-                MessageBox.Show("Não poderá excluir este projeto, pois o mesmo está finalizado", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                MessageBox.Show("Não é possivel excluir um projeto que já tem um resultado vinculado.", "Aviso");
+            }
+            else
+            {
+
+                if (!string.IsNullOrWhiteSpace(item.SubItems[3].Text))
+                {
+                    MessageBox.Show("Não poderá excluir este projeto, pois o mesmo está finalizado", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (MessageBox.Show("Confirma excluir este registro?", "Selecione a opção", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    projetoDAO.Delete(int.Parse(item.SubItems[0].Text));
+                    CarregarRegistros();
+                }
             }
 
-            if (MessageBox.Show("Confirma excluir este registro?", "Selecione a opção", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-            {
-                projetoDAO.Delete(int.Parse(item.SubItems[0].Text));
-                CarregarRegistros();
-            }
         }
 
         private void Detalhes_Click(object sender, EventArgs e)

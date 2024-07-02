@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProjetoManutencao));
             Salvar = new Button();
             groupBox1 = new GroupBox();
+            DataFinal = new DateTimePicker();
             cbxArea = new ComboBox();
             label9 = new Label();
             cbxInstituicao = new ComboBox();
@@ -50,7 +51,6 @@
             IncluirPesquisador = new Button();
             ListView = new ListView();
             chkFinalizado = new CheckBox();
-            DataFinal = new DateTimePicker();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             SuspendLayout();
@@ -92,6 +92,18 @@
             groupBox1.Size = new Size(776, 147);
             groupBox1.TabIndex = 17;
             groupBox1.TabStop = false;
+            // 
+            // DataFinal
+            // 
+            DataFinal.Checked = false;
+            DataFinal.CustomFormat = " ";
+            DataFinal.Format = DateTimePickerFormat.Custom;
+            DataFinal.Location = new Point(301, 92);
+            DataFinal.Name = "DataFinal";
+            DataFinal.Size = new Size(145, 26);
+            DataFinal.TabIndex = 11;
+            DataFinal.ValueChanged += DataFinal_ValueChanged;
+            DataFinal.KeyDown += DataFinal_KeyDown;
             // 
             // cbxArea
             // 
@@ -292,15 +304,6 @@
             chkFinalizado.Text = "Projeto finalizado ";
             chkFinalizado.UseVisualStyleBackColor = true;
             chkFinalizado.Visible = false;
-            // 
-            // DataFinal
-            // 
-            DataFinal.CustomFormat = " ";
-            DataFinal.Format = DateTimePickerFormat.Custom;
-            DataFinal.Location = new Point(301, 92);
-            DataFinal.Name = "DataFinal";
-            DataFinal.Size = new Size(145, 26);
-            DataFinal.TabIndex = 11;
             // 
             // ProjetoManutencao
             // 

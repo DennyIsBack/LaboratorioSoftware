@@ -20,8 +20,8 @@ namespace Trabalho2.DB
             try
             {
                 //INCLUIR resultado
-                string sql = @"INSERT INTO projeto (id, nome, AreaAtuacao_ID, DataInicial, tipo, Instituicao_ID, Finalizado)
-                       VALUES (@id, @Nome, @AreaDeAtuacaoId, @DataInicial, @Tipo, @InstituicaoId, @Finalizado)"; // Retorna o ID gerado
+                string sql = @"INSERT INTO projeto (id, nome, AreaAtuacao_ID, DataInicial,DataFinal, tipo, Instituicao_ID, Finalizado)
+                       VALUES (@id, @Nome, @AreaDeAtuacaoId, @DataInicial,@DataFinal, @Tipo, @InstituicaoId, @Finalizado)"; // Retorna o ID gerado
 
                 var parameterProjeto = new
                 {
@@ -30,7 +30,7 @@ namespace Trabalho2.DB
                     AreaDeAtuacaoId = projeto.AreaDeAtuacao?.Id,
                     //ResultadoId = projeto.Resultado?.Id, 
                     DataInicial = projeto.DataInicial.ToUniversalTime(),
-                    //DataFinal = projeto.DataFinal.ToUniversalTime(),
+                    DataFinal = projeto.DataFinal.ToUniversalTime(),
                     projeto.Tipo,
                     InstituicaoId = projeto.Instituicao?.Id, 
                     projeto.Finalizado
@@ -81,11 +81,7 @@ namespace Trabalho2.DB
                 parametrosProjeto.Add("DataInicial", projeto.DataInicial.ToUniversalTime());
                 parametrosProjeto.Add("Tipo", projeto.Tipo);
                 parametrosProjeto.Add("InstituicaoId", projeto.Instituicao?.Id);
-
-                if (projeto.DataFinal != DateTime.MinValue)
-                {
-                    parametrosProjeto.Add("DataFinal", projeto.DataFinal.ToUniversalTime());
-                }
+                parametrosProjeto.Add("DataFinal", projeto.DataFinal.ToUniversalTime());
 
                 connection.Execute(sql, parametrosProjeto, transaction);
 
@@ -238,16 +234,15 @@ namespace Trabalho2.DB
             return connection.QuerySingle<int>(sql);
         }
 
-        public bool ExistePesquisadorProjeto(int idPesquisador, int idProjeto)
+        public bool ExistePesquisadorProjeto(int idPesquisador)
         {
             using NpgsqlConnection connection = new(StringConexao.stringConexao);
 
             string sql = @"SELECT COUNT(*)
                   FROM Projeto_Pesquisador
-                  WHERE Projeto_ID = @IdProjeto
-                  AND Pesquisador_ID = @IdPesquisador";
+                  WHERE Pesquisador_ID = @IdPesquisador";
 
-            return connection.QuerySingle<bool>(sql, new { IdProjeto = idProjeto, IdPesquisador = idPesquisador });
+            return connection.QuerySingle<bool>(sql, new { IdPesquisador = idPesquisador });
         }
 
         public List<string> GetListaProjetos()

@@ -73,6 +73,17 @@ namespace Trabalho2.DB
             return connection.QuerySingle<int>(sql, new { id }) > 0;
         }
 
+        public bool ExisteProjetoNoResultado(int id)
+        {
+            using NpgsqlConnection connection = new(StringConexao.stringConexao);
+
+            sql = @"SELECT COUNT(*)
+                     FROM resultado
+                     WHERE id_projeto = @id";
+
+            return connection.QuerySingle<int>(sql, new { id }) > 0;
+        }
+
         public int RetornaProximoId()
         {
             using NpgsqlConnection connection = new(StringConexao.stringConexao);

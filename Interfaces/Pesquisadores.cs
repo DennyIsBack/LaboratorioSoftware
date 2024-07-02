@@ -12,6 +12,7 @@ namespace Trabalho2.Interfaces
     {
         private readonly PesquisadorDAO pesquisadorDAO = new();
         private readonly MenuPrincipal formMenuPrincipal;
+        private readonly ProjetoDAO projetoDAO = new();
         public int IdListBox { get; set; }
 
         public Pesquisadores(MenuPrincipal form)
@@ -137,13 +138,22 @@ namespace Trabalho2.Interfaces
                 return;
             }
 
-            ListViewItem item = lvPesquisadores.SelectedItems[0];
 
-            if (MessageBox.Show("Deseja realmente excluir este registro?", "Selecione a opção", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            ListViewItem item = lvPesquisadores.SelectedItems[0];
+            if (projetoDAO.ExistePesquisadorProjeto(Convert.ToInt32(item.SubItems[0].Text)))
             {
-                pesquisadorDAO.Delete(int.Parse(item.SubItems[0].Text));
-                lvPesquisadores.Items.Remove(lvPesquisadores.SelectedItems[0]);
+                MessageBox.Show("Não é possível deletar um pesquisador já vinculado a um projeto.", "Aviso");
             }
+            else
+            {
+                if (MessageBox.Show("Deseja realmente excluir este registro?", "Selecione a opção", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    pesquisadorDAO.Delete(int.Parse(item.SubItems[0].Text));
+                    lvPesquisadores.Items.Remove(lvPesquisadores.SelectedItems[0]);
+                }
+
+            }
+
         }
 
         private void Detalhes_Click(object sender, EventArgs e)

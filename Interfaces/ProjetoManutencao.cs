@@ -210,6 +210,12 @@ namespace Trabalho2.Interfaces
                 return;
             }
 
+            if (!validacaoProjeto.DataFinalEntrada(DataFinal))
+            {
+                DataFinal.Focus();
+                return;
+            }
+
             if (!validacaoProjeto.VerificaPesquisadores(ListView))
             {
                 return;
@@ -234,7 +240,7 @@ namespace Trabalho2.Interfaces
                 Id = int.Parse(Id.Text),
                 Nome = Titulo.Text,
                 DataInicial = DataInicial.Value,
-                //DataFinal = DataFinal.Value,
+                DataFinal = DataFinal.Value,
                 Finalizado = chkFinalizado.Checked,
                 Pesquisadores = new(),
                 AreaDeAtuacao = new Area() { Id = AreaId },
@@ -264,5 +270,6 @@ namespace Trabalho2.Interfaces
 
             Close();
         }
+
     }
 }
