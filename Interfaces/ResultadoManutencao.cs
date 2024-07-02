@@ -131,6 +131,12 @@ namespace Trabalho2.Interfaces
                 return;
             }
 
+            if (resultadoDAO.RetornaArquivo(Convert.ToInt32(projetoDAO.GetID(cmbProjeto.Text))) != null)
+            {
+                MessageBox.Show("O projeto selecionado já tem um resultado cadastrado.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             Resultado resultado = new()
             {
                 Id = int.Parse(Id.Text),

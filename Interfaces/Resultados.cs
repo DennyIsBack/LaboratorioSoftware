@@ -60,9 +60,21 @@ namespace Trabalho2.Interfaces
 
             ListViewItem item = lvResultado.SelectedItems[0];
             ResultadoManutencao form = new("Editar");
-            form.Id.Text = item.SubItems[0].Text;
-            form.ShowDialog();
-            CarregaRegistros();
+            var project = projetoDAO.RecuperarPorId(Convert.ToInt32(item.SubItems[0].Text));
+
+            if (project != null)
+            {
+                if (project.Finalizado)
+                {
+                    MessageBox.Show("Não é possivel editar um resultado de um projeto já finalizado", "Aviso");
+                }
+                else
+                {
+                    form.Id.Text = item.SubItems[0].Text;
+                    form.ShowDialog();
+                    CarregaRegistros();
+                }
+            }
         }
 
         private void Excluir_Click(object sender, EventArgs e)

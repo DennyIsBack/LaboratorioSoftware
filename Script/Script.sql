@@ -7,9 +7,10 @@ CREATE TABLE AreaAtuacao (
 --Tabela Resultado 
 create table Resultado (
 	ID int not null primary key,
-	id_projeto varchar(100),
+	id_projeto int,
 	arquivo bytea,
-	nome_arquivo varchar(150)
+	nome_arquivo varchar(150),
+    FOREIGN KEY (id_projeto) REFERENCES Projeto(ID)
 );
 
 CREATE TABLE Pesquisador (

@@ -23,7 +23,7 @@ namespace Trabalho2.DB
             int rowsAffected = connection.Execute(sql, new
             {
                 id = resultadoDAO.Id,
-                id_projeto = resultadoDAO.id_projeto,
+                id_projeto = Convert.ToInt32(resultadoDAO.id_projeto),
                 nome_arquivo = resultadoDAO.nome_arquivo,
                 arquivo = resultadoDAO.Arquivo
             });
@@ -34,7 +34,7 @@ namespace Trabalho2.DB
         {
             using NpgsqlConnection connection = new(StringConexao.stringConexao);
 
-            string sql = $@"UPDATE resultado SET id_projeto = '{resultado.id_projeto}', arquivo = '{resultado.Arquivo}', nome_arquivo = '{resultado.nome_arquivo}' WHERE id = {resultado.Id}";
+            string sql = $@"UPDATE resultado SET id_projeto = '{Convert.ToInt32(resultado.id_projeto)}', arquivo = '{resultado.Arquivo}', nome_arquivo = '{resultado.nome_arquivo}' WHERE id = {resultado.Id}";
 
             int rowsAffected = connection.Execute(sql);
 
@@ -89,7 +89,7 @@ namespace Trabalho2.DB
 
             sql = @"SELECT resultado.arquivo
                       FROM projeto
-                      JOIN resultado ON projeto.Resultado_ID = resultado.id
+                      JOIN resultado ON resultado.id_projeto = projeto.id
                      WHERE projeto.id = @id_projeto";
 
             return connection.QuerySingleOrDefault<byte[]>(sql, new { id_projeto });
@@ -131,7 +131,7 @@ namespace Trabalho2.DB
                         Resultado resultado = new Resultado
                         {
                             Id = reader.GetInt32(reader.GetOrdinal("id")),
-                            id_projeto = reader.GetString(reader.GetOrdinal("id_projeto")),
+                            id_projeto = reader.GetInt32(reader.GetOrdinal("id_projeto")).ToString(),
                             Arquivo = (byte[])reader["arquivo"]
                         };
 
