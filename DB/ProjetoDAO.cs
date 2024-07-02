@@ -219,6 +219,16 @@ namespace Trabalho2.DB
             return connection.QuerySingle<bool>(sql, new { IdProjeto = id_projeto, IdResultado = id_resultado });
         }
 
+        public bool ExisteInstituicaoProjeto(int id_instituicao)
+        {
+            sql = @"SELECT COUNT(*)
+                      FROM projeto
+                     WHERE Instituicao_ID = @id_instituicao";
+
+            using NpgsqlConnection connection = new(StringConexao.stringConexao);
+            return connection.QuerySingle<bool>(sql, new { id_instituicao });
+        }
+
         public int RetornaProximoId()
         {
             sql = @"SELECT COALESCE(MAX(id), 0) + 1

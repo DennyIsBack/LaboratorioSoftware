@@ -146,7 +146,6 @@ namespace Trabalho2.Interfaces
             List<string> areas = areaDAO.RecuperarAreas();
 
             cmb.Items.Clear();
-
             foreach (string area in areas)
             {
                 cmb.Items.Add(area);
@@ -204,7 +203,7 @@ namespace Trabalho2.Interfaces
 
             txbNome.Text = pesquisador.Nome;
             txbInstituicao.Text = pesquisador.Instituicao;
-            cmbArea.Text = pesquisador.AreaAtuacao.Nome;
+            cmbArea.SelectedItem = pesquisador.AreaAtuacao?.Nome;
             txbEmail.Text = pesquisador.Email;
             txbLattes.Text = pesquisador.Lattes;
         }

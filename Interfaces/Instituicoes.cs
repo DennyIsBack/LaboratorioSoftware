@@ -15,6 +15,7 @@ namespace Trabalho2.Interfaces
     public partial class Instituicoes : Form
     {
         private readonly InstituicaoDAO instituicaoDAO;
+        private readonly ProjetoDAO projetoDAO;
 
         private readonly MenuPrincipal formMenuPrincipal;
 
@@ -23,6 +24,7 @@ namespace Trabalho2.Interfaces
             InitializeComponent();
             formMenuPrincipal = form;
             instituicaoDAO = new InstituicaoDAO();
+            projetoDAO = new ProjetoDAO();
         }
 
         private void Instituicao_Load(object sender, EventArgs e)
@@ -95,11 +97,20 @@ namespace Trabalho2.Interfaces
             {
                 ListViewItem item = ListView.SelectedItems[0];
 
-                if (MessageBox.Show("Deseja realmente excluir este registro?", "Selecione a opção", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                var projetoVinculado = projetoDAO.ExisteInstituicaoProjeto(Convert.ToInt32(item.SubItems[0].Text));
+
+                if (projetoVinculado)
                 {
-                    instituicaoDAO.Delete(int.Parse(item.SubItems[0].Text));
-                    ListView.Items.Remove(ListView.SelectedItems[0]);
-                    MessageBox.Show("Registro removido com sucesso!", "Atenção", MessageBoxButtons.OK);
+                    MessageBox.Show("Não é possível remover uma instituição que já está vinculada a um projeto.", "Atenção", MessageBoxButtons.OK);
+                }
+                else
+                {
+                    if (MessageBox.Show("Deseja realmente excluir este registro?", "Selecione a opção", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        instituicaoDAO.Delete(int.Parse(item.SubItems[0].Text));
+                        ListView.Items.Remove(ListView.SelectedItems[0]);
+                        MessageBox.Show("Registro removido com sucesso!", "Atenção", MessageBoxButtons.OK);
+                    }
                 }
             }
         }

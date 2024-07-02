@@ -39,8 +39,8 @@ namespace Trabalho2.Interfaces
                     var areas = connection.Query<Area>(query);
 
                     cmbArea.Items.Clear();
-
-                    foreach (var area in areas)
+                    cmbArea.Items.Add("");
+                    foreach (var area in areas.OrderBy(x => x.Nome))
                     {
                         cmbArea.Items.Add(area.Nome);
                     }
